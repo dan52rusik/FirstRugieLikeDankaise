@@ -17,8 +17,13 @@ inline sf::Vector2f subtract(const sf::Vector2f& a, const sf::Vector2f& b) {
 }
 
 inline bool intersects(const sf::FloatRect& a, const sf::FloatRect& b) {
+#if SFML_VERSION_MAJOR < 3
+    const bool separatedX = a.left + a.width <= b.left || b.left + b.width <= a.left;
+    const bool separatedY = a.top + a.height <= b.top || b.top + b.height <= a.top;
+#else
     const bool separatedX = a.position.x + a.size.x <= b.position.x || b.position.x + b.size.x <= a.position.x;
     const bool separatedY = a.position.y + a.size.y <= b.position.y || b.position.y + b.size.y <= a.position.y;
+#endif
     return !(separatedX || separatedY);
 }
 

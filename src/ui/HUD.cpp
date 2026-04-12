@@ -51,7 +51,7 @@ HUD::HUD() : m_hasFont(false) {
     };
 
     for (const char* path : kFontPaths) {
-        if (m_font.openFromFile(path)) {
+        if (m_font.loadFromFile(path)) {
             m_hasFont = true;
             break;
         }
@@ -164,7 +164,7 @@ void HUD::drawBombIcon(sf::RenderTarget& target, sf::Vector2f center) const {
 
     sf::RectangleShape fuse({5.0f, 2.0f});
     fuse.setPosition({center.x + 2.0f, center.y - 7.0f});
-    fuse.setRotation(sf::degrees(-35.0f));
+    fuse.setRotation(-35.0f);
     fuse.setFillColor(sf::Color(184, 132, 72));
     target.draw(fuse);
 
@@ -266,7 +266,8 @@ void HUD::drawBossBar(sf::RenderTarget& target, const Room& room) const {
         return;
     }
 
-    sf::Text label(m_font);
+    sf::Text label;
+    label.setFont(m_font);
     label.setCharacterSize(18);
     label.setFillColor(sf::Color(246, 232, 210));
     label.setPosition({214.0f, 656.0f});
@@ -304,14 +305,16 @@ void HUD::drawItemPickup(sf::RenderTarget& target, const Item& item, float timeR
     }
     target.draw(icon);
 
-    sf::Text title(m_font);
+    sf::Text title;
+    title.setFont(m_font);
     title.setCharacterSize(24);
     title.setFillColor(sf::Color(246, 232, 210, static_cast<std::uint8_t>(255.0f * alpha)));
     title.setPosition({356.0f, 42.0f});
     title.setString(item.name);
     target.draw(title);
 
-    sf::Text subtitle(m_font);
+    sf::Text subtitle;
+    subtitle.setFont(m_font);
     subtitle.setCharacterSize(18);
     subtitle.setFillColor(sf::Color(220, 206, 184, static_cast<std::uint8_t>(255.0f * alpha)));
     subtitle.setPosition({356.0f, 69.0f});
@@ -324,14 +327,16 @@ void HUD::drawGameOver(sf::RenderTarget& target) const {
         return;
     }
 
-    sf::Text title(m_font);
+    sf::Text title;
+    title.setFont(m_font);
     title.setCharacterSize(54);
     title.setFillColor(sf::Color(230, 218, 206));
     title.setPosition({318.0f, 248.0f});
     title.setString("GAME OVER");
     target.draw(title);
 
-    sf::Text hint(m_font);
+    sf::Text hint;
+    hint.setFont(m_font);
     hint.setCharacterSize(22);
     hint.setFillColor(sf::Color(214, 188, 168));
     hint.setPosition({338.0f, 322.0f});

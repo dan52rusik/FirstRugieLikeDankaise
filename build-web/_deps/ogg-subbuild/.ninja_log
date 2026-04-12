@@ -1,0 +1,21 @@
+# ninja log v7
+1	45	7976893597442450	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-mkdir	cefaae56c667ae52
+1	45	7976893597442450	C:/MyGames/FirstRugieLikeDankaise/build-web/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-mkdir	cefaae56c667ae52
+46	1815	7976893615167642	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-download	2e459a2acbceb12
+46	1815	7976893615167642	C:/MyGames/FirstRugieLikeDankaise/build-web/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-download	2e459a2acbceb12
+1815	1922	7976893615223607	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-update	d90fd747dcd41843
+1815	1922	7976893615223607	C:/MyGames/FirstRugieLikeDankaise/build-web/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-update	d90fd747dcd41843
+1922	1968	7976893616697324	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-patch	351e81b75fe77d5b
+1922	1968	7976893616697324	C:/MyGames/FirstRugieLikeDankaise/build-web/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-patch	351e81b75fe77d5b
+1968	2011	7976893617126037	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-configure	f3f5543aee352ba3
+1968	2011	7976893617126037	C:/MyGames/FirstRugieLikeDankaise/build-web/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-configure	f3f5543aee352ba3
+2011	2053	7976893617546725	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-build	e4bd97c81a1748ec
+2011	2053	7976893617546725	C:/MyGames/FirstRugieLikeDankaise/build-web/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-build	e4bd97c81a1748ec
+2053	2092	7976893617939898	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-install	9cc7d3885b15c029
+2053	2092	7976893617939898	C:/MyGames/FirstRugieLikeDankaise/build-web/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-install	9cc7d3885b15c029
+2092	2129	7976893618314161	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-test	5f5759bc82f0285b
+2092	2129	7976893618314161	C:/MyGames/FirstRugieLikeDankaise/build-web/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-test	5f5759bc82f0285b
+2129	2184	7976893618858213	CMakeFiles/ogg-populate-complete	6189077b3f19e37b
+2129	2184	7976893618858213	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-done	6189077b3f19e37b
+2129	2184	7976893618858213	C:/MyGames/FirstRugieLikeDankaise/build-web/_deps/ogg-subbuild/CMakeFiles/ogg-populate-complete	6189077b3f19e37b
+2129	2184	7976893618858213	C:/MyGames/FirstRugieLikeDankaise/build-web/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-done	6189077b3f19e37b

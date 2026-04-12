@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Yandex Games</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #000;
+        overflow: hidden;
+      }
+      canvas.emscripten {
+        border: 0px none;
+        background-color: black;
+        width: 100vw;
+        height: 100vh;
+        display: block;
+      }
+    </style>
+
+    <!-- Yandex Games SDK -->
+    <script async src="/sdk.js" onload="initSDK()"></script>
+    <script>
+      var ysdk = null;
+      async function initSDK() {
+          try {
+              ysdk = await YaGames.init();
+              console.log("Yandex Games SDK Initialized");
+              // Здесь можно вызывать ysdk.features().., показывать рекламу, и так далее
+          } catch (e) {
+              console.error("Yandex Games SDK Initialized error: ", e);
+          }
+      }
+    </script>
+  </head>
+  <body>
+    <!-- The canvas for Emscripten/WebGL -->
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+    
+    <script type='text/javascript'>
+      var Module = {
+        preRun: [],
+        postRun: [],
+        print: (function() {
+          return function(text) {
+            console.log(text);
+          };
+        })(),
+        canvas: (function() {
+          var canvas = document.getElementById('canvas');
+          // Обработка потери контекста WebGL
+          canvas.addEventListener("webglcontextlost", function(e) { 
+              alert('WebGL context lost. You will need to reload the page.'); 
+              e.preventDefault(); 
+          }, false);
+          return canvas;
+        })(),
+        setStatus: function(text) {
+          console.log("status: " + text);
+        },
+        totalDependencies: 0,
+        monitorRunDependencies: function(left) {
+          this.totalDependencies = Math.max(this.totalDependencies, left);
+          Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+        }
+      };
+      Module.setStatus('Downloading...');
+      window.onerror = function() {
+        Module.setStatus('Exception thrown, see JavaScript console');
+        Module.setStatus = function(text) {
+          if (text) Module.printErr('[post-exception status] ' + text);
+        };
+      };
+    </script>
+    
+    <!-- Сюда Emscripten вставит подключение к скомпилированному .js файлу -->
+    <script async type="text/javascript" src="isaac.js"></script>
+  </body>
+</html>

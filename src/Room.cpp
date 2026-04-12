@@ -457,20 +457,20 @@ bool Room::isSpawnBlocked(const sf::Vector2f& position) const {
 void Room::keepMonsterInPlayableArea(Monster& monster) const {
     const sf::FloatRect roomBounds({kGridLeft, kGridTop}, {kGridCols * kTileSize, kGridRows * kTileSize});
     const sf::FloatRect bounds = monster.getBounds();
-    const float halfWidth = bounds.size.x * 0.5f;
-    const float halfHeight = bounds.size.y * 0.5f;
+    const float halfWidth = bounds.width * 0.5f;
+    const float halfHeight = bounds.height * 0.5f;
     const float margin = 8.0f;
 
     sf::Vector2f position = monster.getPosition();
     position.x = std::clamp(position.x,
-                            roomBounds.position.x + margin + halfWidth,
-                            roomBounds.position.x + roomBounds.size.x - margin - halfWidth);
+                            roomBounds.left + margin + halfWidth,
+                            roomBounds.left + roomBounds.width - margin - halfWidth);
     position.y = std::clamp(position.y,
-                            roomBounds.position.y + margin + halfHeight,
-                            roomBounds.position.y + roomBounds.size.y - margin - halfHeight);
+                            roomBounds.top + margin + halfHeight,
+                            roomBounds.top + roomBounds.height - margin - halfHeight);
 
     for (const auto& rock : m_rocks) {
-        sf::FloatRect adjustedBounds({position.x - halfWidth, position.y - halfHeight}, bounds.size);
+        sf::FloatRect adjustedBounds({position.x - halfWidth, position.y - halfHeight}, {bounds.width, bounds.height});
         if (!Collision::intersects(adjustedBounds, rock.getGlobalBounds())) {
             continue;
         }
@@ -481,7 +481,7 @@ void Room::keepMonsterInPlayableArea(Monster& monster) const {
     }
 
     for (const auto& prop : m_props) {
-        sf::FloatRect adjustedBounds({position.x - halfWidth, position.y - halfHeight}, bounds.size);
+        sf::FloatRect adjustedBounds({position.x - halfWidth, position.y - halfHeight}, {bounds.width, bounds.height});
         if (!Collision::intersects(adjustedBounds, prop.shape.getGlobalBounds())) {
             continue;
         }
@@ -492,7 +492,7 @@ void Room::keepMonsterInPlayableArea(Monster& monster) const {
     }
 
     if (m_reward.has_value()) {
-        sf::FloatRect adjustedBounds({position.x - halfWidth, position.y - halfHeight}, bounds.size);
+        sf::FloatRect adjustedBounds({position.x - halfWidth, position.y - halfHeight}, {bounds.width, bounds.height});
         if (Collision::intersects(adjustedBounds, m_reward->pedestal.getGlobalBounds())) {
             const sf::Vector2f push = Collision::normalize(Collision::subtract(position, m_reward->pedestal.getPosition()));
             const sf::Vector2f fallback = (push.x == 0.0f && push.y == 0.0f) ? sf::Vector2f(1.0f, 0.0f) : push;
@@ -676,19 +676,19 @@ bool Room::isInDoorOpening(const sf::FloatRect& bounds) const {
 bool Room::collidesWithWalls(const sf::FloatRect& bounds) const {
     const sf::FloatRect roomBounds({kGridLeft, kGridTop}, {kGridCols * kTileSize, kGridRows * kTileSize});
 
-    const bool inside = bounds.position.x >= roomBounds.position.x &&
-                        bounds.position.y >= roomBounds.position.y &&
-                        bounds.position.x + bounds.size.x <= roomBounds.position.x + roomBounds.size.x &&
-                        bounds.position.y + bounds.size.y <= roomBounds.position.y + roomBounds.size.y;
+    const bool inside = bounds.left >= roomBounds.left &&
+                        bounds.top >= roomBounds.top &&
+                        bounds.left + bounds.width <= roomBounds.left + roomBounds.width &&
+                        bounds.top + bounds.height <= roomBounds.top + roomBounds.height;
 
     if (!inside) {
         return !isInDoorOpening(bounds);
     }
 
-    const bool nearTop = bounds.position.y <= roomBounds.position.y + kWallThickness;
-    const bool nearBottom = bounds.position.y + bounds.size.y >= roomBounds.position.y + roomBounds.size.y - kWallThickness;
-    const bool nearLeft = bounds.position.x <= roomBounds.position.x + kWallThickness;
-    const bool nearRight = bounds.position.x + bounds.size.x >= roomBounds.position.x + roomBounds.size.x - kWallThickness;
+    const bool nearTop = bounds.top <= roomBounds.top + kWallThickness;
+    const bool nearBottom = bounds.top + bounds.height >= roomBounds.top + roomBounds.height - kWallThickness;
+    const bool nearLeft = bounds.left <= roomBounds.left + kWallThickness;
+    const bool nearRight = bounds.left + bounds.width >= roomBounds.left + roomBounds.width - kWallThickness;
 
     if ((nearTop || nearBottom || nearLeft || nearRight) && !isInDoorOpening(bounds)) {
         return true;

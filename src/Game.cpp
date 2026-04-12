@@ -62,6 +62,23 @@ void Game::run() {
 }
 
 void Game::processEvents() {
+#if SFML_VERSION_MAJOR < 3
+    sf::Event event;
+    while (m_window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed) {
+            m_window.close();
+        }
+        if (event.type == sf::Event::KeyPressed) {
+            if (m_gameOver) {
+                if (event.key.code == sf::Keyboard::R) {
+                    resetRun();
+                }
+            } else if (event.key.code == sf::Keyboard::E) {
+                m_player.placeBomb(m_bombs);
+            }
+        }
+    }
+#else
     while (const std::optional<sf::Event> event = m_window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
             m_window.close();
@@ -77,6 +94,7 @@ void Game::processEvents() {
             }
         }
     }
+#endif
 }
 
 void Game::update(float dt) {
