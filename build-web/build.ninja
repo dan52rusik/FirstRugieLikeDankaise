@@ -203,16 +203,16 @@ build CMakeFiles/isaac.dir/src/ui/HUD.cpp.o: CXX_COMPILER__isaac_unscanned_ C$:/
 
 
 #############################################
-# Link the executable web\isaac.html
+# Link the executable web\index.html
 
-build web/isaac.html: CXX_EXECUTABLE_LINKER__isaac_ CMakeFiles/isaac.dir/src/main.cpp.o CMakeFiles/isaac.dir/src/Game.cpp.o CMakeFiles/isaac.dir/src/Player.cpp.o CMakeFiles/isaac.dir/src/Tear.cpp.o CMakeFiles/isaac.dir/src/Bomb.cpp.o CMakeFiles/isaac.dir/src/Room.cpp.o CMakeFiles/isaac.dir/src/Floor.cpp.o CMakeFiles/isaac.dir/src/Map.cpp.o CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.o CMakeFiles/isaac.dir/src/monsters/Monster.cpp.o CMakeFiles/isaac.dir/src/monsters/Fly.cpp.o CMakeFiles/isaac.dir/src/monsters/Spider.cpp.o CMakeFiles/isaac.dir/src/monsters/Knight.cpp.o CMakeFiles/isaac.dir/src/monsters/Leech.cpp.o CMakeFiles/isaac.dir/src/monsters/Boss.cpp.o CMakeFiles/isaac.dir/src/items/ItemList.cpp.o CMakeFiles/isaac.dir/src/ui/HUD.cpp.o | _deps/sfml-build/lib/libsfml-graphics.a _deps/sfml-build/lib/libsfml-window.a _deps/sfml-build/lib/libsfml-system.a _deps/sfml-build/lib/libsfml-audio.a _deps/sfml-build/lib/libsfml-system.a || _deps/sfml-build/lib/libsfml-audio.a _deps/sfml-build/lib/libsfml-graphics.a _deps/sfml-build/lib/libsfml-system.a _deps/sfml-build/lib/libsfml-window.a
+build web/index.html: CXX_EXECUTABLE_LINKER__isaac_ CMakeFiles/isaac.dir/src/main.cpp.o CMakeFiles/isaac.dir/src/Game.cpp.o CMakeFiles/isaac.dir/src/Player.cpp.o CMakeFiles/isaac.dir/src/Tear.cpp.o CMakeFiles/isaac.dir/src/Bomb.cpp.o CMakeFiles/isaac.dir/src/Room.cpp.o CMakeFiles/isaac.dir/src/Floor.cpp.o CMakeFiles/isaac.dir/src/Map.cpp.o CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.o CMakeFiles/isaac.dir/src/monsters/Monster.cpp.o CMakeFiles/isaac.dir/src/monsters/Fly.cpp.o CMakeFiles/isaac.dir/src/monsters/Spider.cpp.o CMakeFiles/isaac.dir/src/monsters/Knight.cpp.o CMakeFiles/isaac.dir/src/monsters/Leech.cpp.o CMakeFiles/isaac.dir/src/monsters/Boss.cpp.o CMakeFiles/isaac.dir/src/items/ItemList.cpp.o CMakeFiles/isaac.dir/src/ui/HUD.cpp.o | _deps/sfml-build/lib/libsfml-graphics.a _deps/sfml-build/lib/libsfml-window.a _deps/sfml-build/lib/libsfml-system.a _deps/sfml-build/lib/libsfml-audio.a _deps/sfml-build/lib/libsfml-system.a || _deps/sfml-build/lib/libsfml-audio.a _deps/sfml-build/lib/libsfml-graphics.a _deps/sfml-build/lib/libsfml-system.a _deps/sfml-build/lib/libsfml-window.a
   LINK_FLAGS = -s USE_WEBGL2=1 -s FULL_ES2=1 -s USE_FREETYPE=1 -s ASYNCIFY -s FETCH=1 -s DISABLE_EXCEPTION_CATCHING=0 --preload-file C:/MyGames/FirstRugieLikeDankaise/assets@/assets --shell-file C:/MyGames/FirstRugieLikeDankaise/web/index.html
   LINK_LIBRARIES = _deps/sfml-build/lib/libsfml-graphics.a  _deps/sfml-build/lib/libsfml-window.a  _deps/sfml-build/lib/libsfml-system.a  _deps/sfml-build/lib/libsfml-audio.a  -lGL  _deps/sfml-build/lib/libsfml-system.a
   OBJECT_DIR = CMakeFiles\isaac.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = web\isaac.html
-  TARGET_PDB = isaac.html.dbg
+  TARGET_FILE = web\index.html
+  TARGET_PDB = index.html.dbg
   TARGET_SUPPORT_DIR = CMakeFiles\isaac.dir
 
 
@@ -1677,9 +1677,9 @@ build _deps/sfml-build/src/SFML/Audio/install/local: phony _deps/sfml-build/src/
 # =============================================================================
 # Target aliases.
 
-build isaac: phony web/isaac.html
+build index.html: phony web/index.html
 
-build isaac.html: phony web/isaac.html
+build isaac: phony web/index.html
 
 build libsfml-audio.a: phony _deps/sfml-build/lib/libsfml-audio.a
 
@@ -1705,7 +1705,7 @@ build sfml-window: phony _deps/sfml-build/lib/libsfml-window.a
 #############################################
 # Folder: C:/MyGames/FirstRugieLikeDankaise/build-web
 
-build all: phony web/isaac.html _deps/sfml-build/all
+build all: phony web/index.html _deps/sfml-build/all
 
 # =============================================================================
 

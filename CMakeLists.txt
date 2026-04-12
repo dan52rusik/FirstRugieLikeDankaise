@@ -59,5 +59,8 @@ endif()
 
 if(EMSCRIPTEN)
     # Настройки для сборки под WebGL/Emscripten, с файлом-оболочкой, где будет Yandex SDK
-    set_target_properties(isaac PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s FULL_ES2=1 -s USE_FREETYPE=1 -s ASYNCIFY -s FETCH=1 -s DISABLE_EXCEPTION_CATCHING=0 --preload-file ${CMAKE_SOURCE_DIR}/assets@/assets --shell-file ${CMAKE_SOURCE_DIR}/web/index.html")
+    set_target_properties(isaac PROPERTIES 
+        OUTPUT_NAME "index"
+        LINK_FLAGS "-s USE_WEBGL2=1 -s FULL_ES2=1 -s USE_FREETYPE=1 -s ASYNCIFY -s FETCH=1 -s DISABLE_EXCEPTION_CATCHING=0 --preload-file ${CMAKE_SOURCE_DIR}/assets@/assets --shell-file ${CMAKE_SOURCE_DIR}/web/index.html"
+    )
 endif()
