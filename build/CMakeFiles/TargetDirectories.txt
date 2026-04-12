@@ -1,0 +1,3 @@
+C:/MyGames/FirstRogueLike/build/CMakeFiles/isaac.dir
+C:/MyGames/FirstRogueLike/build/CMakeFiles/edit_cache.dir
+C:/MyGames/FirstRogueLike/build/CMakeFiles/rebuild_cache.dir
