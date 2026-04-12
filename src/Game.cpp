@@ -1,12 +1,22 @@
 #include "Game.h"
+#ifdef __EMSCRIPTEN__
+#include <emscripten/html5.h>
+#endif
 
 #include <algorithm>
 #include <optional>
-
 namespace {
 #ifdef __EMSCRIPTEN__
-unsigned int windowWidth() { return 960u; }
-unsigned int windowHeight() { return 720u; }
+unsigned int windowWidth() { 
+    double w, h;
+    emscripten_get_element_css_size("#canvas", &w, &h);
+    return static_cast<unsigned int>(w);
+}
+unsigned int windowHeight() { 
+    double w, h;
+    emscripten_get_element_css_size("#canvas", &w, &h);
+    return static_cast<unsigned int>(h);
+}
 #else
 unsigned int windowWidth() { return 960u; }
 unsigned int windowHeight() { return 720u; }
@@ -102,24 +112,29 @@ void Game::processEvents() {
             m_window.close();
         }
         if (event.type == sf::Event::Resized) {
-            // Обновляем вид, чтобы игра не растягивалась уродливо
-            sf::FloatRect visibleArea(0, 0, (float)event.size.width, (float)event.size.height);
+            // Масштабируем внутреннее разрешение SFML под канвас
+            // Это сделает картинку четкой!
             
-            // Сохраняем логические 960x720, но центрируем их или масштабируем
-            sf::View view;
-            float aspectRatio = 960.0f / 720.0f;
-            float windowRatio = (float)event.size.width / (float)event.size.height;
+            float baseWidth = 960.0f;
+            float baseHeight = 720.0f;
+            float targetAspectRatio = baseWidth / baseHeight;
             
-            if (windowRatio > aspectRatio) {
-                // Широкое окно
-                float width = 720.0f * windowRatio;
-                view.reset(sf::FloatRect((960.0f - width) / 2.0f, 0, width, 720.0f));
+            float newWidth = static_cast<float>(event.size.width);
+            float newHeight = static_cast<float>(event.size.height);
+            float windowAspectRatio = newWidth / newHeight;
+            
+            sf::View gameView;
+            if (windowAspectRatio > targetAspectRatio) {
+                float viewWidth = baseHeight * windowAspectRatio;
+                gameView.reset({(baseWidth - viewWidth) / 2.0f, 0, viewWidth, baseHeight});
             } else {
-                // Узкое окно
-                float height = 960.0f / windowRatio;
-                view.reset(sf::FloatRect(0, (720.0f - height) / 2.0f, 960.0f, height));
+                float viewHeight = baseWidth / windowAspectRatio;
+                gameView.reset({0, (baseHeight - viewHeight) / 2.0f, baseWidth, viewHeight});
             }
-            m_window.setView(view);
+            m_window.setView(gameView);
+            
+            // Фикс для четкости: заставляем SFML осознать новый размер в пикселях
+            m_window.setView(m_window.getView()); 
         }
         if (event.type == sf::Event::KeyPressed) {
             if (m_gameOver) {

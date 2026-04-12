@@ -1,101 +1,111 @@
 <!doctype html>
 <html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Yandex Games</title>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: #000;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      canvas.emscripten {
-        border: 0px none;
-        background-color: black;
-        display: block;
-        max-width: none;
-        max-height: none;
-      }
-    </style>
 
-    <!-- Yandex Games SDK -->
-    <script async src="/sdk.js" onload="initSDK()"></script>
-    <script>
-      var ysdk = null;
-      async function initSDK() {
-          try {
-              ysdk = await YaGames.init();
-              console.log("Yandex Games SDK Initialized");
-              // Здесь можно вызывать ysdk.features().., показывать рекламу, и так далее
-          } catch (e) {
-              console.error("Yandex Games SDK Initialized error: ", e);
-          }
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Yandex Games</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    canvas.emscripten {
+      border: 0px none;
+      background-color: black;
+      display: block;
+      max-width: none;
+      max-height: none;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+  </style>
+
+  <!-- Yandex Games SDK -->
+  <script async src="/sdk.js" onload="initSDK()"></script>
+  <script>
+    var ysdk = null;
+    async function initSDK() {
+      try {
+        ysdk = await YaGames.init();
+        console.log("Yandex Games SDK Initialized");
+        // Здесь можно вызывать ysdk.features().., показывать рекламу, и так далее
+      } catch (e) {
+        console.error("Yandex Games SDK Initialized error: ", e);
       }
-    </script>
-  </head>
-  <body>
-    <!-- The canvas for Emscripten/WebGL -->
-    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
-    
-    <script type='text/javascript'>
-      function resizeCanvasElement() {
-        var canvas = document.getElementById('canvas');
-        if (!canvas) {
-          return;
-        }
+    }
+  </script>
+</head>
 
-        var baseWidth = 960;
-        var baseHeight = 720;
-        var scale = Math.min(window.innerWidth / baseWidth, window.innerHeight / baseHeight);
-        scale = Math.max(1, Math.floor(scale * 4) / 4);
+<body>
+  <!-- The canvas for Emscripten/WebGL -->
+  <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
 
-        canvas.style.width = Math.round(baseWidth * scale) + 'px';
-        canvas.style.height = Math.round(baseHeight * scale) + 'px';
-      }
+  <script type='text/javascript'>
+    function resizeCanvasElement() {
+      var canvas = document.getElementById('canvas');
+      if (!canvas) return;
 
-      var Module = {
-        preRun: [],
-        postRun: [],
-        print: (function() {
-          return function(text) {
-            console.log(text);
-          };
-        })(),
-        canvas: (function() {
-          var canvas = document.getElementById('canvas');
-          // Обработка потери контекста WebGL
-          canvas.addEventListener("webglcontextlost", function(e) { 
-              alert('WebGL context lost. You will need to reload the page.'); 
-              e.preventDefault(); 
-          }, false);
-          return canvas;
-        })(),
-        setStatus: function(text) {
-          console.log("status: " + text);
-        },
-        totalDependencies: 0,
-        monitorRunDependencies: function(left) {
-          this.totalDependencies = Math.max(this.totalDependencies, left);
-          Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
-        }
-      };
-      window.addEventListener('resize', resizeCanvasElement);
-      resizeCanvasElement();
-      Module.setStatus('Downloading...');
-      window.onerror = function() {
-        Module.setStatus('Exception thrown, see JavaScript console');
-        Module.setStatus = function(text) {
-          if (text) Module.printErr('[post-exception status] ' + text);
+      var baseWidth = 960;
+      var baseHeight = 720;
+      var scale = Math.min(window.innerWidth / baseWidth, window.innerHeight / baseHeight);
+
+      canvas.style.width = (baseWidth * scale) + 'px';
+      canvas.style.height = (baseHeight * scale) + 'px';
+
+      // Четкие пиксели: выставляем внутренний размер по размеру окна
+      var dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+    }
+
+    var Module = {
+      preRun: [],
+      postRun: [],
+      print: (function () {
+        return function (text) {
+          console.log(text);
         };
+      })(),
+      canvas: (function () {
+        var canvas = document.getElementById('canvas');
+        // Обработка потери контекста WebGL
+        canvas.addEventListener("webglcontextlost", function (e) {
+          alert('WebGL context lost. You will need to reload the page.');
+          e.preventDefault();
+        }, false);
+        return canvas;
+      })(),
+      setStatus: function (text) {
+        console.log("status: " + text);
+      },
+      totalDependencies: 0,
+      monitorRunDependencies: function (left) {
+        this.totalDependencies = Math.max(this.totalDependencies, left);
+        Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+      }
+    };
+    window.addEventListener('resize', resizeCanvasElement);
+    resizeCanvasElement();
+    Module.setStatus('Downloading...');
+    window.onerror = function () {
+      Module.setStatus('Exception thrown, see JavaScript console');
+      Module.setStatus = function (text) {
+        if (text) Module.printErr('[post-exception status] ' + text);
       };
-    </script>
-    
-    <!-- Сюда Emscripten вставит подключение к скомпилированному .js файлу -->
-    {{{ SCRIPT }}}
-  </body>
+    };
+  </script>
+
+  <!-- Сюда Emscripten вставит подключение к скомпилированному .js файлу -->
+  {{{ SCRIPT }}}
+</body>
+
 </html>
