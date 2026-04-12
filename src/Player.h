@@ -15,7 +15,7 @@ public:
 
     void handleRealtimeInput();
     void update(float dt, const Room& room);
-    void draw(sf::RenderTarget& target) const;
+    void draw(sf::RenderTarget& target, float alpha) const;
 
     void shoot(std::vector<Tear>& tears);
     bool placeBomb(std::vector<Bomb>& bombs);
@@ -36,11 +36,16 @@ public:
     int getKeys() const;
     int getBombs() const;
     float getLuck() const;
+    float getMoveSpeed() const;
+    float getTearDamage() const;
+    float getTearDelay() const;
     bool isAlive() const;
 
 private:
     sf::RectangleShape m_body;
     sf::CircleShape m_head;
+    sf::Vector2f m_previousPosition;
+    sf::Vector2f m_position;
     sf::Vector2f m_moveInput;
     sf::Vector2f m_shotDirection;
     float m_speed;

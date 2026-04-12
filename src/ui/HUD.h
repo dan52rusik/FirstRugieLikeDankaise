@@ -12,6 +12,11 @@ class HUD {
 public:
     HUD();
     void draw(sf::RenderTarget& target, const Player& player) const;
+    void drawStatsPanel(sf::RenderTarget& target,
+                        const Player& player,
+                        const std::optional<Item>& recentItem,
+                        float recentItemAlpha,
+                        bool expanded) const;
     void drawBossBar(sf::RenderTarget& target, const Room& room) const;
     void drawItemPickup(sf::RenderTarget& target, const Item& item, float timeRemaining) const;
     void drawGameOver(sf::RenderTarget& target) const;

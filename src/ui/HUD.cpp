@@ -5,19 +5,60 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdint>
 #include <string>
 
 namespace {
-std::string formatSignedFloat(float value, int decimals) {
-    const bool positive = value >= 0.0f;
-    const float absValue = std::abs(value);
+#if SFML_VERSION_MAJOR < 3
+bool loadFont(sf::Font& font, const char* path) {
+    return font.loadFromFile(path);
+}
+
+void setRotationDegrees(sf::Transformable& transformable, float degrees) {
+    transformable.setRotation(degrees);
+}
+
+sf::Text makeText(const sf::Font& font,
+                  unsigned int characterSize,
+                  sf::Color color,
+                  sf::Vector2f position,
+                  const sf::String& string = {}) {
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(characterSize);
+    text.setFillColor(color);
+    text.setPosition(position);
+    text.setString(string);
+    return text;
+}
+#else
+bool loadFont(sf::Font& font, const char* path) {
+    return font.openFromFile(path);
+}
+
+void setRotationDegrees(sf::Transformable& transformable, float degrees) {
+    transformable.setRotation(sf::degrees(degrees));
+}
+
+sf::Text makeText(const sf::Font& font,
+                  unsigned int characterSize,
+                  sf::Color color,
+                  sf::Vector2f position,
+                  const sf::String& string = {}) {
+    sf::Text text(font, string, characterSize);
+    text.setFillColor(color);
+    text.setPosition(position);
+    return text;
+}
+#endif
+
+std::string formatFloat(float value, int decimals) {
     const float scale = std::pow(10.0f, static_cast<float>(decimals));
-    const int scaled = static_cast<int>(std::round(absValue * scale));
+    const int scaled = static_cast<int>(std::round(std::abs(value) * scale));
     const int whole = scaled / static_cast<int>(scale);
     const int frac = scaled % static_cast<int>(scale);
 
-    std::string text = positive ? "+" : "-";
-    text += std::to_string(whole);
+    std::string text = std::to_string(whole);
     if (decimals > 0) {
         text += ".";
         std::string fracText = std::to_string(frac);
@@ -26,6 +67,13 @@ std::string formatSignedFloat(float value, int decimals) {
         }
         text += fracText;
     }
+    return text;
+}
+
+std::string formatSignedFloat(float value, int decimals) {
+    const bool positive = value >= 0.0f;
+    std::string text = positive ? "+" : "-";
+    text += formatFloat(value, decimals);
     return text;
 }
 
@@ -40,18 +88,67 @@ std::string itemDeltaText(const Item& item) {
     }
     return {};
 }
+
+sf::Color itemAccentColor(const ItemEffect effect, float amount, std::uint8_t alpha = 255) {
+    switch (effect) {
+    case ItemEffect::TearRate:
+        return amount < 0.0f ? sf::Color(118, 214, 128, alpha) : sf::Color(214, 96, 96, alpha);
+    case ItemEffect::Damage:
+    case ItemEffect::Speed:
+        return amount > 0.0f ? sf::Color(118, 214, 128, alpha) : sf::Color(214, 96, 96, alpha);
+    }
+    return sf::Color(220, 220, 220, alpha);
+}
+
+std::string statValueText(const Player& player, ItemEffect effect) {
+    switch (effect) {
+    case ItemEffect::Damage:
+        return formatFloat(player.getTearDamage(), 1);
+    case ItemEffect::TearRate:
+        return formatFloat(player.getTearDelay(), 2) + "s";
+    case ItemEffect::Speed:
+        return formatFloat(player.getMoveSpeed(), 0);
+    }
+    return {};
+}
+
+std::string statDeltaText(const Player& player, const Item& item) {
+    const float current = item.effect == ItemEffect::Damage
+        ? player.getTearDamage()
+        : item.effect == ItemEffect::TearRate ? player.getTearDelay() : player.getMoveSpeed();
+
+    const float previous = current - item.amount;
+    std::string text = formatSignedFloat(item.amount, item.effect == ItemEffect::Damage ? 1 : item.effect == ItemEffect::TearRate ? 2 : 0);
+    if (item.effect == ItemEffect::TearRate) {
+        text += "s";
+    }
+    if (std::abs(previous) > 0.001f) {
+        const int percent = static_cast<int>(std::round((item.amount / previous) * 100.0f));
+        if (percent != 0) {
+            text += "  (" + formatSignedFloat(static_cast<float>(percent), 0) + "%)";
+        }
+    }
+    return text;
+}
 }
 
 HUD::HUD() : m_hasFont(false) {
+#ifdef __EMSCRIPTEN__
+    static const char* kFontPaths[] = {
+        "/assets/fonts/isaac.ttf",
+        "assets/fonts/isaac.ttf"
+    };
+#else
     static const char* kFontPaths[] = {
         "assets/fonts/isaac.ttf",
         "C:/Windows/Fonts/trebuc.ttf",
         "C:/Windows/Fonts/arial.ttf",
         "C:/Windows/Fonts/segoeui.ttf"
     };
+#endif
 
     for (const char* path : kFontPaths) {
-        if (m_font.loadFromFile(path)) {
+        if (loadFont(m_font, path)) {
             m_hasFont = true;
             break;
         }
@@ -164,7 +261,7 @@ void HUD::drawBombIcon(sf::RenderTarget& target, sf::Vector2f center) const {
 
     sf::RectangleShape fuse({5.0f, 2.0f});
     fuse.setPosition({center.x + 2.0f, center.y - 7.0f});
-    fuse.setRotation(-35.0f);
+    setRotationDegrees(fuse, -35.0f);
     fuse.setFillColor(sf::Color(184, 132, 72));
     target.draw(fuse);
 
@@ -240,6 +337,77 @@ void HUD::draw(sf::RenderTarget& target, const Player& player) const {
     drawNumber(target, {198.0f, 31.0f}, player.getBombs(), sf::Color(244, 235, 221), 1.1f);
 }
 
+void HUD::drawStatsPanel(sf::RenderTarget& target,
+                         const Player& player,
+                         const std::optional<Item>& recentItem,
+                         float recentItemAlpha,
+                         bool expanded) const {
+    if (!m_hasFont) {
+        return;
+    }
+
+    const sf::Vector2f panelSize = expanded ? sf::Vector2f(246.0f, 184.0f) : sf::Vector2f(212.0f, 118.0f);
+    const sf::Vector2f panelPosition(18.0f, 72.0f);
+    const unsigned int titleSize = expanded ? 18u : 14u;
+    const unsigned int valueSize = expanded ? 21u : 16u;
+    const unsigned int deltaSize = expanded ? 16u : 12u;
+    const float rowStep = expanded ? 34.0f : 24.0f;
+    const float rowStart = expanded ? 40.0f : 24.0f;
+
+    sf::RectangleShape panel(panelSize);
+    panel.setPosition(panelPosition);
+    panel.setFillColor(sf::Color(18, 12, 10, expanded ? 210 : 176));
+    panel.setOutlineColor(sf::Color(88, 64, 52, 220));
+    panel.setOutlineThickness(2.0f);
+    target.draw(panel);
+
+    if (expanded) {
+        sf::Text title = makeText(m_font, titleSize, sf::Color(232, 220, 202),
+                                  {panelPosition.x + 12.0f, panelPosition.y + 8.0f}, "STATS");
+        target.draw(title);
+    }
+
+    const Item* highlight = recentItemAlpha > 0.0f && recentItem.has_value() ? &*recentItem : nullptr;
+    const std::uint8_t deltaAlpha = static_cast<std::uint8_t>(255.0f * std::clamp(recentItemAlpha, 0.0f, 1.0f));
+
+    const auto drawLine = [&](const std::string& label,
+                              const std::string& value,
+                              ItemEffect effect,
+                              const std::string& fallbackDelta,
+                              float y) {
+        sf::Text labelText = makeText(m_font, deltaSize, sf::Color(176, 158, 142),
+                                      {panelPosition.x + 12.0f, y}, label);
+        target.draw(labelText);
+
+        sf::Text valueText = makeText(m_font, valueSize, sf::Color(244, 235, 221),
+                                      {panelPosition.x + 82.0f, y - 4.0f}, value);
+        target.draw(valueText);
+
+        if (highlight != nullptr && highlight->effect == effect) {
+            sf::Text deltaText = makeText(m_font, deltaSize, itemAccentColor(effect, highlight->amount, deltaAlpha),
+                                          {panelPosition.x + 132.0f, y}, statDeltaText(player, *highlight));
+            target.draw(deltaText);
+        } else if (expanded && !fallbackDelta.empty()) {
+            sf::Text deltaText = makeText(m_font, deltaSize, sf::Color(110, 96, 86),
+                                          {panelPosition.x + 132.0f, y}, fallbackDelta);
+            target.draw(deltaText);
+        }
+    };
+
+    drawLine("DMG", statValueText(player, ItemEffect::Damage), ItemEffect::Damage, "", panelPosition.y + rowStart);
+    drawLine("TEARS", statValueText(player, ItemEffect::TearRate), ItemEffect::TearRate, "delay", panelPosition.y + rowStart + rowStep);
+    drawLine("SPEED", statValueText(player, ItemEffect::Speed), ItemEffect::Speed, "move", panelPosition.y + rowStart + rowStep * 2.0f);
+
+    sf::Text luckLabel = makeText(m_font, deltaSize, sf::Color(176, 158, 142),
+                                  {panelPosition.x + 12.0f, panelPosition.y + rowStart + rowStep * 3.0f}, "LUCK");
+    target.draw(luckLabel);
+
+    sf::Text luckValue = makeText(m_font, valueSize, sf::Color(244, 235, 221),
+                                  {panelPosition.x + 82.0f, panelPosition.y + rowStart + rowStep * 3.0f - 4.0f},
+                                  formatFloat(player.getLuck(), 1));
+    target.draw(luckValue);
+}
+
 void HUD::drawBossBar(sf::RenderTarget& target, const Room& room) const {
     if (!room.hasBoss()) {
         return;
@@ -266,12 +434,7 @@ void HUD::drawBossBar(sf::RenderTarget& target, const Room& room) const {
         return;
     }
 
-    sf::Text label;
-    label.setFont(m_font);
-    label.setCharacterSize(18);
-    label.setFillColor(sf::Color(246, 232, 210));
-    label.setPosition({214.0f, 656.0f});
-    label.setString("BOSS");
+    sf::Text label = makeText(m_font, 18, sf::Color(246, 232, 210), {214.0f, 656.0f}, "BOSS");
     target.draw(label);
 }
 
@@ -305,20 +468,16 @@ void HUD::drawItemPickup(sf::RenderTarget& target, const Item& item, float timeR
     }
     target.draw(icon);
 
-    sf::Text title;
-    title.setFont(m_font);
-    title.setCharacterSize(24);
-    title.setFillColor(sf::Color(246, 232, 210, static_cast<std::uint8_t>(255.0f * alpha)));
-    title.setPosition({356.0f, 42.0f});
-    title.setString(item.name);
+    sf::Text title = makeText(
+        m_font, 24,
+        sf::Color(246, 232, 210, static_cast<std::uint8_t>(255.0f * alpha)),
+        {356.0f, 42.0f}, item.name);
     target.draw(title);
 
-    sf::Text subtitle;
-    subtitle.setFont(m_font);
-    subtitle.setCharacterSize(18);
-    subtitle.setFillColor(sf::Color(220, 206, 184, static_cast<std::uint8_t>(255.0f * alpha)));
-    subtitle.setPosition({356.0f, 69.0f});
-    subtitle.setString(item.description + "  (" + itemDeltaText(item) + ")");
+    sf::Text subtitle = makeText(
+        m_font, 18,
+        sf::Color(220, 206, 184, static_cast<std::uint8_t>(255.0f * alpha)),
+        {356.0f, 69.0f}, item.description + "  (" + itemDeltaText(item) + ")");
     target.draw(subtitle);
 }
 
@@ -327,19 +486,9 @@ void HUD::drawGameOver(sf::RenderTarget& target) const {
         return;
     }
 
-    sf::Text title;
-    title.setFont(m_font);
-    title.setCharacterSize(54);
-    title.setFillColor(sf::Color(230, 218, 206));
-    title.setPosition({318.0f, 248.0f});
-    title.setString("GAME OVER");
+    sf::Text title = makeText(m_font, 54, sf::Color(230, 218, 206), {318.0f, 248.0f}, "GAME OVER");
     target.draw(title);
 
-    sf::Text hint;
-    hint.setFont(m_font);
-    hint.setCharacterSize(22);
-    hint.setFillColor(sf::Color(214, 188, 168));
-    hint.setPosition({338.0f, 322.0f});
-    hint.setString("Press R to restart");
+    sf::Text hint = makeText(m_font, 22, sf::Color(214, 188, 168), {338.0f, 322.0f}, "Press R to restart");
     target.draw(hint);
 }

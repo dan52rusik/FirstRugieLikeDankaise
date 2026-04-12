@@ -10,13 +10,16 @@
         padding: 0;
         background-color: #000;
         overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       canvas.emscripten {
         border: 0px none;
         background-color: black;
-        width: 100vw;
-        height: 100vh;
         display: block;
+        max-width: none;
+        max-height: none;
       }
     </style>
 
@@ -40,6 +43,21 @@
     <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
     
     <script type='text/javascript'>
+      function resizeCanvasElement() {
+        var canvas = document.getElementById('canvas');
+        if (!canvas) {
+          return;
+        }
+
+        var baseWidth = 960;
+        var baseHeight = 720;
+        var scale = Math.min(window.innerWidth / baseWidth, window.innerHeight / baseHeight);
+        scale = Math.max(1, Math.floor(scale * 4) / 4);
+
+        canvas.style.width = Math.round(baseWidth * scale) + 'px';
+        canvas.style.height = Math.round(baseHeight * scale) + 'px';
+      }
+
       var Module = {
         preRun: [],
         postRun: [],
@@ -66,6 +84,8 @@
           Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
         }
       };
+      window.addEventListener('resize', resizeCanvasElement);
+      resizeCanvasElement();
       Module.setStatus('Downloading...');
       window.onerror = function() {
         Module.setStatus('Exception thrown, see JavaScript console');

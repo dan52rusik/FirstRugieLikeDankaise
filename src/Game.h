@@ -34,5 +34,6 @@ private:
     std::vector<Bomb> m_bombs;
     std::optional<Item> m_itemPickupNotification;
     float m_itemPickupTimer{0.0f};
+    float m_renderAlpha{0.0f};
     bool m_gameOver;
 };

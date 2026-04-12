@@ -7,5 +7,5 @@
 class Map {
 public:
     Map() = default;
-    void drawMiniMap(sf::RenderTarget& target, const Floor& floor) const;
+    void drawMiniMap(sf::RenderTarget& target, const Floor& floor, bool expanded) const;
 };

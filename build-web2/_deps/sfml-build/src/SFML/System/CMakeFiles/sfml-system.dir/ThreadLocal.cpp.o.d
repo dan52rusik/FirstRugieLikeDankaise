@@ -1,0 +1,31 @@
+_deps/sfml-build/src/SFML/System/CMakeFiles/sfml-system.dir/ThreadLocal.cpp.o: \
+  C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\src\SFML\System\ThreadLocal.cpp \
+  C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\System\ThreadLocal.hpp \
+  C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\System\Export.hpp \
+  C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Config.hpp \
+  C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\System\NonCopyable.hpp \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\cstdlib \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__config \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__config_site \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__configuration\abi.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__configuration\compiler.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__configuration\platform.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__configuration\availability.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__configuration\language.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__cstddef\size_t.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\compat\stdlib.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\stdlib.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\stdlib.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\features.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\bits\alltypes.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\alloca.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__math\abs.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__type_traits\enable_if.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__type_traits\is_integral.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__type_traits\integral_constant.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__type_traits\remove_cv.h \
+  C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\src\SFML\System\Unix\ThreadLocalImpl.hpp \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\pthread.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\sched.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\compat\time.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\time.h

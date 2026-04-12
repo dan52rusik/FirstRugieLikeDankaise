@@ -3,8 +3,28 @@
 #include <algorithm>
 #include <optional>
 
+namespace {
+#ifdef __EMSCRIPTEN__
+unsigned int windowWidth() { return 960u; }
+unsigned int windowHeight() { return 720u; }
+#else
+unsigned int windowWidth() { return 960u; }
+unsigned int windowHeight() { return 720u; }
+#endif
+
+#if SFML_VERSION_MAJOR < 3
+sf::VideoMode createVideoMode() {
+    return sf::VideoMode(windowWidth(), windowHeight());
+}
+#else
+sf::VideoMode createVideoMode() {
+    return sf::VideoMode({windowWidth(), windowHeight()});
+}
+#endif
+}
+
 Game::Game()
-    : m_window(sf::VideoMode({960u, 720u}), "Isaac Clone"),
+    : m_window(createVideoMode(), "Isaac Clone"),
       m_gameOver(false) {
     m_window.setVerticalSyncEnabled(true);
     
@@ -50,12 +70,26 @@ void Game::tryRoomTransition() {
 
 void Game::run() {
     sf::Clock clock;
+    float accumulator = 0.0f;
+#ifdef __EMSCRIPTEN__
+    constexpr float fixedDt = 1.0f / 60.0f;
+#else
+    constexpr float fixedDt = 1.0f / 120.0f;
+#endif
+
     while (m_window.isOpen()) {
-        float dt = clock.restart().asSeconds();
-        if (dt > 0.1f) dt = 0.1f;
+        float frameDt = clock.restart().asSeconds();
+        frameDt = std::min(frameDt, 0.05f);
+        accumulator += frameDt;
 
         processEvents();
-        update(dt);
+
+        while (accumulator >= fixedDt) {
+            update(fixedDt);
+            accumulator -= fixedDt;
+        }
+
+        m_renderAlpha = accumulator / fixedDt;
         render();
     }
 }
@@ -159,6 +193,8 @@ void Game::update(float dt) {
 }
 
 void Game::render() {
+    const bool expandedMap = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Tab);
+
     m_window.clear(sf::Color(25, 20, 18));
     m_room.draw(m_window);
 
@@ -169,9 +205,15 @@ void Game::render() {
         bomb.draw(m_window);
     }
 
-    m_player.draw(m_window);
-    m_map.drawMiniMap(m_window, m_floor);
+    m_player.draw(m_window, m_renderAlpha);
+    m_map.drawMiniMap(m_window, m_floor, expandedMap);
     m_hud.draw(m_window, m_player);
+    m_hud.drawStatsPanel(
+        m_window,
+        m_player,
+        m_itemPickupNotification,
+        std::min(1.0f, m_itemPickupTimer),
+        expandedMap);
     m_hud.drawBossBar(m_window, m_room);
     if (m_itemPickupNotification.has_value()) {
         m_hud.drawItemPickup(m_window, *m_itemPickupNotification, std::min(1.0f, m_itemPickupTimer));

@@ -1,0 +1,35 @@
+_deps/sfml-build/src/SFML/System/CMakeFiles/sfml-system.dir/Unix/SleepImpl.cpp.o: \
+  C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\src\SFML\System\Unix\SleepImpl.cpp \
+  C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\src\SFML\System\Unix\SleepImpl.hpp \
+  C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Config.hpp \
+  C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\System\Time.hpp \
+  C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\System\Export.hpp \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\errno.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__config \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__config_site \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__configuration\abi.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__configuration\compiler.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__configuration\platform.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__configuration\availability.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__configuration\language.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\errno.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\features.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\bits\errno.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\wasi\api.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\stddef.h \
+  C:\MyGames\emsdk\upstream\lib\clang\23\include\stddef.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\stddef.h \
+  C:\MyGames\emsdk\upstream\lib\clang\23\include\__stddef_header_macro.h \
+  C:\MyGames\emsdk\upstream\lib\clang\23\include\__stddef_ptrdiff_t.h \
+  C:\MyGames\emsdk\upstream\lib\clang\23\include\__stddef_size_t.h \
+  C:\MyGames\emsdk\upstream\lib\clang\23\include\__stddef_wchar_t.h \
+  C:\MyGames\emsdk\upstream\lib\clang\23\include\__stddef_null.h \
+  C:\MyGames\emsdk\upstream\lib\clang\23\include\__stddef_nullptr_t.h \
+  C:\MyGames\emsdk\upstream\lib\clang\23\include\__stddef_max_align_t.h \
+  C:\MyGames\emsdk\upstream\lib\clang\23\include\__stddef_offsetof.h \
+  C:\MyGames\emsdk\upstream\lib\clang\23\include\stdint.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\stdint.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\bits\alltypes.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\bits\stdint.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\compat\time.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\time.h
