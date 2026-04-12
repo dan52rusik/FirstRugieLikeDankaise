@@ -1,0 +1,11 @@
+build-web/
+build/
+bin/
+.vs/
+out/
+*.o
+*.a
+*.exe
+*.wasm
+*.js
+*.data
