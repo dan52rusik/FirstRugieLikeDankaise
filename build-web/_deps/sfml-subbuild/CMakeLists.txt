@@ -18,10 +18,10 @@ project(sfml-populate NONE)
 
 # Pass through things we've already detected in the main project to avoid
 # paying the cost of redetecting them again in ExternalProject_Add()
-set(GIT_EXECUTABLE [==[C:/Program Files/Git/cmd/git.exe]==])
-set(Git_VERSION [==[2.52.0.windows.1]==])
+set(GIT_EXECUTABLE [==[GIT_EXECUTABLE-NOTFOUND]==])
+set(Git_VERSION [==[]==])
 set_property(GLOBAL PROPERTY _CMAKE_FindGit_GIT_EXECUTABLE_VERSION
-  [==[C:/Program Files/Git/cmd/git.exe;2.52.0.windows.1]==]
+  [==[GIT_EXECUTABLE-NOTFOUND;]==]
 )
 
 

@@ -220,7 +220,7 @@ build web/index.html: CXX_EXECUTABLE_LINKER__isaac_ CMakeFiles/isaac.dir/src/mai
 # Utility command for package
 
 build CMakeFiles/package.util: CUSTOM_COMMAND all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackConfig.cmake"
   DESC = Run CPack packaging tool...
   pool = console
   restat = 1
@@ -232,7 +232,7 @@ build package: phony CMakeFiles/package.util
 # Utility command for package_source
 
 build CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackSourceConfig.cmake"
   DESC = Run CPack packaging tool for source...
   pool = console
   restat = 1
@@ -244,9 +244,8 @@ build package_source: phony CMakeFiles/package_source.util
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
-  DESC = Running CMake cache editor...
-  pool = console
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
   restat = 1
 
 build edit_cache: phony CMakeFiles/edit_cache.util
@@ -256,7 +255,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -274,7 +273,7 @@ build list_install_components: phony
 # Utility command for install
 
 build CMakeFiles/install.util: CUSTOM_COMMAND all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cmake.exe -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -286,12 +285,24 @@ build install: phony CMakeFiles/install.util
 # Utility command for install/local
 
 build CMakeFiles/install/local.util: CUSTOM_COMMAND all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
 
 build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build install/strip: phony CMakeFiles/install/strip.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
@@ -303,7 +314,7 @@ build install/local: phony CMakeFiles/install/local.util
 # Utility command for package
 
 build _deps/sfml-build/CMakeFiles/package.util: CUSTOM_COMMAND _deps/sfml-build/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackConfig.cmake"
   DESC = Run CPack packaging tool...
   pool = console
   restat = 1
@@ -315,7 +326,7 @@ build _deps/sfml-build/package: phony _deps/sfml-build/CMakeFiles/package.util
 # Utility command for package_source
 
 build _deps/sfml-build/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackSourceConfig.cmake"
   DESC = Run CPack packaging tool for source...
   pool = console
   restat = 1
@@ -327,9 +338,8 @@ build _deps/sfml-build/package_source: phony _deps/sfml-build/CMakeFiles/package
 # Utility command for edit_cache
 
 build _deps/sfml-build/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
-  DESC = Running CMake cache editor...
-  pool = console
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build && C:\msys64\mingw64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
   restat = 1
 
 build _deps/sfml-build/edit_cache: phony _deps/sfml-build/CMakeFiles/edit_cache.util
@@ -339,7 +349,7 @@ build _deps/sfml-build/edit_cache: phony _deps/sfml-build/CMakeFiles/edit_cache.
 # Utility command for rebuild_cache
 
 build _deps/sfml-build/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build && "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build && C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -357,7 +367,7 @@ build _deps/sfml-build/list_install_components: phony
 # Utility command for install
 
 build _deps/sfml-build/CMakeFiles/install.util: CUSTOM_COMMAND _deps/sfml-build/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build && "C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build && C:\msys64\mingw64\bin\cmake.exe -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -369,12 +379,24 @@ build _deps/sfml-build/install: phony _deps/sfml-build/CMakeFiles/install.util
 # Utility command for install/local
 
 build _deps/sfml-build/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/sfml-build/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
 
 build _deps/sfml-build/install/local: phony _deps/sfml-build/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build _deps/sfml-build/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/sfml-build/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build _deps/sfml-build/install/strip: phony _deps/sfml-build/CMakeFiles/install/strip.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
@@ -386,7 +408,7 @@ build _deps/sfml-build/install/local: phony _deps/sfml-build/CMakeFiles/install/
 # Utility command for package
 
 build _deps/sfml-build/src/SFML/CMakeFiles/package.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackConfig.cmake"
   DESC = Run CPack packaging tool...
   pool = console
   restat = 1
@@ -398,7 +420,7 @@ build _deps/sfml-build/src/SFML/package: phony _deps/sfml-build/src/SFML/CMakeFi
 # Utility command for package_source
 
 build _deps/sfml-build/src/SFML/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackSourceConfig.cmake"
   DESC = Run CPack packaging tool for source...
   pool = console
   restat = 1
@@ -410,9 +432,8 @@ build _deps/sfml-build/src/SFML/package_source: phony _deps/sfml-build/src/SFML/
 # Utility command for edit_cache
 
 build _deps/sfml-build/src/SFML/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
-  DESC = Running CMake cache editor...
-  pool = console
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML && C:\msys64\mingw64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
   restat = 1
 
 build _deps/sfml-build/src/SFML/edit_cache: phony _deps/sfml-build/src/SFML/CMakeFiles/edit_cache.util
@@ -422,7 +443,7 @@ build _deps/sfml-build/src/SFML/edit_cache: phony _deps/sfml-build/src/SFML/CMak
 # Utility command for rebuild_cache
 
 build _deps/sfml-build/src/SFML/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML && "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML && C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -440,7 +461,7 @@ build _deps/sfml-build/src/SFML/list_install_components: phony
 # Utility command for install
 
 build _deps/sfml-build/src/SFML/CMakeFiles/install.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML && "C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML && C:\msys64\mingw64\bin\cmake.exe -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -452,12 +473,24 @@ build _deps/sfml-build/src/SFML/install: phony _deps/sfml-build/src/SFML/CMakeFi
 # Utility command for install/local
 
 build _deps/sfml-build/src/SFML/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
 
 build _deps/sfml-build/src/SFML/install/local: phony _deps/sfml-build/src/SFML/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build _deps/sfml-build/src/SFML/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build _deps/sfml-build/src/SFML/install/strip: phony _deps/sfml-build/src/SFML/CMakeFiles/install/strip.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
@@ -638,7 +671,7 @@ build _deps/sfml-build/lib/libsfml-system.a: CXX_STATIC_LIBRARY_LINKER__sfml-sys
 # Utility command for package
 
 build _deps/sfml-build/src/SFML/System/CMakeFiles/package.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/System/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackConfig.cmake"
   DESC = Run CPack packaging tool...
   pool = console
   restat = 1
@@ -650,7 +683,7 @@ build _deps/sfml-build/src/SFML/System/package: phony _deps/sfml-build/src/SFML/
 # Utility command for package_source
 
 build _deps/sfml-build/src/SFML/System/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackSourceConfig.cmake"
   DESC = Run CPack packaging tool for source...
   pool = console
   restat = 1
@@ -662,9 +695,8 @@ build _deps/sfml-build/src/SFML/System/package_source: phony _deps/sfml-build/sr
 # Utility command for edit_cache
 
 build _deps/sfml-build/src/SFML/System/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\System && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
-  DESC = Running CMake cache editor...
-  pool = console
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\System && C:\msys64\mingw64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
   restat = 1
 
 build _deps/sfml-build/src/SFML/System/edit_cache: phony _deps/sfml-build/src/SFML/System/CMakeFiles/edit_cache.util
@@ -674,7 +706,7 @@ build _deps/sfml-build/src/SFML/System/edit_cache: phony _deps/sfml-build/src/SF
 # Utility command for rebuild_cache
 
 build _deps/sfml-build/src/SFML/System/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\System && "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\System && C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -692,7 +724,7 @@ build _deps/sfml-build/src/SFML/System/list_install_components: phony
 # Utility command for install
 
 build _deps/sfml-build/src/SFML/System/CMakeFiles/install.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/System/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\System && "C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\System && C:\msys64\mingw64\bin\cmake.exe -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -704,12 +736,24 @@ build _deps/sfml-build/src/SFML/System/install: phony _deps/sfml-build/src/SFML/
 # Utility command for install/local
 
 build _deps/sfml-build/src/SFML/System/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/System/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\System && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\System && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
 
 build _deps/sfml-build/src/SFML/System/install/local: phony _deps/sfml-build/src/SFML/System/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build _deps/sfml-build/src/SFML/System/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/System/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\System && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build _deps/sfml-build/src/SFML/System/install/strip: phony _deps/sfml-build/src/SFML/System/CMakeFiles/install/strip.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
@@ -944,7 +988,7 @@ build _deps/sfml-build/lib/libsfml-window.a: CXX_STATIC_LIBRARY_LINKER__sfml-win
 # Utility command for package
 
 build _deps/sfml-build/src/SFML/Window/CMakeFiles/package.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/Window/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackConfig.cmake"
   DESC = Run CPack packaging tool...
   pool = console
   restat = 1
@@ -956,7 +1000,7 @@ build _deps/sfml-build/src/SFML/Window/package: phony _deps/sfml-build/src/SFML/
 # Utility command for package_source
 
 build _deps/sfml-build/src/SFML/Window/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackSourceConfig.cmake"
   DESC = Run CPack packaging tool for source...
   pool = console
   restat = 1
@@ -968,9 +1012,8 @@ build _deps/sfml-build/src/SFML/Window/package_source: phony _deps/sfml-build/sr
 # Utility command for edit_cache
 
 build _deps/sfml-build/src/SFML/Window/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Window && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
-  DESC = Running CMake cache editor...
-  pool = console
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Window && C:\msys64\mingw64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
   restat = 1
 
 build _deps/sfml-build/src/SFML/Window/edit_cache: phony _deps/sfml-build/src/SFML/Window/CMakeFiles/edit_cache.util
@@ -980,7 +1023,7 @@ build _deps/sfml-build/src/SFML/Window/edit_cache: phony _deps/sfml-build/src/SF
 # Utility command for rebuild_cache
 
 build _deps/sfml-build/src/SFML/Window/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Window && "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Window && C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -998,7 +1041,7 @@ build _deps/sfml-build/src/SFML/Window/list_install_components: phony
 # Utility command for install
 
 build _deps/sfml-build/src/SFML/Window/CMakeFiles/install.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/Window/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Window && "C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Window && C:\msys64\mingw64\bin\cmake.exe -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -1010,12 +1053,24 @@ build _deps/sfml-build/src/SFML/Window/install: phony _deps/sfml-build/src/SFML/
 # Utility command for install/local
 
 build _deps/sfml-build/src/SFML/Window/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/Window/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Window && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Window && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
 
 build _deps/sfml-build/src/SFML/Window/install/local: phony _deps/sfml-build/src/SFML/Window/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build _deps/sfml-build/src/SFML/Window/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/Window/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Window && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build _deps/sfml-build/src/SFML/Window/install/strip: phony _deps/sfml-build/src/SFML/Window/CMakeFiles/install/strip.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
@@ -1322,7 +1377,7 @@ build _deps/sfml-build/lib/libsfml-graphics.a: CXX_STATIC_LIBRARY_LINKER__sfml-g
 # Utility command for package
 
 build _deps/sfml-build/src/SFML/Graphics/CMakeFiles/package.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/Graphics/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackConfig.cmake"
   DESC = Run CPack packaging tool...
   pool = console
   restat = 1
@@ -1334,7 +1389,7 @@ build _deps/sfml-build/src/SFML/Graphics/package: phony _deps/sfml-build/src/SFM
 # Utility command for package_source
 
 build _deps/sfml-build/src/SFML/Graphics/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackSourceConfig.cmake"
   DESC = Run CPack packaging tool for source...
   pool = console
   restat = 1
@@ -1346,9 +1401,8 @@ build _deps/sfml-build/src/SFML/Graphics/package_source: phony _deps/sfml-build/
 # Utility command for edit_cache
 
 build _deps/sfml-build/src/SFML/Graphics/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Graphics && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
-  DESC = Running CMake cache editor...
-  pool = console
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Graphics && C:\msys64\mingw64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
   restat = 1
 
 build _deps/sfml-build/src/SFML/Graphics/edit_cache: phony _deps/sfml-build/src/SFML/Graphics/CMakeFiles/edit_cache.util
@@ -1358,7 +1412,7 @@ build _deps/sfml-build/src/SFML/Graphics/edit_cache: phony _deps/sfml-build/src/
 # Utility command for rebuild_cache
 
 build _deps/sfml-build/src/SFML/Graphics/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Graphics && "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Graphics && C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -1376,7 +1430,7 @@ build _deps/sfml-build/src/SFML/Graphics/list_install_components: phony
 # Utility command for install
 
 build _deps/sfml-build/src/SFML/Graphics/CMakeFiles/install.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/Graphics/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Graphics && "C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Graphics && C:\msys64\mingw64\bin\cmake.exe -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -1388,12 +1442,24 @@ build _deps/sfml-build/src/SFML/Graphics/install: phony _deps/sfml-build/src/SFM
 # Utility command for install/local
 
 build _deps/sfml-build/src/SFML/Graphics/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/Graphics/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Graphics && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Graphics && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
 
 build _deps/sfml-build/src/SFML/Graphics/install/local: phony _deps/sfml-build/src/SFML/Graphics/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build _deps/sfml-build/src/SFML/Graphics/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/Graphics/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Graphics && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build _deps/sfml-build/src/SFML/Graphics/install/strip: phony _deps/sfml-build/src/SFML/Graphics/CMakeFiles/install/strip.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
@@ -1601,7 +1667,7 @@ build _deps/sfml-build/lib/libsfml-audio.a: CXX_STATIC_LIBRARY_LINKER__sfml-audi
 # Utility command for package
 
 build _deps/sfml-build/src/SFML/Audio/CMakeFiles/package.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/Audio/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackConfig.cmake"
   DESC = Run CPack packaging tool...
   pool = console
   restat = 1
@@ -1613,7 +1679,7 @@ build _deps/sfml-build/src/SFML/Audio/package: phony _deps/sfml-build/src/SFML/A
 # Utility command for package_source
 
 build _deps/sfml-build/src/SFML/Audio/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && "C:\Program Files\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web && C:\msys64\mingw64\bin\cpack.exe --config ./CPackSourceConfig.cmake"
   DESC = Run CPack packaging tool for source...
   pool = console
   restat = 1
@@ -1625,9 +1691,8 @@ build _deps/sfml-build/src/SFML/Audio/package_source: phony _deps/sfml-build/src
 # Utility command for edit_cache
 
 build _deps/sfml-build/src/SFML/Audio/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Audio && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
-  DESC = Running CMake cache editor...
-  pool = console
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Audio && C:\msys64\mingw64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
   restat = 1
 
 build _deps/sfml-build/src/SFML/Audio/edit_cache: phony _deps/sfml-build/src/SFML/Audio/CMakeFiles/edit_cache.util
@@ -1637,7 +1702,7 @@ build _deps/sfml-build/src/SFML/Audio/edit_cache: phony _deps/sfml-build/src/SFM
 # Utility command for rebuild_cache
 
 build _deps/sfml-build/src/SFML/Audio/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Audio && "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Audio && C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -1655,7 +1720,7 @@ build _deps/sfml-build/src/SFML/Audio/list_install_components: phony
 # Utility command for install
 
 build _deps/sfml-build/src/SFML/Audio/CMakeFiles/install.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/Audio/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Audio && "C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Audio && C:\msys64\mingw64\bin\cmake.exe -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -1667,12 +1732,24 @@ build _deps/sfml-build/src/SFML/Audio/install: phony _deps/sfml-build/src/SFML/A
 # Utility command for install/local
 
 build _deps/sfml-build/src/SFML/Audio/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/Audio/all
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Audio && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Audio && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
 
 build _deps/sfml-build/src/SFML/Audio/install/local: phony _deps/sfml-build/src/SFML/Audio/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build _deps/sfml-build/src/SFML/Audio/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/sfml-build/src/SFML/Audio/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\MyGames\FirstRugieLikeDankaise\build-web\_deps\sfml-build\src\SFML\Audio && C:\msys64\mingw64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build _deps/sfml-build/src/SFML/Audio/install/strip: phony _deps/sfml-build/src/SFML/Audio/CMakeFiles/install/strip.util
 
 # =============================================================================
 # Target aliases.
@@ -1756,14 +1833,14 @@ build _deps/sfml-build/src/SFML/Window/all: phony _deps/sfml-build/lib/libsfml-w
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja C$:/MyGames/FirstRugieLikeDankaise/build-web/cmake_install.cmake C$:/MyGames/FirstRugieLikeDankaise/build-web/_deps/sfml-build/cmake_install.cmake C$:/MyGames/FirstRugieLikeDankaise/build-web/_deps/sfml-build/src/SFML/cmake_install.cmake C$:/MyGames/FirstRugieLikeDankaise/build-web/_deps/sfml-build/src/SFML/System/cmake_install.cmake C$:/MyGames/FirstRugieLikeDankaise/build-web/_deps/sfml-build/src/SFML/Window/cmake_install.cmake C$:/MyGames/FirstRugieLikeDankaise/build-web/_deps/sfml-build/src/SFML/Graphics/cmake_install.cmake C$:/MyGames/FirstRugieLikeDankaise/build-web/_deps/sfml-build/src/SFML/Audio/cmake_install.cmake: RERUN_CMAKE | C$:/MyGames/FirstRugieLikeDankaise/CMakeLists.txt C$:/MyGames/emsdk/upstream/emscripten/cmake/Modules/FindOpenGL.cmake C$:/MyGames/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeParseArguments.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CPack.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CPackComponent.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Compiler/Clang-C.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Compiler/Clang-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Compiler/Clang.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/ExternalProject/shared_internal_commands.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/FetchContent.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/FetchContent/CMakeLists.cmake.in C$:/Program$ Files/CMake/share/cmake-4.3/Modules/FindGit.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/FindPackageMessage.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Internal/CMakeCLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Emscripten-Clang-C.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Emscripten-Clang-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Emscripten-Clang.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Emscripten-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Emscripten.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Linker/Emscripten-C.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Linker/Emscripten-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Linker/Emscripten-LLD-C.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Linker/Emscripten-LLD-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Linker/Emscripten-LLD.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/WriteBasicConfigVersionFile.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Templates/CPackConfig.cmake.in CMakeCache.txt CMakeFiles/4.3.1/CMakeCCompiler.cmake CMakeFiles/4.3.1/CMakeCXXCompiler.cmake CMakeFiles/4.3.1/CMakeSystem.cmake _deps/sfml-src/CMakeLists.txt _deps/sfml-src/cmake/CompilerOptionsOverride.cmake _deps/sfml-src/cmake/CompilerWarnings.cmake _deps/sfml-src/cmake/Config.cmake _deps/sfml-src/cmake/Macros.cmake _deps/sfml-src/cmake/SFMLConfig.cmake.in _deps/sfml-src/cmake/SFMLConfigDependencies.cmake.in _deps/sfml-src/src/SFML/Audio/CMakeLists.txt _deps/sfml-src/src/SFML/CMakeLists.txt _deps/sfml-src/src/SFML/Graphics/CMakeLists.txt _deps/sfml-src/src/SFML/System/CMakeLists.txt _deps/sfml-src/src/SFML/Window/CMakeLists.txt
+build build.ninja C$:/MyGames/FirstRugieLikeDankaise/build-web/cmake_install.cmake C$:/MyGames/FirstRugieLikeDankaise/build-web/_deps/sfml-build/cmake_install.cmake C$:/MyGames/FirstRugieLikeDankaise/build-web/_deps/sfml-build/src/SFML/cmake_install.cmake C$:/MyGames/FirstRugieLikeDankaise/build-web/_deps/sfml-build/src/SFML/System/cmake_install.cmake C$:/MyGames/FirstRugieLikeDankaise/build-web/_deps/sfml-build/src/SFML/Window/cmake_install.cmake C$:/MyGames/FirstRugieLikeDankaise/build-web/_deps/sfml-build/src/SFML/Graphics/cmake_install.cmake C$:/MyGames/FirstRugieLikeDankaise/build-web/_deps/sfml-build/src/SFML/Audio/cmake_install.cmake: RERUN_CMAKE | C$:/MyGames/FirstRugieLikeDankaise/CMakeLists.txt C$:/MyGames/emsdk/upstream/emscripten/cmake/Modules/FindOpenGL.cmake C$:/MyGames/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake C$:/msys64/mingw64/share/cmake/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakePackageConfigHelpers.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseArguments.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/CPack.cmake C$:/msys64/mingw64/share/cmake/Modules/CPackComponent.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/ExternalProject/shared_internal_commands.cmake C$:/msys64/mingw64/share/cmake/Modules/FetchContent.cmake C$:/msys64/mingw64/share/cmake/Modules/FetchContent/CMakeLists.cmake.in C$:/msys64/mingw64/share/cmake/Modules/FindGit.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageHandleStandardArgs.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageMessage.cmake C$:/msys64/mingw64/share/cmake/Modules/GNUInstallDirs.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Emscripten-Clang-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Emscripten-Clang-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Emscripten-Clang.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Emscripten-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Emscripten.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Emscripten-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Emscripten-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Emscripten-LLD-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Emscripten-LLD-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Emscripten-LLD.cmake C$:/msys64/mingw64/share/cmake/Modules/WriteBasicConfigVersionFile.cmake C$:/msys64/mingw64/share/cmake/Templates/CPackConfig.cmake.in CMakeCache.txt CMakeFiles/4.3.1/CMakeCCompiler.cmake CMakeFiles/4.3.1/CMakeCXXCompiler.cmake CMakeFiles/4.3.1/CMakeSystem.cmake _deps/sfml-src/CMakeLists.txt _deps/sfml-src/cmake/CompilerOptionsOverride.cmake _deps/sfml-src/cmake/CompilerWarnings.cmake _deps/sfml-src/cmake/Config.cmake _deps/sfml-src/cmake/Macros.cmake _deps/sfml-src/cmake/SFMLConfig.cmake.in _deps/sfml-src/cmake/SFMLConfigDependencies.cmake.in _deps/sfml-src/src/SFML/Audio/CMakeLists.txt _deps/sfml-src/src/SFML/CMakeLists.txt _deps/sfml-src/src/SFML/Graphics/CMakeLists.txt _deps/sfml-src/src/SFML/System/CMakeLists.txt _deps/sfml-src/src/SFML/Window/CMakeLists.txt
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/MyGames/FirstRugieLikeDankaise/CMakeLists.txt C$:/MyGames/emsdk/upstream/emscripten/cmake/Modules/FindOpenGL.cmake C$:/MyGames/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakePackageConfigHelpers.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeParseArguments.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CPack.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/CPackComponent.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Compiler/Clang-C.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Compiler/Clang-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Compiler/Clang.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/ExternalProject/shared_internal_commands.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/FetchContent.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/FetchContent/CMakeLists.cmake.in C$:/Program$ Files/CMake/share/cmake-4.3/Modules/FindGit.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/FindPackageHandleStandardArgs.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/FindPackageMessage.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/GNUInstallDirs.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Internal/CMakeCLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Emscripten-Clang-C.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Emscripten-Clang-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Emscripten-Clang.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Emscripten-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Emscripten.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Linker/Emscripten-C.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Linker/Emscripten-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Linker/Emscripten-LLD-C.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Linker/Emscripten-LLD-CXX.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/Platform/Linker/Emscripten-LLD.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Modules/WriteBasicConfigVersionFile.cmake C$:/Program$ Files/CMake/share/cmake-4.3/Templates/CPackConfig.cmake.in CMakeCache.txt CMakeFiles/4.3.1/CMakeCCompiler.cmake CMakeFiles/4.3.1/CMakeCXXCompiler.cmake CMakeFiles/4.3.1/CMakeSystem.cmake _deps/sfml-src/CMakeLists.txt _deps/sfml-src/cmake/CompilerOptionsOverride.cmake _deps/sfml-src/cmake/CompilerWarnings.cmake _deps/sfml-src/cmake/Config.cmake _deps/sfml-src/cmake/Macros.cmake _deps/sfml-src/cmake/SFMLConfig.cmake.in _deps/sfml-src/cmake/SFMLConfigDependencies.cmake.in _deps/sfml-src/src/SFML/Audio/CMakeLists.txt _deps/sfml-src/src/SFML/CMakeLists.txt _deps/sfml-src/src/SFML/Graphics/CMakeLists.txt _deps/sfml-src/src/SFML/System/CMakeLists.txt _deps/sfml-src/src/SFML/Window/CMakeLists.txt: phony
+build C$:/MyGames/FirstRugieLikeDankaise/CMakeLists.txt C$:/MyGames/emsdk/upstream/emscripten/cmake/Modules/FindOpenGL.cmake C$:/MyGames/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake C$:/msys64/mingw64/share/cmake/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/msys64/mingw64/share/cmake/Modules/CMakeCInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCXXInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeCommonLanguageInclude.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeGenericSystem.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeInitializeConfigs.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeLanguageInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakePackageConfigHelpers.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeParseArguments.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake C$:/msys64/mingw64/share/cmake/Modules/CPack.cmake C$:/msys64/mingw64/share/cmake/Modules/CPackComponent.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/Clang.cmake C$:/msys64/mingw64/share/cmake/Modules/Compiler/GNU.cmake C$:/msys64/mingw64/share/cmake/Modules/ExternalProject/shared_internal_commands.cmake C$:/msys64/mingw64/share/cmake/Modules/FetchContent.cmake C$:/msys64/mingw64/share/cmake/Modules/FetchContent/CMakeLists.cmake.in C$:/msys64/mingw64/share/cmake/Modules/FindGit.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageHandleStandardArgs.cmake C$:/msys64/mingw64/share/cmake/Modules/FindPackageMessage.cmake C$:/msys64/mingw64/share/cmake/Modules/GNUInstallDirs.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCXXLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Emscripten-Clang-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Emscripten-Clang-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Emscripten-Clang.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Emscripten-Initialize.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Emscripten.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Emscripten-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Emscripten-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Emscripten-LLD-C.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Emscripten-LLD-CXX.cmake C$:/msys64/mingw64/share/cmake/Modules/Platform/Linker/Emscripten-LLD.cmake C$:/msys64/mingw64/share/cmake/Modules/WriteBasicConfigVersionFile.cmake C$:/msys64/mingw64/share/cmake/Templates/CPackConfig.cmake.in CMakeCache.txt CMakeFiles/4.3.1/CMakeCCompiler.cmake CMakeFiles/4.3.1/CMakeCXXCompiler.cmake CMakeFiles/4.3.1/CMakeSystem.cmake _deps/sfml-src/CMakeLists.txt _deps/sfml-src/cmake/CompilerOptionsOverride.cmake _deps/sfml-src/cmake/CompilerWarnings.cmake _deps/sfml-src/cmake/Config.cmake _deps/sfml-src/cmake/Macros.cmake _deps/sfml-src/cmake/SFMLConfig.cmake.in _deps/sfml-src/cmake/SFMLConfigDependencies.cmake.in _deps/sfml-src/src/SFML/Audio/CMakeLists.txt _deps/sfml-src/src/SFML/CMakeLists.txt _deps/sfml-src/src/SFML/Graphics/CMakeLists.txt _deps/sfml-src/src/SFML/System/CMakeLists.txt _deps/sfml-src/src/SFML/Window/CMakeLists.txt: phony
 
 
 #############################################

@@ -52,7 +52,7 @@ rule CXX_COMPILER__sfml-system_unscanned_
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__sfml-system_
-  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\MyGames\emsdk\upstream\emscripten\emar.bat qc $TARGET_FILE $LINK_FLAGS $in && C:\MyGames\emsdk\upstream\emscripten\emranlib.bat $TARGET_FILE && $POST_BUILD"
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && C:\msys64\mingw64\bin\cmake.exe -E rm -f $TARGET_FILE && C:\MyGames\emsdk\upstream\emscripten\emar.bat qc $TARGET_FILE $LINK_FLAGS $in && C:\MyGames\emsdk\upstream\emscripten\emranlib.bat $TARGET_FILE && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
 
@@ -71,7 +71,7 @@ rule CXX_COMPILER__sfml-window_unscanned_
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__sfml-window_
-  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\MyGames\emsdk\upstream\emscripten\emar.bat qc $TARGET_FILE $LINK_FLAGS $in && C:\MyGames\emsdk\upstream\emscripten\emranlib.bat $TARGET_FILE && $POST_BUILD"
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && C:\msys64\mingw64\bin\cmake.exe -E rm -f $TARGET_FILE && C:\MyGames\emsdk\upstream\emscripten\emar.bat qc $TARGET_FILE $LINK_FLAGS $in && C:\MyGames\emsdk\upstream\emscripten\emranlib.bat $TARGET_FILE && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
 
@@ -90,7 +90,7 @@ rule CXX_COMPILER__sfml-graphics_unscanned_
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__sfml-graphics_
-  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\MyGames\emsdk\upstream\emscripten\emar.bat qc $TARGET_FILE $LINK_FLAGS $in && C:\MyGames\emsdk\upstream\emscripten\emranlib.bat $TARGET_FILE && $POST_BUILD"
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && C:\msys64\mingw64\bin\cmake.exe -E rm -f $TARGET_FILE && C:\MyGames\emsdk\upstream\emscripten\emar.bat qc $TARGET_FILE $LINK_FLAGS $in && C:\MyGames\emsdk\upstream\emscripten\emranlib.bat $TARGET_FILE && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
 
@@ -109,7 +109,7 @@ rule CXX_COMPILER__sfml-audio_unscanned_
 # Rule for linking CXX static library.
 
 rule CXX_STATIC_LIBRARY_LINKER__sfml-audio_
-  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\MyGames\emsdk\upstream\emscripten\emar.bat qc $TARGET_FILE $LINK_FLAGS $in && C:\MyGames\emsdk\upstream\emscripten\emranlib.bat $TARGET_FILE && $POST_BUILD"
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && C:\msys64\mingw64\bin\cmake.exe -E rm -f $TARGET_FILE && C:\MyGames\emsdk\upstream\emscripten\emar.bat qc $TARGET_FILE $LINK_FLAGS $in && C:\MyGames\emsdk\upstream\emscripten\emranlib.bat $TARGET_FILE && $POST_BUILD"
   description = Linking CXX static library $TARGET_FILE
   restat = $RESTAT
 
@@ -118,7 +118,7 @@ rule CXX_STATIC_LIBRARY_LINKER__sfml-audio_
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web
+  command = C:\msys64\mingw64\bin\cmake.exe --regenerate-during-build -SC:\MyGames\FirstRugieLikeDankaise -BC:\MyGames\FirstRugieLikeDankaise\build-web
   description = Re-running CMake...
   generator = 1
 
@@ -127,7 +127,7 @@ rule RERUN_CMAKE
 # Rule for cleaning all built files.
 
 rule CLEAN
-  command = C:\MyGames\FirstRugieLikeDankaise\build-web\ninja.exe $FILE_ARG -t clean $TARGETS
+  command = C:\msys64\mingw64\bin\ninja.exe $FILE_ARG -t clean $TARGETS
   description = Cleaning all built files...
 
 
@@ -135,6 +135,6 @@ rule CLEAN
 # Rule for printing all primary targets available.
 
 rule HELP
-  command = C:\MyGames\FirstRugieLikeDankaise\build-web\ninja.exe -t targets
+  command = C:\msys64\mingw64\bin\ninja.exe -t targets
   description = All primary targets available:
 
