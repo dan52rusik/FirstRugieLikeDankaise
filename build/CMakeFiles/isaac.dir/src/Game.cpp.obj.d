@@ -294,6 +294,8 @@ CMakeFiles/isaac.dir/src/Game.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_tree.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_map.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_multimap.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\items/Pickup.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\props/Prop.h \
  C:\MyGames\FirstRugieLikeDankaise\src\Player.h \
  C:\MyGames\FirstRugieLikeDankaise\src\Tear.h \
  C:\MyGames\FirstRugieLikeDankaise\src\Room.h \

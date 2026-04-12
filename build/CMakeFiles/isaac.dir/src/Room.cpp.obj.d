@@ -293,6 +293,8 @@ CMakeFiles/isaac.dir/src/Room.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_tree.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_map.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_multimap.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\items/Pickup.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\props/Prop.h \
  C:\MyGames\FirstRugieLikeDankaise\src\Tear.h \
  C:\MyGames\FirstRugieLikeDankaise\src\monsters/Monster.h \
  C:/msys64/mingw64/include/c++/15.2.0/algorithm \
@@ -334,4 +336,5 @@ CMakeFiles/isaac.dir/src/Room.cpp.obj: \
  C:\MyGames\FirstRugieLikeDankaise\src\monsters/Knight.h \
  C:\MyGames\FirstRugieLikeDankaise\src\monsters/Leech.h \
  C:\MyGames\FirstRugieLikeDankaise\src\monsters/Spider.h \
- C:\MyGames\FirstRugieLikeDankaise\src\utils/Collision.h
+ C:\MyGames\FirstRugieLikeDankaise\src\utils/Collision.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\utils/Random.h

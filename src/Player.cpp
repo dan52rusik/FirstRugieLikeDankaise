@@ -19,7 +19,7 @@ Player::Player()
       m_walkTimer(0.0f),
       m_hp(6),
       m_maxHp(6),
-      m_coins(3),
+      m_coins(0),
       m_keys(1),
       m_bombs(1),
       m_luck(0.0f) {
@@ -125,6 +125,18 @@ void Player::takeDamage(int amount) {
 
 void Player::heal(int amount) {
     m_hp = std::min(m_maxHp, m_hp + amount);
+}
+
+void Player::addCoins(int amount) {
+    m_coins = std::max(0, m_coins + amount);
+}
+
+void Player::addKeys(int amount) {
+    m_keys = std::max(0, m_keys + amount);
+}
+
+void Player::addBombs(int amount) {
+    m_bombs = std::max(0, m_bombs + amount);
 }
 
 void Player::setPosition(const sf::Vector2f& position) {

@@ -20,6 +20,9 @@ public:
     bool placeBomb(std::vector<Bomb>& bombs);
     void takeDamage(int amount);
     void heal(int amount);
+    void addCoins(int amount);
+    void addKeys(int amount);
+    void addBombs(int amount);
     void setPosition(const sf::Vector2f& position);
     void grantInvincibility(float duration);
 

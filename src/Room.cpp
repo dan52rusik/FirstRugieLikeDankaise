@@ -14,6 +14,7 @@
 #include "monsters/Leech.h"
 #include "monsters/Spider.h"
 #include "utils/Collision.h"
+#include "utils/Random.h"
 
 namespace {
 sf::Vector2f roomCenter() {
@@ -51,7 +52,8 @@ Room::Room() {
     m_innerBounds.setOutlineColor(sf::Color(42, 28, 22));
 }
 
-void Room::load(const RoomData& roomData) {
+void Room::load(RoomData& roomData) {
+    m_roomData = &roomData;
     for (int i = 0; i < 4; ++i) {
         m_doors[i] = roomData.doors[i];
     }
@@ -59,7 +61,10 @@ void Room::load(const RoomData& roomData) {
     m_cleared = roomData.cleared;
     m_doorOpenProgress = roomData.cleared ? 1.0f : 0.0f;
     buildRocks(roomData.layoutSeed);
+    buildProps(roomData);
+    rebuildPropInstances();
     buildMonsters(roomData);
+    rebuildPickupInstances();
 }
 
 void Room::buildRocks(int layoutSeed) {
@@ -79,6 +84,32 @@ void Room::buildRocks(int layoutSeed) {
         rock.setPosition(tileCenter(tile.x, tile.y));
         rock.setFillColor(sf::Color(120, 120, 120));
         m_rocks.push_back(rock);
+    }
+}
+
+void Room::buildProps(RoomData& roomData) {
+    if (roomData.propsGenerated) {
+        return;
+    }
+
+    roomData.propsGenerated = true;
+    roomData.props.clear();
+    roomData.pickups.clear();
+
+    if (roomData.type != RoomType::Normal) {
+        return;
+    }
+
+    static const std::array<std::array<sf::Vector2i, 3>, 4> barrelLayouts{{
+        {{{7, 1}, {4, 4}, {10, 6}}},
+        {{{3, 2}, {11, 4}, {7, 7}}},
+        {{{5, 2}, {9, 2}, {7, 6}}},
+        {{{3, 5}, {7, 3}, {11, 5}}}
+    }};
+
+    const auto& layout = barrelLayouts[roomData.layoutSeed % static_cast<int>(barrelLayouts.size())];
+    for (const auto& tile : layout) {
+        roomData.props.push_back({PropType::Barrel, tileCenter(tile.x, tile.y), false});
     }
 }
 
@@ -161,10 +192,139 @@ void Room::buildMonsters(const RoomData& roomData) {
     }
 }
 
+void Room::rebuildPropInstances() {
+    m_props.clear();
+    if (m_roomData == nullptr) {
+        return;
+    }
+
+    for (std::size_t i = 0; i < m_roomData->props.size(); ++i) {
+        const auto& prop = m_roomData->props[i];
+        if (prop.destroyed || prop.type != PropType::Barrel) {
+            continue;
+        }
+
+        sf::RectangleShape barrel({30.0f, 34.0f});
+        barrel.setOrigin({15.0f, 17.0f});
+        barrel.setPosition(prop.position);
+        barrel.setFillColor(sf::Color(114, 82, 42));
+        barrel.setOutlineColor(sf::Color(70, 42, 22));
+        barrel.setOutlineThickness(2.0f);
+        m_props.push_back({barrel, i});
+    }
+}
+
+void Room::rebuildPickupInstances() {
+    m_pickups.clear();
+    if (m_roomData == nullptr) {
+        return;
+    }
+
+    for (std::size_t i = 0; i < m_roomData->pickups.size(); ++i) {
+        const auto& pickup = m_roomData->pickups[i];
+        if (pickup.collected) {
+            continue;
+        }
+
+        sf::CircleShape shape(8.0f);
+        shape.setOrigin({8.0f, 8.0f});
+        shape.setPosition(pickup.position);
+
+        switch (pickup.type) {
+        case PickupType::Coin:
+            shape.setFillColor(sf::Color(236, 204, 82));
+            break;
+        case PickupType::Heart:
+            shape.setFillColor(sf::Color(220, 54, 78));
+            break;
+        case PickupType::Key:
+            shape.setFillColor(sf::Color(210, 210, 210));
+            break;
+        case PickupType::Bomb:
+            shape.setFillColor(sf::Color(54, 54, 58));
+            break;
+        }
+
+        m_pickups.push_back({shape, pickup.type, i});
+    }
+}
+
+void Room::spawnRandomPickup(const sf::Vector2f& position, float chance, const Player& player) {
+    if (m_roomData == nullptr || !Random::chance(chance)) {
+        return;
+    }
+
+    const int roll = Random::rangeInt(0, 99);
+    PickupType type = PickupType::Coin;
+    if (roll < 40) {
+        type = PickupType::Coin;
+    } else if (roll < 60) {
+        type = PickupType::Bomb;
+    } else if (roll < 80) {
+        type = PickupType::Key;
+    } else {
+        type = (player.getHp() < player.getMaxHp()) ? PickupType::Heart : PickupType::Coin;
+    }
+
+    m_roomData->pickups.push_back({type, position, false});
+    rebuildPickupInstances();
+}
+
+void Room::breakProp(std::size_t propIndex, const Player& player) {
+    if (m_roomData == nullptr || propIndex >= m_roomData->props.size()) {
+        return;
+    }
+    auto& prop = m_roomData->props[propIndex];
+    if (prop.destroyed) {
+        return;
+    }
+
+    prop.destroyed = true;
+    rebuildPropInstances();
+    spawnRandomPickup(prop.position, 0.55f, player);
+}
+
+void Room::collectPickup(std::size_t pickupIndex, Player& player) {
+    if (m_roomData == nullptr || pickupIndex >= m_roomData->pickups.size()) {
+        return;
+    }
+
+    auto& pickup = m_roomData->pickups[pickupIndex];
+    if (pickup.collected) {
+        return;
+    }
+
+    switch (pickup.type) {
+    case PickupType::Coin:
+        player.addCoins(1);
+        break;
+    case PickupType::Heart:
+        if (player.getHp() >= player.getMaxHp()) {
+            return;
+        }
+        player.heal(2);
+        break;
+    case PickupType::Key:
+        player.addKeys(1);
+        break;
+    case PickupType::Bomb:
+        player.addBombs(1);
+        break;
+    }
+
+    pickup.collected = true;
+    rebuildPickupInstances();
+}
+
 bool Room::isSpawnBlocked(const sf::Vector2f& position) const {
     const sf::FloatRect monsterBounds({position.x - 18.0f, position.y - 18.0f}, {36.0f, 36.0f});
     for (const auto& rock : m_rocks) {
         if (Collision::intersects(monsterBounds, rock.getGlobalBounds())) {
+            return true;
+        }
+    }
+    for (const auto& prop : m_props) {
+        if (Collision::intersects(monsterBounds, prop.shape.getGlobalBounds())) {
             return true;
         }
     }
@@ -193,6 +353,17 @@ void Room::keepMonsterInPlayableArea(Monster& monster) const {
         }
 
         const sf::Vector2f push = Collision::normalize(Collision::subtract(position, rock.getPosition()));
+        const sf::Vector2f fallback = (push.x == 0.0f && push.y == 0.0f) ? sf::Vector2f(1.0f, 0.0f) : push;
+        position = Collision::add(position, Collision::scale(fallback, 16.0f));
+    }
+
+    for (const auto& prop : m_props) {
+        sf::FloatRect adjustedBounds({position.x - halfWidth, position.y - halfHeight}, bounds.size);
+        if (!Collision::intersects(adjustedBounds, prop.shape.getGlobalBounds())) {
+            continue;
+        }
+
+        const sf::Vector2f push = Collision::normalize(Collision::subtract(position, prop.shape.getPosition()));
         const sf::Vector2f fallback = (push.x == 0.0f && push.y == 0.0f) ? sf::Vector2f(1.0f, 0.0f) : push;
         position = Collision::add(position, Collision::scale(fallback, 16.0f));
     }
@@ -240,6 +411,20 @@ void Room::update(float dt, Player& player, std::vector<Tear>& tears, std::vecto
             continue;
         }
 
+        bool hitProp = false;
+        for (std::size_t propIndex = 0; propIndex < m_props.size(); ++propIndex) {
+            if (Collision::intersects(tear.getBounds(), m_props[propIndex].shape.getGlobalBounds())) {
+                breakProp(m_props[propIndex].dataIndex, player);
+                tear.destroy();
+                hitProp = true;
+                break;
+            }
+        }
+
+        if (hitProp) {
+            continue;
+        }
+
         if (collidesWithWalls(tear.getBounds())) {
             tear.destroy();
             continue;
@@ -263,6 +448,29 @@ void Room::update(float dt, Player& player, std::vector<Tear>& tears, std::vecto
                 monster->takeDamage(60.0f);
             }
         }
+
+        std::vector<std::size_t> propsToBreak;
+        for (const auto& prop : m_props) {
+            if (Collision::distance(prop.shape.getPosition(), bomb.getPosition()) <= bomb.getRadius()) {
+                propsToBreak.push_back(prop.dataIndex);
+            }
+        }
+        for (std::size_t propIndex : propsToBreak) {
+            breakProp(propIndex, player);
+        }
+    }
+
+    for (const auto& monster : m_monsters) {
+        if (!monster->isAlive()) {
+            spawnRandomPickup(monster->getPosition(), 0.28f, player);
+        }
+    }
+
+    for (std::size_t pickupIndex = 0; pickupIndex < m_pickups.size(); ++pickupIndex) {
+        if (Collision::intersects(player.getBounds(), m_pickups[pickupIndex].shape.getGlobalBounds())) {
+            collectPickup(m_pickups[pickupIndex].dataIndex, player);
+            break;
+        }
     }
 
     m_monsters.erase(
@@ -272,6 +480,10 @@ void Room::update(float dt, Player& player, std::vector<Tear>& tears, std::vecto
         m_monsters.end());
 
     m_cleared = m_monsters.empty();
+    if (m_roomData != nullptr) {
+        m_roomData->cleared = m_cleared;
+    }
+
     const float targetProgress = m_cleared ? 1.0f : 0.0f;
     const float doorAnimSpeed = 2.8f;
     if (m_doorOpenProgress < targetProgress) {
@@ -287,10 +499,16 @@ void Room::draw(sf::RenderTarget& target) const {
     for (const auto& rock : m_rocks) {
         target.draw(rock);
     }
+    for (const auto& prop : m_props) {
+        target.draw(prop.shape);
+    }
     for (int i = 0; i < 4; ++i) {
         if (m_doors[i]) {
             drawDoor(target, static_cast<Direction>(i));
         }
+    }
+    for (const auto& pickup : m_pickups) {
+        target.draw(pickup.shape);
     }
     for (const auto& monster : m_monsters) {
         monster->draw(target);
@@ -332,6 +550,11 @@ bool Room::collidesWithWalls(const sf::FloatRect& bounds) const {
 
     for (const auto& rock : m_rocks) {
         if (Collision::intersects(bounds, rock.getGlobalBounds())) {
+            return true;
+        }
+    }
+    for (const auto& prop : m_props) {
+        if (Collision::intersects(bounds, prop.shape.getGlobalBounds())) {
             return true;
         }
     }

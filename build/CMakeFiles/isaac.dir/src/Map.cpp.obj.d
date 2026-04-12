@@ -291,4 +291,6 @@ CMakeFiles/isaac.dir/src/Map.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.2.0/map \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_tree.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_map.h \
- C:/msys64/mingw64/include/c++/15.2.0/bits/stl_multimap.h
+ C:/msys64/mingw64/include/c++/15.2.0/bits/stl_multimap.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\items/Pickup.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\props/Prop.h

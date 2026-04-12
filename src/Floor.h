@@ -4,6 +4,9 @@
 #include <map>
 #include <vector>
 
+#include "items/Pickup.h"
+#include "props/Prop.h"
+
 enum class RoomType {
     Start,
     Normal,
@@ -39,6 +42,9 @@ struct RoomData {
     bool doors[4]{false, false, false, false};
     int layoutSeed{0};
     int monsterSeed{0};
+    bool propsGenerated{false};
+    std::vector<PropData> props;
+    std::vector<PickupData> pickups;
 };
 
 class Floor {

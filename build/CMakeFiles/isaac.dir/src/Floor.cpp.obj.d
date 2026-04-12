@@ -291,6 +291,8 @@ CMakeFiles/isaac.dir/src/Floor.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_tree.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_map.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_multimap.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\items/Pickup.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\props/Prop.h \
  C:/msys64/mingw64/include/c++/15.2.0/algorithm \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_algo.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/algorithmfwd.h \
