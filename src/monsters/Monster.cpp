@@ -2,6 +2,7 @@
 
 Monster::Monster(sf::Vector2f position, float hp, float speed, float damage, sf::Color color)
     : m_hp(hp),
+      m_maxHp(hp),
       m_speed(speed),
       m_damage(damage),
       m_flashTimer(0.0f),
@@ -13,6 +14,10 @@ Monster::Monster(sf::Vector2f position, float hp, float speed, float damage, sf:
 }
 
 bool Monster::blocksShotFrom(const sf::Vector2f&) const {
+    return false;
+}
+
+bool Monster::isBoss() const {
     return false;
 }
 
@@ -51,6 +56,14 @@ sf::FloatRect Monster::getBounds() const {
 
 sf::Vector2f Monster::getPosition() const {
     return m_shape.getPosition();
+}
+
+float Monster::getHp() const {
+    return m_hp;
+}
+
+float Monster::getMaxHp() const {
+    return m_maxHp;
 }
 
 float Monster::getDamage() const {

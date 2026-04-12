@@ -22,6 +22,8 @@ public:
     bool collidesWithWalls(const sf::FloatRect& bounds) const;
     bool isCleared() const;
     bool canUseDoor(Direction direction) const;
+    bool hasBoss() const;
+    float getBossHpRatio() const;
     sf::Vector2f getSpawnPosition(Direction fromDirection) const;
     sf::Vector2f findSafePlayerSpawn(Direction fromDirection) const;
     Direction getDoorTransition(const sf::Vector2f& playerPosition) const;
@@ -44,4 +46,5 @@ private:
     bool m_doors[4]{false, false, false, false};
     RoomType m_roomType{RoomType::Normal};
     bool m_cleared{false};
+    float m_doorOpenProgress{0.0f};
 };

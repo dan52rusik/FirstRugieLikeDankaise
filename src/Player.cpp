@@ -18,7 +18,7 @@ Player::Player()
       m_invincibleTimer(0.0f),
       m_walkTimer(0.0f),
       m_hp(6),
-      m_maxHp(24),
+      m_maxHp(6),
       m_coins(3),
       m_keys(1),
       m_bombs(1),

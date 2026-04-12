@@ -12,6 +12,7 @@ public:
 
     virtual void update(float dt, const Player& player, const Room& room) = 0;
     virtual bool blocksShotFrom(const sf::Vector2f& shotOrigin) const;
+    virtual bool isBoss() const;
 
     void draw(sf::RenderTarget& target) const;
     void takeDamage(float damage);
@@ -19,6 +20,8 @@ public:
 
     sf::FloatRect getBounds() const;
     sf::Vector2f getPosition() const;
+    float getHp() const;
+    float getMaxHp() const;
     float getDamage() const;
     bool isAlive() const;
     void setPosition(const sf::Vector2f& position);
@@ -28,6 +31,7 @@ protected:
 
     sf::RectangleShape m_shape;
     float m_hp;
+    float m_maxHp;
     float m_speed;
     float m_damage;
     float m_flashTimer;

@@ -3,13 +3,23 @@
 #include <SFML/Graphics.hpp>
 
 class Player;
+class Room;
 
 class HUD {
 public:
     HUD();
     void draw(sf::RenderTarget& target, const Player& player) const;
+    void drawBossBar(sf::RenderTarget& target, const Room& room) const;
+    void drawGameOver(sf::RenderTarget& target) const;
 
 private:
+    void drawHeart(sf::RenderTarget& target, sf::Vector2f center, sf::Color color, float scale) const;
+    void drawDigit(sf::RenderTarget& target, sf::Vector2f position, int digit, sf::Color color, float scale) const;
+    void drawNumber(sf::RenderTarget& target, sf::Vector2f position, int value, sf::Color color, float scale) const;
+    void drawCoinIcon(sf::RenderTarget& target, sf::Vector2f center) const;
+    void drawKeyIcon(sf::RenderTarget& target, sf::Vector2f center) const;
+    void drawBombIcon(sf::RenderTarget& target, sf::Vector2f center) const;
+
     sf::Font m_font;
     bool m_hasFont;
 };

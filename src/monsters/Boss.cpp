@@ -17,3 +17,7 @@ void Boss::update(float dt, const Player& player, const Room&) {
     const sf::Vector2f direction = Collision::normalize(Collision::subtract(player.getPosition(), m_shape.getPosition()));
     m_shape.move(Collision::scale(direction, phaseSpeed * dt));
 }
+
+bool Boss::isBoss() const {
+    return true;
+}

@@ -16,6 +16,7 @@ public:
 
 private:
     void loadCurrentRoom();
+    void resetRun();
     void tryRoomTransition();
 
     void processEvents();

@@ -2,6 +2,8 @@
 
 #include <algorithm>
 #include <array>
+#include <cmath>
+#include <cstdint>
 #include <memory>
 #include <random>
 
@@ -55,6 +57,7 @@ void Room::load(const RoomData& roomData) {
     }
     m_roomType = roomData.type;
     m_cleared = roomData.cleared;
+    m_doorOpenProgress = roomData.cleared ? 1.0f : 0.0f;
     buildRocks(roomData.layoutSeed);
     buildMonsters(roomData);
 }
@@ -269,6 +272,13 @@ void Room::update(float dt, Player& player, std::vector<Tear>& tears, std::vecto
         m_monsters.end());
 
     m_cleared = m_monsters.empty();
+    const float targetProgress = m_cleared ? 1.0f : 0.0f;
+    const float doorAnimSpeed = 2.8f;
+    if (m_doorOpenProgress < targetProgress) {
+        m_doorOpenProgress = std::min(targetProgress, m_doorOpenProgress + dt * doorAnimSpeed);
+    } else if (m_doorOpenProgress > targetProgress) {
+        m_doorOpenProgress = std::max(targetProgress, m_doorOpenProgress - dt * doorAnimSpeed);
+    }
 }
 
 void Room::draw(sf::RenderTarget& target) const {
@@ -334,6 +344,28 @@ bool Room::isCleared() const {
 
 bool Room::canUseDoor(Direction direction) const {
     return m_cleared && m_doors[static_cast<int>(direction)];
+}
+
+bool Room::hasBoss() const {
+    if (m_roomType != RoomType::Boss) {
+        return false;
+    }
+    for (const auto& monster : m_monsters) {
+        if (monster->isBoss() && monster->isAlive()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+float Room::getBossHpRatio() const {
+    for (const auto& monster : m_monsters) {
+        if (monster->isBoss()) {
+            const float maxHp = monster->getMaxHp();
+            return maxHp > 0.0f ? std::clamp(monster->getHp() / maxHp, 0.0f, 1.0f) : 0.0f;
+        }
+    }
+    return 0.0f;
 }
 
 sf::Vector2f Room::getSpawnPosition(Direction fromDirection) const {
@@ -420,24 +452,27 @@ sf::FloatRect Room::getDoorTrigger(Direction direction) const {
 
 void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
     sf::RectangleShape door;
-    const bool open = canUseDoor(direction);
-    door.setFillColor(open ? sf::Color(190, 160, 95) : sf::Color(90, 60, 40));
+    const float t = std::clamp(m_doorOpenProgress, 0.0f, 1.0f);
+    const auto blend = [t](std::uint8_t closed, std::uint8_t open) -> std::uint8_t {
+        return static_cast<std::uint8_t>(std::round(static_cast<float>(closed) + (static_cast<float>(open) - static_cast<float>(closed)) * t));
+    };
+    door.setFillColor(sf::Color(blend(90, 190), blend(60, 160), blend(40, 95)));
 
     switch (direction) {
     case Direction::Up:
-        door.setSize({kTileSize, kDoorThickness});
-        door.setPosition({tileCenter(7, 0).x - kTileSize * 0.5f, kGridTop - kDoorThickness});
+        door.setSize({kTileSize, kDoorThickness * (1.0f - 0.6f * t)});
+        door.setPosition({tileCenter(7, 0).x - kTileSize * 0.5f, kGridTop - door.getSize().y});
         break;
     case Direction::Down:
-        door.setSize({kTileSize, kDoorThickness});
+        door.setSize({kTileSize, kDoorThickness * (1.0f - 0.6f * t)});
         door.setPosition({tileCenter(7, 8).x - kTileSize * 0.5f, kGridTop + kGridRows * kTileSize});
         break;
     case Direction::Left:
-        door.setSize({kDoorThickness, kTileSize});
-        door.setPosition({kGridLeft - kDoorThickness, tileCenter(0, 4).y - kTileSize * 0.5f});
+        door.setSize({kDoorThickness * (1.0f - 0.6f * t), kTileSize});
+        door.setPosition({kGridLeft - door.getSize().x, tileCenter(0, 4).y - kTileSize * 0.5f});
         break;
     case Direction::Right:
-        door.setSize({kDoorThickness, kTileSize});
+        door.setSize({kDoorThickness * (1.0f - 0.6f * t), kTileSize});
         door.setPosition({kGridLeft + kGridCols * kTileSize, tileCenter(14, 4).y - kTileSize * 0.5f});
         break;
     }

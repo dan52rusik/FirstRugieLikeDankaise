@@ -14,6 +14,16 @@ void Game::loadCurrentRoom() {
     m_room.load(m_floor.getCurrentRoom());
 }
 
+void Game::resetRun() {
+    m_player = Player();
+    m_floor = Floor();
+    m_room = Room();
+    m_tears.clear();
+    m_bombs.clear();
+    m_gameOver = false;
+    loadCurrentRoom();
+}
+
 void Game::tryRoomTransition() {
     if (!m_room.hasTransitionAt(m_player.getPosition())) {
         return;
@@ -55,11 +65,13 @@ void Game::processEvents() {
             m_window.close();
         }
 
-        if (!m_gameOver) {
-            if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
-                if (keyPressed->code == sf::Keyboard::Key::E) {
-                    m_player.placeBomb(m_bombs);
+        if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
+            if (m_gameOver) {
+                if (keyPressed->code == sf::Keyboard::Key::R) {
+                    resetRun();
                 }
+            } else if (keyPressed->code == sf::Keyboard::Key::E) {
+                m_player.placeBomb(m_bombs);
             }
         }
     }
@@ -112,11 +124,13 @@ void Game::render() {
     m_player.draw(m_window);
     m_map.drawMiniMap(m_window, m_floor);
     m_hud.draw(m_window, m_player);
+    m_hud.drawBossBar(m_window, m_room);
 
     if (m_gameOver) {
         sf::RectangleShape overlay({960.0f, 720.0f});
-        overlay.setFillColor(sf::Color(0, 0, 0, 160));
+        overlay.setFillColor(sf::Color(0, 0, 0, 188));
         m_window.draw(overlay);
+        m_hud.drawGameOver(m_window);
     }
 
     m_window.display();

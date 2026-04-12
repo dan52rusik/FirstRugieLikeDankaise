@@ -6,6 +6,13 @@ void Map::drawMiniMap(sf::RenderTarget& target, const Floor& floor) const {
     const sf::Vector2f anchor(818.0f, 56.0f);
     const float spacing = 22.0f;
 
+    sf::RectangleShape panel({118.0f, 118.0f});
+    panel.setPosition({792.0f, 30.0f});
+    panel.setFillColor(sf::Color(12, 12, 14, 185));
+    panel.setOutlineColor(sf::Color(88, 88, 92, 220));
+    panel.setOutlineThickness(2.0f);
+    target.draw(panel);
+
     for (const auto& [_, room] : floor.getRooms()) {
         if (!room.visited && room.type != RoomType::Start) {
             continue;
