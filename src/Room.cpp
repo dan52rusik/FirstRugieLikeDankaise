@@ -33,10 +33,64 @@ constexpr float kGridLeft = kRoomLeft + 48.0f;
 constexpr float kGridTop = kRoomTop + 48.0f;
 constexpr float kDoorThickness = 18.0f;
 
+struct LayoutTemplate {
+    std::vector<sf::Vector2i> rocks;
+    std::vector<sf::Vector2i> barrels;
+    std::vector<sf::Vector2i> monsterSpawns;
+    sf::Vector2i rewardTile;
+};
+
 sf::Vector2f tileCenter(int col, int row) {
     return {
         kGridLeft + static_cast<float>(col) * kTileSize + kTileSize * 0.5f,
         kGridTop + static_cast<float>(row) * kTileSize + kTileSize * 0.5f};
+}
+
+sf::Vector2f tileCenter(const sf::Vector2i& tile) {
+    return tileCenter(tile.x, tile.y);
+}
+
+const std::array<sf::Vector2i, 8> kReservedDoorTiles{{
+    {7, 0}, {7, 1}, {7, 7}, {7, 8},
+    {0, 4}, {1, 4}, {13, 4}, {14, 4}
+}};
+
+bool isReservedDoorTile(const sf::Vector2i& tile) {
+    return std::find(kReservedDoorTiles.begin(), kReservedDoorTiles.end(), tile) != kReservedDoorTiles.end();
+}
+
+bool isInsideGrid(const sf::Vector2i& tile) {
+    return tile.x >= 0 && tile.x < kGridCols && tile.y >= 0 && tile.y < kGridRows;
+}
+
+sf::Vector2i tileFromWorld(const sf::Vector2f& position) {
+    return {
+        std::clamp(static_cast<int>((position.x - kGridLeft) / kTileSize), 0, kGridCols - 1),
+        std::clamp(static_cast<int>((position.y - kGridTop) / kTileSize), 0, kGridRows - 1)
+    };
+}
+
+const LayoutTemplate& layoutForSeed(int seed) {
+    static const std::array<LayoutTemplate, 4> layouts{{
+        {{{{2, 2}, {12, 2}, {2, 6}, {12, 6}}},
+         {{{7, 2}, {4, 4}, {10, 4}}},
+         {{{3, 2}, {7, 2}, {11, 2}, {3, 6}, {7, 6}, {11, 6}}},
+         {7, 4}},
+        {{{{4, 2}, {10, 2}, {4, 6}, {10, 6}}},
+         {{{7, 1}, {3, 4}, {11, 4}}},
+         {{{2, 2}, {7, 2}, {12, 2}, {2, 6}, {7, 6}, {12, 6}}},
+         {7, 4}},
+        {{{{7, 2}, {4, 4}, {10, 4}, {7, 6}}},
+         {{{3, 2}, {11, 2}, {7, 7}}},
+         {{{2, 3}, {12, 3}, {3, 6}, {7, 5}, {11, 6}, {7, 1}}},
+         {7, 4}},
+        {{{{3, 3}, {11, 3}, {5, 5}, {9, 5}}},
+         {{{7, 2}, {3, 6}, {11, 6}}},
+         {{{2, 2}, {7, 2}, {12, 2}, {2, 5}, {7, 6}, {12, 5}}},
+         {7, 4}}
+    }};
+
+    return layouts[static_cast<std::size_t>(seed % static_cast<int>(layouts.size()))];
 }
 }
 
@@ -54,34 +108,47 @@ Room::Room() {
 
 void Room::load(RoomData& roomData) {
     m_roomData = &roomData;
+    m_reward.reset();
+
     for (int i = 0; i < 4; ++i) {
         m_doors[i] = roomData.doors[i];
     }
+
     m_roomType = roomData.type;
-    m_cleared = roomData.cleared;
-    m_doorOpenProgress = roomData.cleared ? 1.0f : 0.0f;
+    m_cleared = roomData.cleared || roomData.type == RoomType::Treasure || roomData.type == RoomType::Start;
+    m_doorOpenProgress = m_cleared ? 1.0f : 0.0f;
+
+    switch (m_roomType) {
+    case RoomType::Treasure:
+        m_floor.setFillColor(sf::Color(92, 72, 36));
+        m_innerBounds.setOutlineColor(sf::Color(122, 92, 42));
+        break;
+    case RoomType::Boss:
+        m_floor.setFillColor(sf::Color(82, 48, 42));
+        m_innerBounds.setOutlineColor(sf::Color(60, 26, 22));
+        break;
+    default:
+        m_floor.setFillColor(sf::Color(72, 54, 42));
+        m_innerBounds.setOutlineColor(sf::Color(42, 28, 22));
+        break;
+    }
+
     buildRocks(roomData.layoutSeed);
     buildProps(roomData);
     rebuildPropInstances();
     buildMonsters(roomData);
+    buildReward(roomData);
     rebuildPickupInstances();
 }
 
 void Room::buildRocks(int layoutSeed) {
     m_rocks.clear();
 
-    static const std::array<std::array<sf::Vector2i, 4>, 4> layouts{{
-        {{{2, 2}, {12, 2}, {2, 6}, {12, 6}}},
-        {{{4, 2}, {10, 2}, {4, 6}, {10, 6}}},
-        {{{7, 2}, {4, 4}, {10, 4}, {7, 6}}},
-        {{{3, 3}, {11, 3}, {5, 5}, {9, 5}}}
-    }};
-
-    const auto& layout = layouts[layoutSeed % static_cast<int>(layouts.size())];
-    for (const auto& tile : layout) {
+    const LayoutTemplate& layout = layoutForSeed(layoutSeed);
+    for (const auto& tile : layout.rocks) {
         sf::RectangleShape rock({kTileSize, kTileSize});
         rock.setOrigin({24.0f, 24.0f});
-        rock.setPosition(tileCenter(tile.x, tile.y));
+        rock.setPosition(tileCenter(tile));
         rock.setFillColor(sf::Color(120, 120, 120));
         m_rocks.push_back(rock);
     }
@@ -100,79 +167,33 @@ void Room::buildProps(RoomData& roomData) {
         return;
     }
 
-    static const std::array<std::array<sf::Vector2i, 3>, 4> barrelLayouts{{
-        {{{7, 1}, {4, 4}, {10, 6}}},
-        {{{3, 2}, {11, 4}, {7, 7}}},
-        {{{5, 2}, {9, 2}, {7, 6}}},
-        {{{3, 5}, {7, 3}, {11, 5}}}
-    }};
-
-    const auto& layout = barrelLayouts[roomData.layoutSeed % static_cast<int>(barrelLayouts.size())];
-    for (const auto& tile : layout) {
-        roomData.props.push_back({PropType::Barrel, tileCenter(tile.x, tile.y), false});
+    const LayoutTemplate& layout = layoutForSeed(roomData.layoutSeed);
+    for (const auto& tile : layout.barrels) {
+        roomData.props.push_back({PropType::Barrel, tileCenter(tile), false});
     }
 }
 
 void Room::buildMonsters(const RoomData& roomData) {
     m_monsters.clear();
 
-    if (roomData.cleared || roomData.type == RoomType::Start) {
+    if (roomData.cleared || roomData.type == RoomType::Start || roomData.type == RoomType::Treasure) {
         return;
     }
-
-    std::mt19937 rng(static_cast<std::mt19937::result_type>(roomData.monsterSeed));
-    std::uniform_int_distribution<int> typeDist(0, 3);
 
     if (roomData.type == RoomType::Boss) {
         m_monsters.emplace_back(std::make_unique<Boss>(tileCenter(7, 2)));
         return;
     }
 
-    const int monsterCount = 2 + (roomData.monsterSeed % 3);
-    const std::array<sf::Vector2i, 8> spawnTiles{{
-        {2, 1}, {7, 1}, {12, 1}, {3, 4}, {11, 4}, {2, 7}, {7, 7}, {12, 7}
-    }};
-    const std::array<sf::Vector2i, 8> reservedDoorTiles{{
-        {7, 0}, {7, 1}, {7, 7}, {7, 8},
-        {0, 4}, {1, 4}, {13, 4}, {14, 4}
-    }};
+    const LayoutTemplate& layout = layoutForSeed(roomData.layoutSeed);
+    std::mt19937 rng(static_cast<std::mt19937::result_type>(roomData.monsterSeed));
+    std::uniform_int_distribution<int> typeDist(0, 3);
 
-    for (int i = 0; i < monsterCount; ++i) {
-        const sf::Vector2i spawnTile = spawnTiles[static_cast<std::size_t>(i % static_cast<int>(spawnTiles.size()))];
-        bool spawnNearDoor = false;
-        for (const auto& reservedTile : reservedDoorTiles) {
-            if (spawnTile == reservedTile) {
-                spawnNearDoor = true;
-                break;
-            }
-        }
-        if (spawnNearDoor) {
-            continue;
-        }
-
-        sf::Vector2f spawn = tileCenter(spawnTile.x, spawnTile.y);
+    const int targetCount = std::min(static_cast<int>(layout.monsterSpawns.size()), 2 + (roomData.monsterSeed % 3));
+    for (int i = 0; i < targetCount; ++i) {
+        const sf::Vector2f spawn = tileCenter(layout.monsterSpawns[static_cast<std::size_t>(i)]);
         if (isSpawnBlocked(spawn)) {
-            bool foundFreeSpawn = false;
-            for (const auto& tile : spawnTiles) {
-                const sf::Vector2f candidate = tileCenter(tile.x, tile.y);
-                bool reserved = false;
-                for (const auto& reservedTile : reservedDoorTiles) {
-                    if (tile == reservedTile) {
-                        reserved = true;
-                        break;
-                    }
-                }
-
-                if (!reserved && !isSpawnBlocked(candidate)) {
-                    spawn = candidate;
-                    foundFreeSpawn = true;
-                    break;
-                }
-            }
-
-            if (!foundFreeSpawn) {
-                continue;
-            }
+            continue;
         }
 
         switch (typeDist(rng)) {
@@ -190,6 +211,53 @@ void Room::buildMonsters(const RoomData& roomData) {
             break;
         }
     }
+}
+
+void Room::buildReward(RoomData& roomData) {
+    m_reward.reset();
+    if (roomData.type != RoomType::Treasure || roomData.rewardTaken) {
+        return;
+    }
+
+    const std::vector<Item> items = createDefaultItems();
+    if (items.empty()) {
+        return;
+    }
+
+    if (roomData.rewardIndex < 0 || roomData.rewardIndex >= static_cast<int>(items.size())) {
+        roomData.rewardIndex = roomData.rewardSeed % static_cast<int>(items.size());
+    }
+
+    const LayoutTemplate& layout = layoutForSeed(roomData.layoutSeed);
+    const sf::Vector2f position = tileCenter(layout.rewardTile);
+
+    RewardInstance reward;
+    reward.item = items[static_cast<std::size_t>(roomData.rewardIndex)];
+
+    reward.pedestal.setSize({34.0f, 26.0f});
+    reward.pedestal.setOrigin({17.0f, 13.0f});
+    reward.pedestal.setPosition({position.x, position.y + 12.0f});
+    reward.pedestal.setFillColor(sf::Color(108, 84, 58));
+    reward.pedestal.setOutlineColor(sf::Color(168, 132, 78));
+    reward.pedestal.setOutlineThickness(2.0f);
+
+    reward.icon.setRadius(10.0f);
+    reward.icon.setOrigin({10.0f, 10.0f});
+    reward.icon.setPosition({position.x, position.y - 8.0f});
+
+    switch (reward.item.effect) {
+    case ItemEffect::TearRate:
+        reward.icon.setFillColor(reward.item.amount < 0.0f ? sf::Color(178, 228, 255) : sf::Color(118, 148, 188));
+        break;
+    case ItemEffect::Damage:
+        reward.icon.setFillColor(reward.item.amount > 0.0f ? sf::Color(224, 72, 78) : sf::Color(110, 52, 58));
+        break;
+    case ItemEffect::Speed:
+        reward.icon.setFillColor(reward.item.amount > 0.0f ? sf::Color(118, 214, 128) : sf::Color(70, 118, 74));
+        break;
+    }
+
+    m_reward = reward;
 }
 
 void Room::rebuildPropInstances() {
@@ -249,6 +317,63 @@ void Room::rebuildPickupInstances() {
     }
 }
 
+bool Room::isTileOccupied(const sf::Vector2i& tile) const {
+    if (!isInsideGrid(tile) || isReservedDoorTile(tile)) {
+        return true;
+    }
+
+    const sf::Vector2f center = tileCenter(tile);
+    for (const auto& rock : m_rocks) {
+        if (Collision::distance(rock.getPosition(), center) < 1.0f) {
+            return true;
+        }
+    }
+    for (const auto& prop : m_props) {
+        if (Collision::distance(prop.shape.getPosition(), center) < 1.0f) {
+            return true;
+        }
+    }
+    for (const auto& pickup : m_pickups) {
+        if (Collision::distance(pickup.shape.getPosition(), center) < 1.0f) {
+            return true;
+        }
+    }
+    if (m_reward.has_value() && Collision::distance(m_reward->pedestal.getPosition(), center) < 1.0f) {
+        return true;
+    }
+    for (const auto& monster : m_monsters) {
+        if (monster->isAlive() && Collision::distance(monster->getPosition(), center) < 1.0f) {
+            return true;
+        }
+    }
+    return false;
+}
+
+sf::Vector2i Room::findFreeDropTile(const sf::Vector2f& position) const {
+    const sf::Vector2i base = tileFromWorld(position);
+    std::vector<sf::Vector2i> candidates;
+    candidates.reserve(static_cast<std::size_t>(kGridCols * kGridRows));
+
+    for (int row = 0; row < kGridRows; ++row) {
+        for (int col = 0; col < kGridCols; ++col) {
+            candidates.push_back({col, row});
+        }
+    }
+
+    std::sort(candidates.begin(), candidates.end(), [&base](const sf::Vector2i& a, const sf::Vector2i& b) {
+        const int da = std::abs(a.x - base.x) + std::abs(a.y - base.y);
+        const int db = std::abs(b.x - base.x) + std::abs(b.y - base.y);
+        return da < db;
+    });
+
+    for (const auto& tile : candidates) {
+        if (!isTileOccupied(tile)) {
+            return tile;
+        }
+    }
+    return base;
+}
+
 void Room::spawnRandomPickup(const sf::Vector2f& position, float chance, const Player& player) {
     if (m_roomData == nullptr || !Random::chance(chance)) {
         return;
@@ -256,17 +381,18 @@ void Room::spawnRandomPickup(const sf::Vector2f& position, float chance, const P
 
     const int roll = Random::rangeInt(0, 99);
     PickupType type = PickupType::Coin;
-    if (roll < 40) {
+    if (roll < 45) {
         type = PickupType::Coin;
-    } else if (roll < 60) {
+    } else if (roll < 63) {
         type = PickupType::Bomb;
-    } else if (roll < 80) {
+    } else if (roll < 81) {
         type = PickupType::Key;
     } else {
         type = (player.getHp() < player.getMaxHp()) ? PickupType::Heart : PickupType::Coin;
     }
 
-    m_roomData->pickups.push_back({type, position, false});
+    const sf::Vector2i dropTile = findFreeDropTile(position);
+    m_roomData->pickups.push_back({type, tileCenter(dropTile), false});
     rebuildPickupInstances();
 }
 
@@ -274,6 +400,7 @@ void Room::breakProp(std::size_t propIndex, const Player& player) {
     if (m_roomData == nullptr || propIndex >= m_roomData->props.size()) {
         return;
     }
+
     auto& prop = m_roomData->props[propIndex];
     if (prop.destroyed) {
         return;
@@ -316,8 +443,19 @@ void Room::collectPickup(std::size_t pickupIndex, Player& player) {
     rebuildPickupInstances();
 }
 
+void Room::collectReward(Player& player) {
+    if (m_roomData == nullptr || !m_reward.has_value() || m_roomData->rewardTaken) {
+        return;
+    }
+
+    player.applyItem(m_reward->item);
+    m_roomData->rewardTaken = true;
+    m_reward.reset();
+}
+
 bool Room::isSpawnBlocked(const sf::Vector2f& position) const {
     const sf::FloatRect monsterBounds({position.x - 18.0f, position.y - 18.0f}, {36.0f, 36.0f});
+
     for (const auto& rock : m_rocks) {
         if (Collision::intersects(monsterBounds, rock.getGlobalBounds())) {
             return true;
@@ -327,6 +465,9 @@ bool Room::isSpawnBlocked(const sf::Vector2f& position) const {
         if (Collision::intersects(monsterBounds, prop.shape.getGlobalBounds())) {
             return true;
         }
+    }
+    if (m_reward.has_value() && Collision::intersects(monsterBounds, m_reward->pedestal.getGlobalBounds())) {
+        return true;
     }
     return false;
 }
@@ -366,6 +507,15 @@ void Room::keepMonsterInPlayableArea(Monster& monster) const {
         const sf::Vector2f push = Collision::normalize(Collision::subtract(position, prop.shape.getPosition()));
         const sf::Vector2f fallback = (push.x == 0.0f && push.y == 0.0f) ? sf::Vector2f(1.0f, 0.0f) : push;
         position = Collision::add(position, Collision::scale(fallback, 16.0f));
+    }
+
+    if (m_reward.has_value()) {
+        sf::FloatRect adjustedBounds({position.x - halfWidth, position.y - halfHeight}, bounds.size);
+        if (Collision::intersects(adjustedBounds, m_reward->pedestal.getGlobalBounds())) {
+            const sf::Vector2f push = Collision::normalize(Collision::subtract(position, m_reward->pedestal.getPosition()));
+            const sf::Vector2f fallback = (push.x == 0.0f && push.y == 0.0f) ? sf::Vector2f(1.0f, 0.0f) : push;
+            position = Collision::add(position, Collision::scale(fallback, 16.0f));
+        }
     }
 
     monster.setPosition(position);
@@ -427,7 +577,6 @@ void Room::update(float dt, Player& player, std::vector<Tear>& tears, std::vecto
 
         if (collidesWithWalls(tear.getBounds())) {
             tear.destroy();
-            continue;
         }
     }
 
@@ -460,10 +609,18 @@ void Room::update(float dt, Player& player, std::vector<Tear>& tears, std::vecto
         }
     }
 
+    std::vector<sf::Vector2f> defeatedMonsterPositions;
     for (const auto& monster : m_monsters) {
         if (!monster->isAlive()) {
-            spawnRandomPickup(monster->getPosition(), 0.28f, player);
+            defeatedMonsterPositions.push_back(monster->getPosition());
         }
+    }
+    for (const auto& position : defeatedMonsterPositions) {
+        spawnRandomPickup(position, 0.28f, player);
+    }
+
+    if (m_reward.has_value() && Collision::intersects(player.getBounds(), m_reward->icon.getGlobalBounds())) {
+        collectReward(player);
     }
 
     for (std::size_t pickupIndex = 0; pickupIndex < m_pickups.size(); ++pickupIndex) {
@@ -479,7 +636,7 @@ void Room::update(float dt, Player& player, std::vector<Tear>& tears, std::vecto
         }),
         m_monsters.end());
 
-    m_cleared = m_monsters.empty();
+    m_cleared = m_monsters.empty() || m_roomType == RoomType::Treasure || m_roomType == RoomType::Start;
     if (m_roomData != nullptr) {
         m_roomData->cleared = m_cleared;
     }
@@ -496,17 +653,24 @@ void Room::update(float dt, Player& player, std::vector<Tear>& tears, std::vecto
 void Room::draw(sf::RenderTarget& target) const {
     target.draw(m_floor);
     target.draw(m_innerBounds);
+
     for (const auto& rock : m_rocks) {
         target.draw(rock);
     }
     for (const auto& prop : m_props) {
         target.draw(prop.shape);
     }
+    if (m_reward.has_value()) {
+        target.draw(m_reward->pedestal);
+        target.draw(m_reward->icon);
+    }
+
     for (int i = 0; i < 4; ++i) {
         if (m_doors[i]) {
             drawDoor(target, static_cast<Direction>(i));
         }
     }
+
     for (const auto& pickup : m_pickups) {
         target.draw(pickup.shape);
     }
@@ -557,6 +721,9 @@ bool Room::collidesWithWalls(const sf::FloatRect& bounds) const {
         if (Collision::intersects(bounds, prop.shape.getGlobalBounds())) {
             return true;
         }
+    }
+    if (m_reward.has_value() && Collision::intersects(bounds, m_reward->pedestal.getGlobalBounds())) {
+        return true;
     }
     return false;
 }
@@ -679,7 +846,13 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
     const auto blend = [t](std::uint8_t closed, std::uint8_t open) -> std::uint8_t {
         return static_cast<std::uint8_t>(std::round(static_cast<float>(closed) + (static_cast<float>(open) - static_cast<float>(closed)) * t));
     };
-    door.setFillColor(sf::Color(blend(90, 190), blend(60, 160), blend(40, 95)));
+
+    const bool treasureTint = m_roomType == RoomType::Treasure;
+    const sf::Color closedColor = treasureTint ? sf::Color(126, 92, 36) : sf::Color(90, 60, 40);
+    const sf::Color openColor = treasureTint ? sf::Color(222, 184, 72) : sf::Color(190, 160, 95);
+    door.setFillColor(sf::Color(blend(closedColor.r, openColor.r),
+                                blend(closedColor.g, openColor.g),
+                                blend(closedColor.b, openColor.b)));
 
     switch (direction) {
     case Direction::Up:

@@ -40,6 +40,7 @@ void Floor::generate() {
     startRoom.cleared = true;
     startRoom.layoutSeed = Random::rangeInt(0, 100000);
     startRoom.monsterSeed = Random::rangeInt(0, 100000);
+    startRoom.rewardSeed = Random::rangeInt(0, 100000);
     m_rooms.emplace(keyFromGrid(startRoom.gridPosition), startRoom);
 
     const int targetRooms = Random::rangeInt(10, 15);
@@ -63,6 +64,7 @@ void Floor::generate() {
             room.type = RoomType::Normal;
             room.layoutSeed = Random::rangeInt(0, 100000);
             room.monsterSeed = Random::rangeInt(0, 100000);
+            room.rewardSeed = Random::rangeInt(0, 100000);
             m_rooms.emplace(keyFromGrid(candidate), room);
             frontier.push_back(candidate);
 
@@ -81,15 +83,35 @@ void Floor::generate() {
 
     sf::Vector2i farthest = startRoom.gridPosition;
     int bestDistance = -1;
+    std::vector<sf::Vector2i> leaves;
     for (const auto& [_, room] : m_rooms) {
         const int distance = std::abs(room.gridPosition.x) + std::abs(room.gridPosition.y);
         if (distance > bestDistance) {
             bestDistance = distance;
             farthest = room.gridPosition;
         }
+
+        int doorCount = 0;
+        for (bool hasDoor : room.doors) {
+            if (hasDoor) {
+                ++doorCount;
+            }
+        }
+        if (room.gridPosition != startRoom.gridPosition && doorCount == 1) {
+            leaves.push_back(room.gridPosition);
+        }
     }
 
     m_rooms.at(keyFromGrid(farthest)).type = RoomType::Boss;
+    leaves.erase(std::remove(leaves.begin(), leaves.end(), farthest), leaves.end());
+
+    if (!leaves.empty()) {
+        const sf::Vector2i treasurePos = leaves[Random::rangeInt(0, static_cast<int>(leaves.size()) - 1)];
+        RoomData& treasureRoom = m_rooms.at(keyFromGrid(treasurePos));
+        treasureRoom.type = RoomType::Treasure;
+        treasureRoom.cleared = true;
+    }
+
     m_rooms.at(keyFromGrid(startRoom.gridPosition)).type = RoomType::Start;
     m_rooms.at(keyFromGrid(startRoom.gridPosition)).cleared = true;
 }

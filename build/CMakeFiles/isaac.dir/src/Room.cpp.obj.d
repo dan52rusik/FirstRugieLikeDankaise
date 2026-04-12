@@ -296,6 +296,7 @@ CMakeFiles/isaac.dir/src/Room.cpp.obj: \
  C:\MyGames\FirstRugieLikeDankaise\src\items/Pickup.h \
  C:\MyGames\FirstRugieLikeDankaise\src\props/Prop.h \
  C:\MyGames\FirstRugieLikeDankaise\src\Tear.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\items/Item.h \
  C:\MyGames\FirstRugieLikeDankaise\src\monsters/Monster.h \
  C:/msys64/mingw64/include/c++/15.2.0/algorithm \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_algo.h \

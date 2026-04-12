@@ -4,8 +4,11 @@
 
 std::vector<Item> createDefaultItems() {
     return {
-        {"Sad Onion", "+0.7 tears"},
-        {"Wire Coat Hanger", "+1.5 damage"},
-        {"Skateboard", "+0.5 speed"}
+        {"Sad Onion", "Tears up", ItemEffect::TearRate, -0.06f},
+        {"Wire Coat Hanger", "Damage up", ItemEffect::Damage, 1.0f},
+        {"Skateboard", "Speed up", ItemEffect::Speed, 24.0f},
+        {"Rusty Needle", "Tears down", ItemEffect::TearRate, 0.06f},
+        {"Cracked Lens", "Damage down", ItemEffect::Damage, -0.9f},
+        {"Heavy Boots", "Speed down", ItemEffect::Speed, -24.0f}
     };
 }

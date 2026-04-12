@@ -2,11 +2,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <optional>
 #include <vector>
 
 #include "Bomb.h"
 #include "Floor.h"
 #include "Tear.h"
+#include "items/Item.h"
 #include "items/Pickup.h"
 #include "monsters/Monster.h"
 #include "props/Prop.h"
@@ -43,14 +45,24 @@ private:
         std::size_t dataIndex;
     };
 
+    struct RewardInstance {
+        sf::RectangleShape pedestal;
+        sf::CircleShape icon;
+        Item item;
+    };
+
     void buildRocks(int layoutSeed);
     void buildProps(RoomData& roomData);
     void buildMonsters(const RoomData& roomData);
+    void buildReward(RoomData& roomData);
     void rebuildPropInstances();
     void rebuildPickupInstances();
     void breakProp(std::size_t propIndex, const Player& player);
     void collectPickup(std::size_t pickupIndex, Player& player);
+    void collectReward(Player& player);
     void spawnRandomPickup(const sf::Vector2f& position, float chance, const Player& player);
+    bool isTileOccupied(const sf::Vector2i& tile) const;
+    sf::Vector2i findFreeDropTile(const sf::Vector2f& position) const;
     bool isSpawnBlocked(const sf::Vector2f& position) const;
     bool isInDoorOpening(const sf::FloatRect& bounds) const;
     void keepMonsterInPlayableArea(Monster& monster) const;
@@ -64,6 +76,7 @@ private:
     std::vector<sf::RectangleShape> m_rocks;
     std::vector<PropInstance> m_props;
     std::vector<PickupInstance> m_pickups;
+    std::optional<RewardInstance> m_reward;
     std::vector<std::unique_ptr<Monster>> m_monsters;
     bool m_doors[4]{false, false, false, false};
     RoomType m_roomType{RoomType::Normal};

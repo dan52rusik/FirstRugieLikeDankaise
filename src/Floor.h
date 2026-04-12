@@ -10,6 +10,7 @@
 enum class RoomType {
     Start,
     Normal,
+    Treasure,
     Boss
 };
 
@@ -42,6 +43,9 @@ struct RoomData {
     bool doors[4]{false, false, false, false};
     int layoutSeed{0};
     int monsterSeed{0};
+    int rewardSeed{0};
+    int rewardIndex{-1};
+    bool rewardTaken{false};
     bool propsGenerated{false};
     std::vector<PropData> props;
     std::vector<PickupData> pickups;

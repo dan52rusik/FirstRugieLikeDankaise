@@ -298,6 +298,7 @@ CMakeFiles/isaac.dir/src/main.cpp.obj: \
  C:\MyGames\FirstRugieLikeDankaise\src\props/Prop.h \
  C:\MyGames\FirstRugieLikeDankaise\src\Player.h \
  C:\MyGames\FirstRugieLikeDankaise\src\Tear.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\items/Item.h \
  C:\MyGames\FirstRugieLikeDankaise\src\Room.h \
  C:\MyGames\FirstRugieLikeDankaise\src\monsters/Monster.h \
  C:\MyGames\FirstRugieLikeDankaise\src\ui/HUD.h

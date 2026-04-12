@@ -5,6 +5,7 @@
 
 #include "Bomb.h"
 #include "Tear.h"
+#include "items/Item.h"
 
 class Room;
 
@@ -23,6 +24,7 @@ public:
     void addCoins(int amount);
     void addKeys(int amount);
     void addBombs(int amount);
+    void applyItem(const Item& item);
     void setPosition(const sf::Vector2f& position);
     void grantInvincibility(float duration);
 

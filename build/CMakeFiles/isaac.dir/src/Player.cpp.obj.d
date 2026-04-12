@@ -289,6 +289,7 @@ CMakeFiles/isaac.dir/src/Player.cpp.obj: \
  C:/msys64/mingw64/include/SFML/System/Sleep.hpp \
  C:\MyGames\FirstRugieLikeDankaise\src\Bomb.h \
  C:\MyGames\FirstRugieLikeDankaise\src\Tear.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\items/Item.h \
  C:/msys64/mingw64/include/c++/15.2.0/algorithm \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_algo.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/algorithmfwd.h \

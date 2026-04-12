@@ -139,6 +139,20 @@ void Player::addBombs(int amount) {
     m_bombs = std::max(0, m_bombs + amount);
 }
 
+void Player::applyItem(const Item& item) {
+    switch (item.effect) {
+    case ItemEffect::TearRate:
+        m_tearRate = std::clamp(m_tearRate + item.amount, 0.12f, 0.75f);
+        break;
+    case ItemEffect::Damage:
+        m_tearDamage = std::clamp(m_tearDamage + item.amount, 1.0f, 12.0f);
+        break;
+    case ItemEffect::Speed:
+        m_speed = std::clamp(m_speed + item.amount, 140.0f, 340.0f);
+        break;
+    }
+}
+
 void Player::setPosition(const sf::Vector2f& position) {
     m_body.setPosition(position);
     m_head.setPosition({position.x, position.y - 30.0f});

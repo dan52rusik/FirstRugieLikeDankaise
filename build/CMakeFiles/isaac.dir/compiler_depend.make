@@ -623,6 +623,8 @@ CMakeFiles/isaac.dir/src/Floor.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/Fl
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/syslimits.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/xmmintrin.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Floor.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h \
   C:/MyGames/FirstRugieLikeDankaise/src/utils/Random.h
 
 CMakeFiles/isaac.dir/src/Game.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/Game.cpp \
@@ -933,7 +935,9 @@ CMakeFiles/isaac.dir/src/Game.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/Gam
   C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Room.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Tear.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
   C:/MyGames/FirstRugieLikeDankaise/src/monsters/Monster.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h \
   C:/MyGames/FirstRugieLikeDankaise/src/ui/HUD.h
 
 CMakeFiles/isaac.dir/src/Map.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/Map.cpp \
@@ -1232,7 +1236,9 @@ CMakeFiles/isaac.dir/src/Map.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/Map.
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/stdint.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/15.2.0/include/syslimits.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Floor.h \
-  C:/MyGames/FirstRugieLikeDankaise/src/Map.h
+  C:/MyGames/FirstRugieLikeDankaise/src/Map.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h
 
 CMakeFiles/isaac.dir/src/Player.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/Player.cpp \
   C:/msys64/mingw64/include/SFML/Config.hpp \
@@ -1555,7 +1561,9 @@ CMakeFiles/isaac.dir/src/Player.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/P
   C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Room.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Tear.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
   C:/MyGames/FirstRugieLikeDankaise/src/monsters/Monster.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h \
   C:/MyGames/FirstRugieLikeDankaise/src/utils/Collision.h
 
 CMakeFiles/isaac.dir/src/Room.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/Room.cpp \
@@ -1891,13 +1899,16 @@ CMakeFiles/isaac.dir/src/Room.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/Roo
   C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Room.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Tear.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
   C:/MyGames/FirstRugieLikeDankaise/src/monsters/Boss.h \
   C:/MyGames/FirstRugieLikeDankaise/src/monsters/Fly.h \
   C:/MyGames/FirstRugieLikeDankaise/src/monsters/Knight.h \
   C:/MyGames/FirstRugieLikeDankaise/src/monsters/Leech.h \
   C:/MyGames/FirstRugieLikeDankaise/src/monsters/Monster.h \
   C:/MyGames/FirstRugieLikeDankaise/src/monsters/Spider.h \
-  C:/MyGames/FirstRugieLikeDankaise/src/utils/Collision.h
+  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/utils/Collision.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/utils/Random.h
 
 CMakeFiles/isaac.dir/src/Tear.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/Tear.cpp \
   C:/msys64/mingw64/include/SFML/Config.hpp \
@@ -2619,7 +2630,9 @@ CMakeFiles/isaac.dir/src/main.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/mai
   C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Room.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Tear.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
   C:/MyGames/FirstRugieLikeDankaise/src/monsters/Monster.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h \
   C:/MyGames/FirstRugieLikeDankaise/src/ui/HUD.h
 
 CMakeFiles/isaac.dir/src/monsters/Boss.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/monsters/Boss.cpp \
@@ -2628,6 +2641,8 @@ CMakeFiles/isaac.dir/src/monsters/Boss.cpp.obj: C:/MyGames/FirstRugieLikeDankais
   C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Room.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Tear.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h \
   C:/MyGames/FirstRugieLikeDankaise/src/utils/Collision.h \
   C:/msys64/mingw64/include/SFML/Config.hpp \
   C:/msys64/mingw64/include/SFML/Graphics.hpp \
@@ -2947,6 +2962,8 @@ CMakeFiles/isaac.dir/src/monsters/Fly.cpp.obj: C:/MyGames/FirstRugieLikeDankaise
   C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Room.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Tear.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h \
   C:/MyGames/FirstRugieLikeDankaise/src/utils/Collision.h \
   C:/MyGames/FirstRugieLikeDankaise/src/utils/Random.h \
   C:/msys64/mingw64/include/SFML/Config.hpp \
@@ -3280,6 +3297,8 @@ CMakeFiles/isaac.dir/src/monsters/Knight.cpp.obj: C:/MyGames/FirstRugieLikeDanka
   C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Room.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Tear.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h \
   C:/MyGames/FirstRugieLikeDankaise/src/utils/Collision.h \
   C:/msys64/mingw64/include/SFML/Config.hpp \
   C:/msys64/mingw64/include/SFML/Graphics.hpp \
@@ -3599,6 +3618,8 @@ CMakeFiles/isaac.dir/src/monsters/Leech.cpp.obj: C:/MyGames/FirstRugieLikeDankai
   C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Room.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Tear.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h \
   C:/MyGames/FirstRugieLikeDankaise/src/utils/Collision.h \
   C:/msys64/mingw64/include/SFML/Config.hpp \
   C:/msys64/mingw64/include/SFML/Graphics.hpp \
@@ -4211,6 +4232,8 @@ CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj: C:/MyGames/FirstRugieLikeDanka
   C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Room.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Tear.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h \
   C:/MyGames/FirstRugieLikeDankaise/src/utils/Collision.h \
   C:/msys64/mingw64/include/SFML/Config.hpp \
   C:/msys64/mingw64/include/SFML/Graphics.hpp \
@@ -4530,7 +4553,9 @@ CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/u
   C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Room.h \
   C:/MyGames/FirstRugieLikeDankaise/src/Tear.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
   C:/MyGames/FirstRugieLikeDankaise/src/monsters/Monster.h \
+  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h \
   C:/msys64/mingw64/include/SFML/Config.hpp \
   C:/msys64/mingw64/include/SFML/Graphics.hpp \
   C:/msys64/mingw64/include/SFML/Graphics/BlendMode.hpp \
@@ -4867,6 +4892,10 @@ C:/MyGames/FirstRugieLikeDankaise/src/Room.h:
 C:/MyGames/FirstRugieLikeDankaise/src/Map.h:
 
 C:/MyGames/FirstRugieLikeDankaise/src/Game.h:
+
+C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h:
+
+C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h:
 
 C:/MyGames/FirstRugieLikeDankaise/src/Floor.h:
 

@@ -24,11 +24,13 @@ void Map::drawMiniMap(sf::RenderTarget& target, const Floor& floor) const {
             anchor.y + static_cast<float>(room.gridPosition.y) * spacing});
 
         sf::Color fill(130, 130, 130);
-        if (room.type == RoomType::Boss) {
-            fill = sf::Color(180, 70, 70);
-        }
         if (room.visited) {
             fill = sf::Color(220, 220, 220);
+        }
+        if (room.type == RoomType::Boss) {
+            fill = room.visited ? sf::Color(210, 98, 98) : sf::Color(180, 70, 70);
+        } else if (room.type == RoomType::Treasure) {
+            fill = room.visited ? sf::Color(242, 214, 96) : sf::Color(188, 148, 56);
         }
         if (room.gridPosition == floor.getCurrentGridPosition()) {
             fill = sf::Color(245, 220, 80);

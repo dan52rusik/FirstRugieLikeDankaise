@@ -290,6 +290,7 @@ CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj: \
  C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
  C:/MyGames/FirstRugieLikeDankaise/src/Bomb.h \
  C:/MyGames/FirstRugieLikeDankaise/src/Tear.h \
+ C:/MyGames/FirstRugieLikeDankaise/src/items/Item.h \
  C:/MyGames/FirstRugieLikeDankaise/src/Room.h \
  C:/MyGames/FirstRugieLikeDankaise/src/Floor.h \
  C:/msys64/mingw64/include/c++/15.2.0/map \
