@@ -11,46 +11,53 @@
 namespace {
 #if SFML_VERSION_MAJOR < 3
 bool loadFont(sf::Font& font, const char* path) {
-    return font.loadFromFile(path);
+    if (font.loadFromFile(path)) {
+        for (unsigned int size : {12, 14, 16, 18, 20, 21, 22, 24, 32, 48, 54}) {
+            const_cast<sf::Texture&>(font.getTexture(size)).setSmooth(true);
+        }
+        return true;
+    }
+    return false;
 }
 
 void setRotationDegrees(sf::Transformable& transformable, float degrees) {
     transformable.setRotation(degrees);
 }
-
-sf::Text makeText(const sf::Font& font,
-                  unsigned int characterSize,
-                  sf::Color color,
-                  sf::Vector2f position,
-                  const sf::String& string = {}) {
-    sf::Text text;
-    text.setFont(font);
-    text.setCharacterSize(characterSize);
-    text.setFillColor(color);
-    text.setPosition(position);
-    text.setString(string);
-    return text;
-}
 #else
 bool loadFont(sf::Font& font, const char* path) {
-    return font.openFromFile(path);
+    if (font.openFromFile(path)) {
+        const_cast<sf::Texture&>(font.getTexture(24)).setSmooth(true);
+        const_cast<sf::Texture&>(font.getTexture(16)).setSmooth(true);
+        return true;
+    }
+    return false;
 }
 
 void setRotationDegrees(sf::Transformable& transformable, float degrees) {
     transformable.setRotation(sf::degrees(degrees));
 }
+#endif
+
+// Вспомогательная функция перевода координат из логических 960x720 в пиксели окна
+inline sf::Vector2f toScreen(sf::Vector2f logicalPos, sf::Vector2f origin, float scale) {
+    return {origin.x + logicalPos.x * scale, origin.y + logicalPos.y * scale};
+}
 
 sf::Text makeText(const sf::Font& font,
-                  unsigned int characterSize,
+                  unsigned int logicalSize,
                   sf::Color color,
-                  sf::Vector2f position,
+                  sf::Vector2f screenPos,
+                  float scale,
                   const sf::String& string = {}) {
-    sf::Text text(font, string, characterSize);
+    // Ключевой момент: запрашиваем шрифт нужного физического размера!
+    sf::Text text;
+    text.setFont(font);
+    text.setString(string);
+    text.setCharacterSize(static_cast<unsigned int>(static_cast<float>(logicalSize) * scale));
     text.setFillColor(color);
-    text.setPosition(position);
+    text.setPosition(screenPos);
     return text;
 }
-#endif
 
 std::string formatFloat(float value, int decimals) {
     const float scale = std::pow(10.0f, static_cast<float>(decimals));
@@ -155,7 +162,7 @@ HUD::HUD() : m_hasFont(false) {
     }
 }
 
-void HUD::drawDigit(sf::RenderTarget& target, sf::Vector2f position, int digit, sf::Color color, float scale) const {
+void HUD::drawDigit(sf::RenderTarget& target, sf::Vector2f position, int digit, sf::Color color, float scale, sf::Vector2f origin, float uiScale) const {
     static const bool kSegments[10][7] = {
         {true, true, true, false, true, true, true},
         {false, false, true, false, false, true, false},
@@ -173,120 +180,122 @@ void HUD::drawDigit(sf::RenderTarget& target, sf::Vector2f position, int digit, 
         return;
     }
 
+    // Логические размеры сегментов (без учета uiScale, так как toScreen его применит)
     const float w = 10.0f * scale;
     const float h = 18.0f * scale;
     const float t = 2.0f * scale;
 
     auto drawSegment = [&](sf::Vector2f segmentPos, sf::Vector2f size) {
-        sf::RectangleShape rect(size);
-        rect.setPosition(segmentPos);
+        // Размер прямоугольника должен быть физическим (умноженным на uiScale)
+        sf::RectangleShape rect({size.x * uiScale, size.y * uiScale});
+        rect.setPosition(toScreen(position + segmentPos, origin, uiScale));
         rect.setFillColor(color);
         target.draw(rect);
     };
 
     if (kSegments[digit][0]) {
-        drawSegment({position.x, position.y}, {w, t});
+        drawSegment({0.0f, 0.0f}, {w, t});
     }
     if (kSegments[digit][1]) {
-        drawSegment({position.x, position.y}, {t, h * 0.5f});
+        drawSegment({0.0f, 0.0f}, {t, h * 0.5f});
     }
     if (kSegments[digit][2]) {
-        drawSegment({position.x + w - t, position.y}, {t, h * 0.5f});
+        drawSegment({w - t, 0.0f}, {t, h * 0.5f});
     }
     if (kSegments[digit][3]) {
-        drawSegment({position.x, position.y + h * 0.5f - t * 0.5f}, {w, t});
+        drawSegment({0.0f, h * 0.5f - t * 0.5f}, {w, t});
     }
     if (kSegments[digit][4]) {
-        drawSegment({position.x, position.y + h * 0.5f}, {t, h * 0.5f});
+        drawSegment({0.0f, h * 0.5f}, {t, h * 0.5f});
     }
     if (kSegments[digit][5]) {
-        drawSegment({position.x + w - t, position.y + h * 0.5f}, {t, h * 0.5f});
+        drawSegment({w - t, h * 0.5f}, {t, h * 0.5f});
     }
     if (kSegments[digit][6]) {
-        drawSegment({position.x, position.y + h - t}, {w, t});
+        drawSegment({0.0f, h - t}, {w, t});
     }
 }
 
-void HUD::drawNumber(sf::RenderTarget& target, sf::Vector2f position, int value, sf::Color color, float scale) const {
+void HUD::drawNumber(sf::RenderTarget& target, sf::Vector2f position, int value, sf::Color color, float scale, sf::Vector2f origin, float uiScale) const {
     const std::string digits = std::to_string(std::max(0, value));
     for (std::size_t i = 0; i < digits.size(); ++i) {
-        drawDigit(target, {position.x + static_cast<float>(i) * 13.0f * scale, position.y}, digits[i] - '0', color, scale);
+        drawDigit(target, {position.x + static_cast<float>(i) * 13.0f * scale, position.y}, digits[i] - '0', color, scale, origin, uiScale);
     }
 }
 
-void HUD::drawCoinIcon(sf::RenderTarget& target, sf::Vector2f center) const {
-    sf::CircleShape coin(6.0f);
-    coin.setOrigin({6.0f, 6.0f});
-    coin.setPosition(center);
+void HUD::drawCoinIcon(sf::RenderTarget& target, sf::Vector2f center, sf::Vector2f origin, float scale) const {
+    sf::CircleShape coin(6.0f * scale);
+    coin.setOrigin({6.0f * scale, 6.0f * scale});
+    coin.setPosition(toScreen(center, origin, scale));
     coin.setFillColor(sf::Color(236, 204, 82));
     target.draw(coin);
 
-    sf::RectangleShape shine({4.0f, 2.0f});
-    shine.setPosition({center.x - 1.0f, center.y - 4.0f});
+    sf::RectangleShape shine({4.0f * scale, 2.0f * scale});
+    shine.setPosition(toScreen({center.x - 1.0f, center.y - 4.0f}, origin, scale));
     shine.setFillColor(sf::Color(255, 236, 154));
     target.draw(shine);
 }
 
-void HUD::drawKeyIcon(sf::RenderTarget& target, sf::Vector2f center) const {
-    sf::CircleShape ring(4.0f);
-    ring.setOrigin({4.0f, 4.0f});
-    ring.setPosition({center.x - 4.0f, center.y});
+void HUD::drawKeyIcon(sf::RenderTarget& target, sf::Vector2f center, sf::Vector2f origin, float scale) const {
+    sf::CircleShape ring(4.0f * scale);
+    ring.setOrigin({4.0f * scale, 4.0f * scale});
+    ring.setPosition(toScreen({center.x - 4.0f, center.y}, origin, scale));
     ring.setFillColor(sf::Color::Transparent);
-    ring.setOutlineThickness(2.0f);
+    ring.setOutlineThickness(2.0f * scale);
     ring.setOutlineColor(sf::Color(210, 210, 210));
     target.draw(ring);
 
-    sf::RectangleShape shaft({11.0f, 2.0f});
-    shaft.setPosition({center.x - 1.0f, center.y - 1.0f});
+    sf::RectangleShape shaft({11.0f * scale, 2.0f * scale});
+    shaft.setPosition(toScreen({center.x - 1.0f, center.y - 1.0f}, origin, scale));
     shaft.setFillColor(sf::Color(210, 210, 210));
     target.draw(shaft);
 
-    sf::RectangleShape toothA({2.0f, 4.0f});
-    toothA.setPosition({center.x + 6.0f, center.y - 1.0f});
+    sf::RectangleShape toothA({2.0f * scale, 4.0f * scale});
+    toothA.setPosition(toScreen({center.x + 6.0f, center.y - 1.0f}, origin, scale));
     toothA.setFillColor(sf::Color(210, 210, 210));
     target.draw(toothA);
 
-    sf::RectangleShape toothB({2.0f, 3.0f});
-    toothB.setPosition({center.x + 10.0f, center.y - 1.0f});
+    sf::RectangleShape toothB({2.0f * scale, 3.0f * scale});
+    toothB.setPosition(toScreen({center.x + 10.0f, center.y - 1.0f}, origin, scale));
     toothB.setFillColor(sf::Color(210, 210, 210));
     target.draw(toothB);
 }
 
-void HUD::drawBombIcon(sf::RenderTarget& target, sf::Vector2f center) const {
-    sf::CircleShape bomb(6.0f);
-    bomb.setOrigin({6.0f, 6.0f});
-    bomb.setPosition(center);
+void HUD::drawBombIcon(sf::RenderTarget& target, sf::Vector2f center, sf::Vector2f origin, float scale) const {
+    sf::CircleShape bomb(6.0f * scale);
+    bomb.setOrigin({6.0f * scale, 6.0f * scale});
+    bomb.setPosition(toScreen(center, origin, scale));
     bomb.setFillColor(sf::Color(54, 54, 58));
     target.draw(bomb);
 
-    sf::RectangleShape fuse({5.0f, 2.0f});
-    fuse.setPosition({center.x + 2.0f, center.y - 7.0f});
+    sf::RectangleShape fuse({5.0f * scale, 2.0f * scale});
+    fuse.setPosition(toScreen({center.x + 2.0f, center.y - 7.0f}, origin, scale));
     setRotationDegrees(fuse, -35.0f);
     fuse.setFillColor(sf::Color(184, 132, 72));
     target.draw(fuse);
 
-    sf::CircleShape spark(2.0f);
-    spark.setOrigin({2.0f, 2.0f});
-    spark.setPosition({center.x + 7.0f, center.y - 9.0f});
+    sf::CircleShape spark(2.0f * scale);
+    spark.setOrigin({2.0f * scale, 2.0f * scale});
+    spark.setPosition(toScreen({center.x + 7.0f, center.y - 9.0f}, origin, scale));
     spark.setFillColor(sf::Color(250, 210, 94));
     target.draw(spark);
 }
 
-void HUD::drawHeart(sf::RenderTarget& target, sf::Vector2f center, sf::Color color, float scale) const {
-    sf::CircleShape leftLobe(7.0f * scale);
-    leftLobe.setOrigin({7.0f * scale, 7.0f * scale});
-    leftLobe.setPosition({center.x - 5.0f * scale, center.y - 5.0f * scale});
+void HUD::drawHeart(sf::RenderTarget& target, sf::Vector2f center, sf::Color color, float scale, sf::Vector2f origin, float uiScale) const {
+    sf::CircleShape leftLobe(7.0f * scale * uiScale);
+    leftLobe.setOrigin({7.0f * scale * uiScale, 7.0f * scale * uiScale});
+    leftLobe.setPosition(toScreen({center.x - 5.0f * scale, center.y - 5.0f * scale}, origin, uiScale));
     leftLobe.setFillColor(color);
 
-    sf::CircleShape rightLobe(7.0f * scale);
-    rightLobe.setOrigin({7.0f * scale, 7.0f * scale});
-    rightLobe.setPosition({center.x + 5.0f * scale, center.y - 5.0f * scale});
+    sf::CircleShape rightLobe(7.0f * scale * uiScale);
+    rightLobe.setOrigin({7.0f * scale * uiScale, 7.0f * scale * uiScale});
+    rightLobe.setPosition(toScreen({center.x + 5.0f * scale, center.y - 5.0f * scale}, origin, uiScale));
     rightLobe.setFillColor(color);
 
     sf::ConvexShape tip(3);
-    tip.setPoint(0, {center.x - 13.0f * scale, center.y - 1.0f * scale});
-    tip.setPoint(1, {center.x + 13.0f * scale, center.y - 1.0f * scale});
-    tip.setPoint(2, {center.x, center.y + 16.0f * scale});
+    tip.setPoint(0, toScreen({center.x - 13.0f * scale, center.y - 1.0f * scale}, origin, uiScale));
+    tip.setPoint(1, toScreen({center.x + 13.0f * scale, center.y - 1.0f * scale}, origin, uiScale));
+    tip.setPoint(2, toScreen({center.x, center.y + 16.0f * scale}, origin, uiScale));
     tip.setFillColor(color);
 
     target.draw(leftLobe);
@@ -294,15 +303,15 @@ void HUD::drawHeart(sf::RenderTarget& target, sf::Vector2f center, sf::Color col
     target.draw(tip);
 }
 
-void HUD::draw(sf::RenderTarget& target, const Player& player) const {
+void HUD::draw(sf::RenderTarget& target, const Player& player, sf::Vector2f origin, float scale) const {
     const int hearts = (player.getMaxHp() + 1) / 2;
     const int currentHp = player.getHp();
 
-    sf::RectangleShape heartPanel({122.0f, 48.0f});
-    heartPanel.setPosition({14.0f, 658.0f});
+    sf::RectangleShape heartPanel({122.0f * scale, 48.0f * scale});
+    heartPanel.setPosition(toScreen({14.0f, 658.0f}, origin, scale));
     heartPanel.setFillColor(sf::Color(18, 12, 10, 180));
     heartPanel.setOutlineColor(sf::Color(88, 64, 52, 220));
-    heartPanel.setOutlineThickness(2.0f);
+    heartPanel.setOutlineThickness(2.0f * scale);
     target.draw(heartPanel);
 
     for (int i = 0; i < hearts; ++i) {
@@ -310,44 +319,47 @@ void HUD::draw(sf::RenderTarget& target, const Player& player) const {
         const float y = 682.0f;
         const sf::Vector2f center(x, y);
 
-        drawHeart(target, center, sf::Color(55, 22, 24), 0.95f);
+        drawHeart(target, center, sf::Color(55, 22, 24), 0.95f, origin, scale);
 
         const int hpForHeart = currentHp - i * 2;
         if (hpForHeart >= 2) {
-            drawHeart(target, center, sf::Color(215, 42, 60), 0.85f);
+            drawHeart(target, center, sf::Color(215, 42, 60), 0.85f, origin, scale);
         } else if (hpForHeart == 1) {
-            drawHeart(target, center, sf::Color(238, 144, 152), 0.85f);
+            drawHeart(target, center, sf::Color(238, 144, 152), 0.85f, origin, scale);
         }
     }
 
-    sf::RectangleShape resourcePanel({230.0f, 44.0f});
-    resourcePanel.setPosition({18.0f, 18.0f});
+    sf::RectangleShape resourcePanel({230.0f * scale, 44.0f * scale});
+    resourcePanel.setPosition(toScreen({18.0f, 18.0f}, origin, scale));
     resourcePanel.setFillColor(sf::Color(18, 12, 10, 176));
     resourcePanel.setOutlineColor(sf::Color(88, 64, 52, 220));
-    resourcePanel.setOutlineThickness(2.0f);
+    resourcePanel.setOutlineThickness(2.0f * scale);
     target.draw(resourcePanel);
 
-    drawCoinIcon(target, {38.0f, 40.0f});
-    drawNumber(target, {52.0f, 31.0f}, player.getCoins(), sf::Color(244, 235, 221), 1.1f);
+    drawCoinIcon(target, {38.0f, 40.0f}, origin, scale);
+    drawNumber(target, {52.0f, 31.0f}, player.getCoins(), sf::Color(244, 235, 221), 1.1f, origin, scale);
 
-    drawKeyIcon(target, {112.0f, 40.0f});
-    drawNumber(target, {128.0f, 31.0f}, player.getKeys(), sf::Color(244, 235, 221), 1.1f);
+    drawKeyIcon(target, {112.0f, 40.0f}, origin, scale);
+    drawNumber(target, {128.0f, 31.0f}, player.getKeys(), sf::Color(244, 235, 221), 1.1f, origin, scale);
 
-    drawBombIcon(target, {184.0f, 40.0f});
-    drawNumber(target, {198.0f, 31.0f}, player.getBombs(), sf::Color(244, 235, 221), 1.1f);
+    drawBombIcon(target, {184.0f, 40.0f}, origin, scale);
+    drawNumber(target, {198.0f, 31.0f}, player.getBombs(), sf::Color(244, 235, 221), 1.1f, origin, scale);
 }
 
 void HUD::drawStatsPanel(sf::RenderTarget& target,
                          const Player& player,
                          const std::optional<Item>& recentItem,
                          float recentItemAlpha,
-                         bool expanded) const {
+                         bool expanded,
+                         sf::Vector2f origin, float scale) const {
     if (!m_hasFont) {
         return;
     }
 
-    const sf::Vector2f panelSize = expanded ? sf::Vector2f(246.0f, 184.0f) : sf::Vector2f(212.0f, 118.0f);
-    const sf::Vector2f panelPosition(18.0f, 72.0f);
+    const sf::Vector2f panelSize = expanded ? sf::Vector2f(246.0f * scale, 184.0f * scale) : sf::Vector2f(212.0f * scale, 118.0f * scale);
+    const sf::Vector2f panelLogicalPos(18.0f, 72.0f);
+    const sf::Vector2f panelPosition = toScreen(panelLogicalPos, origin, scale);
+    
     const unsigned int titleSize = expanded ? 18u : 14u;
     const unsigned int valueSize = expanded ? 21u : 16u;
     const unsigned int deltaSize = expanded ? 16u : 12u;
@@ -358,12 +370,12 @@ void HUD::drawStatsPanel(sf::RenderTarget& target,
     panel.setPosition(panelPosition);
     panel.setFillColor(sf::Color(18, 12, 10, expanded ? 210 : 176));
     panel.setOutlineColor(sf::Color(88, 64, 52, 220));
-    panel.setOutlineThickness(2.0f);
+    panel.setOutlineThickness(2.0f * scale);
     target.draw(panel);
 
     if (expanded) {
         sf::Text title = makeText(m_font, titleSize, sf::Color(232, 220, 202),
-                                  {panelPosition.x + 12.0f, panelPosition.y + 8.0f}, "STATS");
+                                  toScreen({panelLogicalPos.x + 12.0f, panelLogicalPos.y + 8.0f}, origin, scale), scale, "STATS");
         target.draw(title);
     }
 
@@ -376,57 +388,61 @@ void HUD::drawStatsPanel(sf::RenderTarget& target,
                               const std::string& fallbackDelta,
                               float y) {
         sf::Text labelText = makeText(m_font, deltaSize, sf::Color(176, 158, 142),
-                                      {panelPosition.x + 12.0f, y}, label);
+                                      toScreen({panelLogicalPos.x + 12.0f, y}, origin, scale), scale, label);
         target.draw(labelText);
 
         sf::Text valueText = makeText(m_font, valueSize, sf::Color(244, 235, 221),
-                                      {panelPosition.x + 82.0f, y - 4.0f}, value);
+                                      toScreen({panelLogicalPos.x + 82.0f, y - 4.0f}, origin, scale), scale, value);
         target.draw(valueText);
 
         if (highlight != nullptr && highlight->effect == effect) {
             sf::Text deltaText = makeText(m_font, deltaSize, itemAccentColor(effect, highlight->amount, deltaAlpha),
-                                          {panelPosition.x + 132.0f, y}, statDeltaText(player, *highlight));
+                                          toScreen({panelLogicalPos.x + 132.0f, y}, origin, scale), scale, statDeltaText(player, *highlight));
             target.draw(deltaText);
         } else if (expanded && !fallbackDelta.empty()) {
             sf::Text deltaText = makeText(m_font, deltaSize, sf::Color(110, 96, 86),
-                                          {panelPosition.x + 132.0f, y}, fallbackDelta);
+                                          toScreen({panelLogicalPos.x + 132.0f, y}, origin, scale), scale, fallbackDelta);
             target.draw(deltaText);
         }
     };
 
-    drawLine("DMG", statValueText(player, ItemEffect::Damage), ItemEffect::Damage, "", panelPosition.y + rowStart);
-    drawLine("TEARS", statValueText(player, ItemEffect::TearRate), ItemEffect::TearRate, "delay", panelPosition.y + rowStart + rowStep);
-    drawLine("SPEED", statValueText(player, ItemEffect::Speed), ItemEffect::Speed, "move", panelPosition.y + rowStart + rowStep * 2.0f);
+    drawLine("DMG", statValueText(player, ItemEffect::Damage), ItemEffect::Damage, "", panelLogicalPos.y + rowStart);
+    drawLine("TEARS", statValueText(player, ItemEffect::TearRate), ItemEffect::TearRate, "delay", panelLogicalPos.y + rowStart + rowStep);
+    drawLine("SPEED", statValueText(player, ItemEffect::Speed), ItemEffect::Speed, "move", panelLogicalPos.y + rowStart + rowStep * 2.0f);
 
     sf::Text luckLabel = makeText(m_font, deltaSize, sf::Color(176, 158, 142),
-                                  {panelPosition.x + 12.0f, panelPosition.y + rowStart + rowStep * 3.0f}, "LUCK");
+                                  toScreen({panelLogicalPos.x + 12.0f, panelLogicalPos.y + rowStart + rowStep * 3.0f}, origin, scale), scale, "LUCK");
     target.draw(luckLabel);
 
     sf::Text luckValue = makeText(m_font, valueSize, sf::Color(244, 235, 221),
-                                  {panelPosition.x + 82.0f, panelPosition.y + rowStart + rowStep * 3.0f - 4.0f},
+                                  toScreen({panelLogicalPos.x + 82.0f, panelLogicalPos.y + rowStart + rowStep * 3.0f - 4.0f}, origin, scale), scale,
                                   formatFloat(player.getLuck(), 1));
     target.draw(luckValue);
+
+    // Метка версии
+    sf::Text version = makeText(m_font, 12, sf::Color(100, 100, 100), toScreen({10.0f, 700.0f}, origin, scale), scale, "v0.3-SHARP");
+    target.draw(version);
 }
 
-void HUD::drawBossBar(sf::RenderTarget& target, const Room& room) const {
+void HUD::drawBossBar(sf::RenderTarget& target, const Room& room, sf::Vector2f origin, float scale) const {
     if (!room.hasBoss()) {
         return;
     }
 
-    sf::RectangleShape panel({560.0f, 30.0f});
-    panel.setPosition({200.0f, 674.0f});
+    sf::RectangleShape panel({560.0f * scale, 30.0f * scale});
+    panel.setPosition(toScreen({200.0f, 674.0f}, origin, scale));
     panel.setFillColor(sf::Color(20, 10, 10, 210));
     panel.setOutlineColor(sf::Color(130, 100, 70));
-    panel.setOutlineThickness(2.0f);
+    panel.setOutlineThickness(2.0f * scale);
     target.draw(panel);
 
-    sf::RectangleShape barBg({536.0f, 12.0f});
-    barBg.setPosition({212.0f, 683.0f});
+    sf::RectangleShape barBg({536.0f * scale, 12.0f * scale});
+    barBg.setPosition(toScreen({212.0f, 683.0f}, origin, scale));
     barBg.setFillColor(sf::Color(60, 24, 20));
     target.draw(barBg);
 
-    sf::RectangleShape barFill({536.0f * room.getBossHpRatio(), 12.0f});
-    barFill.setPosition({212.0f, 683.0f});
+    sf::RectangleShape barFill({536.0f * scale * room.getBossHpRatio(), 12.0f * scale});
+    barFill.setPosition(toScreen({212.0f, 683.0f}, origin, scale));
     barFill.setFillColor(sf::Color(200, 55, 42));
     target.draw(barFill);
 
@@ -434,27 +450,27 @@ void HUD::drawBossBar(sf::RenderTarget& target, const Room& room) const {
         return;
     }
 
-    sf::Text label = makeText(m_font, 18, sf::Color(246, 232, 210), {214.0f, 656.0f}, "BOSS");
+    sf::Text label = makeText(m_font, 18, sf::Color(246, 232, 210), toScreen({214.0f, 656.0f}, origin, scale), scale, "BOSS");
     target.draw(label);
 }
 
-void HUD::drawItemPickup(sf::RenderTarget& target, const Item& item, float timeRemaining) const {
+void HUD::drawItemPickup(sf::RenderTarget& target, const Item& item, float timeRemaining, sf::Vector2f origin, float scale) const {
     if (!m_hasFont) {
         return;
     }
 
     const float alpha = std::clamp(timeRemaining, 0.0f, 1.0f);
 
-    sf::RectangleShape panel({360.0f, 72.0f});
-    panel.setPosition({300.0f, 34.0f});
+    sf::RectangleShape panel({360.0f * scale, 72.0f * scale});
+    panel.setPosition(toScreen({300.0f, 34.0f}, origin, scale));
     panel.setFillColor(sf::Color(18, 12, 10, static_cast<std::uint8_t>(220.0f * alpha)));
     panel.setOutlineColor(sf::Color(156, 126, 74, static_cast<std::uint8_t>(255.0f * alpha)));
-    panel.setOutlineThickness(2.0f);
+    panel.setOutlineThickness(2.0f * scale);
     target.draw(panel);
 
-    sf::CircleShape icon(11.0f);
-    icon.setOrigin({11.0f, 11.0f});
-    icon.setPosition({332.0f, 70.0f});
+    sf::CircleShape icon(11.0f * scale);
+    icon.setOrigin({11.0f * scale, 11.0f * scale});
+    icon.setPosition(toScreen({332.0f, 70.0f}, origin, scale));
     switch (item.effect) {
     case ItemEffect::TearRate:
         icon.setFillColor(item.amount < 0.0f ? sf::Color(178, 228, 255) : sf::Color(118, 148, 188));
@@ -471,24 +487,24 @@ void HUD::drawItemPickup(sf::RenderTarget& target, const Item& item, float timeR
     sf::Text title = makeText(
         m_font, 24,
         sf::Color(246, 232, 210, static_cast<std::uint8_t>(255.0f * alpha)),
-        {356.0f, 42.0f}, item.name);
+        toScreen({356.0f, 42.0f}, origin, scale), scale, item.name);
     target.draw(title);
 
     sf::Text subtitle = makeText(
         m_font, 18,
         sf::Color(220, 206, 184, static_cast<std::uint8_t>(255.0f * alpha)),
-        {356.0f, 69.0f}, item.description + "  (" + itemDeltaText(item) + ")");
+        toScreen({356.0f, 69.0f}, origin, scale), scale, item.description + "  (" + itemDeltaText(item) + ")");
     target.draw(subtitle);
 }
 
-void HUD::drawGameOver(sf::RenderTarget& target) const {
+void HUD::drawGameOver(sf::RenderTarget& target, sf::Vector2f origin, float scale) const {
     if (!m_hasFont) {
         return;
     }
 
-    sf::Text title = makeText(m_font, 54, sf::Color(230, 218, 206), {318.0f, 248.0f}, "GAME OVER");
+    sf::Text title = makeText(m_font, 54, sf::Color(230, 218, 206), toScreen({318.0f, 248.0f}, origin, scale), scale, "GAME OVER");
     target.draw(title);
 
-    sf::Text hint = makeText(m_font, 22, sf::Color(214, 188, 168), {338.0f, 322.0f}, "Press R to restart");
+    sf::Text hint = makeText(m_font, 22, sf::Color(214, 188, 168), toScreen({338.0f, 322.0f}, origin, scale), scale, "Press R to restart");
     target.draw(hint);
 }

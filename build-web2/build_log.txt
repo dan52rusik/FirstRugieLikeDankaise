@@ -1,0 +1,66 @@
+[ 19%] Built target sfml-system
+[ 44%] Built target sfml-window
+[ 79%] Built target sfml-graphics
+[ 80%] Building CXX object CMakeFiles/isaac.dir/src/ui/HUD.cpp.o
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:203:26: error: use of undeclared identifier 'toScreen'
+  203 |         rect.setPosition(toScreen(position + segmentPos, origin, uiScale));
+      |                          ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:241:22: error: use of undeclared identifier 'toScreen'
+  241 |     coin.setPosition(toScreen(center, origin, scale));
+      |                      ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:246:23: error: use of undeclared identifier 'toScreen'
+  246 |     shine.setPosition(toScreen({center.x - 1.0f, center.y - 4.0f}, origin, scale));
+      |                       ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:254:22: error: use of undeclared identifier 'toScreen'
+  254 |     ring.setPosition(toScreen({center.x - 4.0f, center.y}, origin, scale));
+      |                      ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:261:23: error: use of undeclared identifier 'toScreen'
+  261 |     shaft.setPosition(toScreen({center.x - 1.0f, center.y - 1.0f}, origin, scale));
+      |                       ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:266:24: error: use of undeclared identifier 'toScreen'
+  266 |     toothA.setPosition(toScreen({center.x + 6.0f, center.y - 1.0f}, origin, scale));
+      |                        ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:271:24: error: use of undeclared identifier 'toScreen'
+  271 |     toothB.setPosition(toScreen({center.x + 10.0f, center.y - 1.0f}, origin, scale));
+      |                        ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:279:22: error: use of undeclared identifier 'toScreen'
+  279 |     bomb.setPosition(toScreen(center, origin, scale));
+      |                      ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:284:22: error: use of undeclared identifier 'toScreen'
+  284 |     fuse.setPosition(toScreen({center.x + 2.0f, center.y - 7.0f}, origin, scale));
+      |                      ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:291:23: error: use of undeclared identifier 'toScreen'
+  291 |     spark.setPosition(toScreen({center.x + 7.0f, center.y - 9.0f}, origin, scale));
+      |                       ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:299:26: error: use of undeclared identifier 'toScreen'
+  299 |     leftLobe.setPosition(toScreen({center.x - 5.0f * scale, center.y - 5.0f * scale}, origin, uiScale));
+      |                          ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:304:27: error: use of undeclared identifier 'toScreen'
+  304 |     rightLobe.setPosition(toScreen({center.x + 5.0f * scale, center.y - 5.0f * scale}, origin, uiScale));
+      |                           ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:308:21: error: use of undeclared identifier 'toScreen'
+  308 |     tip.setPoint(0, toScreen({center.x - 13.0f * scale, center.y - 1.0f * scale}, origin, uiScale));
+      |                     ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:309:21: error: use of undeclared identifier 'toScreen'
+  309 |     tip.setPoint(1, toScreen({center.x + 13.0f * scale, center.y - 1.0f * scale}, origin, uiScale));
+      |                     ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:310:21: error: use of undeclared identifier 'toScreen'
+  310 |     tip.setPoint(2, toScreen({center.x, center.y + 16.0f * scale}, origin, uiScale));
+      |                     ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:323:28: error: use of undeclared identifier 'toScreen'
+  323 |     heartPanel.setPosition(toScreen({14.0f, 658.0f}, origin, scale));
+      |                            ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:345:31: error: use of undeclared identifier 'toScreen'
+  345 |     resourcePanel.setPosition(toScreen({18.0f, 18.0f}, origin, scale));
+      |                               ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:373:40: error: use of undeclared identifier 'toScreen'
+  373 |     const sf::Vector2f panelPosition = toScreen(panelLogicalPos, origin, scale);
+      |                                        ^~~~~~~~
+C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp:390:35: error: use of undeclared identifier 'toScreen'
+  390 |                                   toScreen({panelLogicalPos.x + 12.0f, panelLogicalPos.y + 8.0f}, origin, scale), scale, "STATS");
+      |                                   ^~~~~~~~
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
+mingw32-make[2]: *** [CMakeFiles\isaac.dir\build.make:319: CMakeFiles/isaac.dir/src/ui/HUD.cpp.o] Error 1
+mingw32-make[1]: *** [CMakeFiles\Makefile2:194: CMakeFiles/isaac.dir/all] Error 2
+mingw32-make: *** [Makefile:143: all] Error 2

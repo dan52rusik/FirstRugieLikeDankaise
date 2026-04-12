@@ -38,6 +38,11 @@ Game::Game()
       m_gameOver(false) {
     m_window.setVerticalSyncEnabled(true);
     
+    // Создаем буфер для отрисовки всей игры в фиксированном разрешении
+    // Это секрет четкости в браузерах!
+    m_uiBuffer.create(960, 720);
+    m_uiBuffer.setSmooth(false); // КЛЮЧЕВОЙ МОМЕНТ: отключаем сглаживание
+    
     // Начальная настройка вида с сохранением пропорций
     sf::View view(sf::FloatRect({0, 0}, {960, 720}));
     m_window.setView(view);
@@ -210,35 +215,70 @@ void Game::update(float dt) {
 void Game::render() {
     const bool expandedMap = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Tab);
 
-    m_window.clear(sf::Color(25, 20, 18));
-    m_room.draw(m_window);
+    // Рисуем всё на внутренний холст 960x720
+    m_uiBuffer.clear(sf::Color(25, 20, 18));
+    m_room.draw(m_uiBuffer);
 
     for (const auto& tear : m_tears) {
-        tear.draw(m_window);
+        tear.draw(m_uiBuffer);
     }
     for (const auto& bomb : m_bombs) {
-        bomb.draw(m_window);
+        bomb.draw(m_uiBuffer);
     }
 
-    m_player.draw(m_window, m_renderAlpha);
-    m_map.drawMiniMap(m_window, m_floor, expandedMap);
-    m_hud.draw(m_window, m_player);
+    m_player.draw(m_uiBuffer, m_renderAlpha);
+    m_map.drawMiniMap(m_uiBuffer, m_floor, expandedMap);
+    
+    // ВАЖНО: Мы больше не рисуем HUD здесь (в буфер 960x720), 
+    // потому что теперь мы рисуем его ниже напрямую в HD!
+    m_uiBuffer.display();
+
+    // Теперь выводим этот холст в настоящее окно с ЧЕТКИМ масштабированием
+    m_window.clear(sf::Color::Black);
+    
+    sf::Sprite screenSprite(m_uiBuffer.getTexture());
+    
+    // Рассчитываем масштаб так, чтобы игра занимала максимум места
+    float scaleX = static_cast<float>(m_window.getSize().x) / 960.0f;
+    float scaleY = static_cast<float>(m_window.getSize().y) / 720.0f;
+    float scale = std::min(scaleX, scaleY);
+
+    m_window.setView(m_window.getDefaultView()); // Используем нативное разрешение окна
+    
+    // Масштабируем игровой экран
+    screenSprite.setScale({scale, scale});
+    
+    // Смещение игровой области в пикселях окна
+    sf::Vector2f hudOrigin(
+        (m_window.getSize().x - 960.0f * scale) / 2.0f,
+        (m_window.getSize().y - 720.0f * scale) / 2.0f
+    );
+    
+    screenSprite.setPosition(hudOrigin);
+    m_window.draw(screenSprite);
+
+    // --- ОТРИСОВКА HD ИНТЕРФЕЙСА (HUD) ---
+    // Теперь рисуем напрямую в окно, используя физические пиксели
+    m_hud.draw(m_window, m_player, hudOrigin, scale);
     m_hud.drawStatsPanel(
         m_window,
         m_player,
         m_itemPickupNotification,
         std::min(1.0f, m_itemPickupTimer),
-        expandedMap);
-    m_hud.drawBossBar(m_window, m_room);
+        expandedMap,
+        hudOrigin,
+        scale);
+    m_hud.drawBossBar(m_window, m_room, hudOrigin, scale);
     if (m_itemPickupNotification.has_value()) {
-        m_hud.drawItemPickup(m_window, *m_itemPickupNotification, std::min(1.0f, m_itemPickupTimer));
+        m_hud.drawItemPickup(m_window, *m_itemPickupNotification, std::min(1.0f, m_itemPickupTimer), hudOrigin, scale);
     }
 
     if (m_gameOver) {
-        sf::RectangleShape overlay({960.0f, 720.0f});
+        sf::RectangleShape overlay({960.0f * scale, 720.0f * scale});
+        overlay.setPosition(hudOrigin);
         overlay.setFillColor(sf::Color(0, 0, 0, 188));
         m_window.draw(overlay);
-        m_hud.drawGameOver(m_window);
+        m_hud.drawGameOver(m_window, hudOrigin, scale);
     }
 
     m_window.display();
