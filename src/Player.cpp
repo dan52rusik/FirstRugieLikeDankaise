@@ -68,12 +68,27 @@ void Player::update(float dt, const Room& room) {
     const sf::Vector2f direction = Collision::normalize(m_moveInput);
     const sf::Vector2f delta = Collision::scale(direction, m_speed * dt);
 
-    sf::Vector2f nextBody = Collision::add(m_body.getPosition(), delta);
-    sf::FloatRect nextBounds({nextBody.x - 14.0f, nextBody.y - 14.0f}, {28.0f, 28.0f});
-    if (!room.collidesWithWalls(nextBounds)) {
-        m_body.setPosition(nextBody);
-        m_head.setPosition({nextBody.x, nextBody.y - 30.0f + std::sin(m_walkTimer * 10.0f) * 2.0f});
+    // Пробуем двигаться по X
+    sf::Vector2f currentPos = m_body.getPosition();
+    sf::Vector2f nextPosX = currentPos;
+    nextPosX.x += delta.x;
+    sf::FloatRect boundsX({nextPosX.x - 14.0f, nextPosX.y - 14.0f}, {28.0f, 28.0f});
+    if (!room.collidesWithWalls(boundsX)) {
+        m_body.setPosition(nextPosX);
     }
+
+    // Пробуем двигаться по Y (уже с учетом обновленного X)
+    currentPos = m_body.getPosition();
+    sf::Vector2f nextPosY = currentPos;
+    nextPosY.y += delta.y;
+    sf::FloatRect boundsY({nextPosY.x - 14.0f, nextPosY.y - 14.0f}, {28.0f, 28.0f});
+    if (!room.collidesWithWalls(boundsY)) {
+        m_body.setPosition(nextPosY);
+    }
+
+    // Обновляем голову всегда на основе итоговой позиции
+    sf::Vector2f finalPos = m_body.getPosition();
+    m_head.setPosition({finalPos.x, finalPos.y - 30.0f + std::sin(m_walkTimer * 10.0f) * 2.0f});
 
     if (m_invincibleTimer > 0.0f && static_cast<int>(m_invincibleTimer * 12.0f) % 2 == 0) {
         m_body.setFillColor(sf::Color(255, 255, 255, 120));

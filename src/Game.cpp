@@ -6,7 +6,12 @@
 Game::Game()
     : m_window(sf::VideoMode({960u, 720u}), "Isaac Clone"),
       m_gameOver(false) {
-    m_window.setFramerateLimit(60);
+    m_window.setVerticalSyncEnabled(true);
+    
+    // Начальная настройка вида с сохранением пропорций
+    sf::View view(sf::FloatRect({0, 0}, {960, 720}));
+    m_window.setView(view);
+
     loadCurrentRoom();
 }
 
@@ -45,18 +50,12 @@ void Game::tryRoomTransition() {
 
 void Game::run() {
     sf::Clock clock;
-    const float fixedDt = 1.0f / 60.0f;
-    float accumulator = 0.0f;
-
     while (m_window.isOpen()) {
-        const float frameTime = clock.restart().asSeconds();
-        accumulator += frameTime;
+        float dt = clock.restart().asSeconds();
+        if (dt > 0.1f) dt = 0.1f;
 
         processEvents();
-        while (accumulator >= fixedDt) {
-            update(fixedDt);
-            accumulator -= fixedDt;
-        }
+        update(dt);
         render();
     }
 }
@@ -67,6 +66,26 @@ void Game::processEvents() {
     while (m_window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             m_window.close();
+        }
+        if (event.type == sf::Event::Resized) {
+            // Обновляем вид, чтобы игра не растягивалась уродливо
+            sf::FloatRect visibleArea(0, 0, (float)event.size.width, (float)event.size.height);
+            
+            // Сохраняем логические 960x720, но центрируем их или масштабируем
+            sf::View view;
+            float aspectRatio = 960.0f / 720.0f;
+            float windowRatio = (float)event.size.width / (float)event.size.height;
+            
+            if (windowRatio > aspectRatio) {
+                // Широкое окно
+                float width = 720.0f * windowRatio;
+                view.reset(sf::FloatRect((960.0f - width) / 2.0f, 0, width, 720.0f));
+            } else {
+                // Узкое окно
+                float height = 960.0f / windowRatio;
+                view.reset(sf::FloatRect(0, (720.0f - height) / 2.0f, 960.0f, height));
+            }
+            m_window.setView(view);
         }
         if (event.type == sf::Event::KeyPressed) {
             if (m_gameOver) {

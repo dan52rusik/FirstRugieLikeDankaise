@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmake *)",
+      "Bash(select-object *)",
+      "Bash(c:\\msys64\\mingw64\\bin\\c++.exe *)"
+    ]
+  },
+  "$version": 3
+}
