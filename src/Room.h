@@ -31,6 +31,7 @@ private:
     void buildRocks(int layoutSeed);
     void buildMonsters(const RoomData& roomData);
     bool isSpawnBlocked(const sf::Vector2f& position) const;
+    bool isInDoorOpening(const sf::FloatRect& bounds) const;
     void keepMonsterInPlayableArea(Monster& monster) const;
     sf::FloatRect getDoorOpening(Direction direction) const;
     sf::FloatRect getDoorTrigger(Direction direction) const;

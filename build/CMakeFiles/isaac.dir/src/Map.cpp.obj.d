@@ -1,6 +1,6 @@
 CMakeFiles/isaac.dir/src/Map.cpp.obj: \
- C:\MyGames\FirstRogueLike\src\Map.cpp \
- C:\MyGames\FirstRogueLike\src\Map.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\Map.cpp \
+ C:\MyGames\FirstRugieLikeDankaise\src\Map.h \
  C:/msys64/mingw64/include/SFML/Graphics.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/BlendMode.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/Export.hpp \
@@ -287,7 +287,7 @@ CMakeFiles/isaac.dir/src/Map.cpp.obj: \
  C:/msys64/mingw64/include/SFML/System/InputStream.hpp \
  C:/msys64/mingw64/include/SFML/System/MemoryInputStream.hpp \
  C:/msys64/mingw64/include/SFML/System/Sleep.hpp \
- C:\MyGames\FirstRogueLike\src\Floor.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\Floor.h \
  C:/msys64/mingw64/include/c++/15.2.0/map \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_tree.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_map.h \

@@ -1,7 +1,7 @@
 CMakeFiles/isaac.dir/src/monsters/Fly.cpp.obj: \
- C:\MyGames\FirstRogueLike\src\monsters\Fly.cpp \
- C:\MyGames\FirstRogueLike\src\monsters\Fly.h \
- C:\MyGames\FirstRogueLike\src\monsters\Monster.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\monsters\Fly.cpp \
+ C:\MyGames\FirstRugieLikeDankaise\src\monsters\Fly.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\monsters\Monster.h \
  C:/msys64/mingw64/include/SFML/Graphics.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/BlendMode.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/Export.hpp \
@@ -288,16 +288,16 @@ CMakeFiles/isaac.dir/src/monsters/Fly.cpp.obj: \
  C:/msys64/mingw64/include/SFML/System/InputStream.hpp \
  C:/msys64/mingw64/include/SFML/System/MemoryInputStream.hpp \
  C:/msys64/mingw64/include/SFML/System/Sleep.hpp \
- C:/MyGames/FirstRogueLike/src/Player.h \
- C:/MyGames/FirstRogueLike/src/Bomb.h \
- C:/MyGames/FirstRogueLike/src/Tear.h \
- C:/MyGames/FirstRogueLike/src/Room.h \
- C:/MyGames/FirstRogueLike/src/Floor.h \
+ C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
+ C:/MyGames/FirstRugieLikeDankaise/src/Bomb.h \
+ C:/MyGames/FirstRugieLikeDankaise/src/Tear.h \
+ C:/MyGames/FirstRugieLikeDankaise/src/Room.h \
+ C:/MyGames/FirstRugieLikeDankaise/src/Floor.h \
  C:/msys64/mingw64/include/c++/15.2.0/map \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_tree.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_map.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_multimap.h \
- C:/MyGames/FirstRogueLike/src/utils/Collision.h \
+ C:/MyGames/FirstRugieLikeDankaise/src/utils/Collision.h \
  C:/msys64/mingw64/include/c++/15.2.0/cmath \
  C:/msys64/mingw64/include/math.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/specfun.h \
@@ -313,7 +313,7 @@ CMakeFiles/isaac.dir/src/monsters/Fly.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.2.0/tr1/poly_hermite.tcc \
  C:/msys64/mingw64/include/c++/15.2.0/tr1/poly_laguerre.tcc \
  C:/msys64/mingw64/include/c++/15.2.0/tr1/riemann_zeta.tcc \
- C:/MyGames/FirstRogueLike/src/utils/Random.h \
+ C:/MyGames/FirstRugieLikeDankaise/src/utils/Random.h \
  C:/msys64/mingw64/include/c++/15.2.0/random \
  C:/msys64/mingw64/include/c++/15.2.0/bits/random.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/uniform_int_dist.h \

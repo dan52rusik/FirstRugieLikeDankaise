@@ -1,6 +1,6 @@
 CMakeFiles/isaac.dir/src/Bomb.cpp.obj: \
- C:\MyGames\FirstRogueLike\src\Bomb.cpp \
- C:\MyGames\FirstRogueLike\src\Bomb.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\Bomb.cpp \
+ C:\MyGames\FirstRugieLikeDankaise\src\Bomb.h \
  C:/msys64/mingw64/include/SFML/Graphics.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/BlendMode.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/Export.hpp \

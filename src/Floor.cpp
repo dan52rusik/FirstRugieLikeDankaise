@@ -29,20 +29,6 @@ sf::Vector2i Floor::directionOffset(Direction direction) {
     return {0, 0};
 }
 
-Direction Floor::opposite(Direction direction) {
-    switch (direction) {
-    case Direction::Up:
-        return Direction::Down;
-    case Direction::Down:
-        return Direction::Up;
-    case Direction::Left:
-        return Direction::Right;
-    case Direction::Right:
-        return Direction::Left;
-    }
-    return Direction::Up;
-}
-
 void Floor::generate() {
     m_rooms.clear();
     m_currentGridPosition = {0, 0};
@@ -83,7 +69,7 @@ void Floor::generate() {
             RoomData& from = m_rooms.at(keyFromGrid(base));
             RoomData& to = m_rooms.at(keyFromGrid(candidate));
             from.doors[static_cast<int>(direction)] = true;
-            to.doors[static_cast<int>(opposite(direction))] = true;
+            to.doors[static_cast<int>(oppositeDirection(direction))] = true;
             createdRoom = true;
             break;
         }

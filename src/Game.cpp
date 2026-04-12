@@ -10,20 +10,6 @@ Game::Game()
     loadCurrentRoom();
 }
 
-Direction Game::opposite(Direction direction) {
-    switch (direction) {
-    case Direction::Up:
-        return Direction::Down;
-    case Direction::Down:
-        return Direction::Up;
-    case Direction::Left:
-        return Direction::Right;
-    case Direction::Right:
-        return Direction::Left;
-    }
-    return Direction::Up;
-}
-
 void Game::loadCurrentRoom() {
     m_room.load(m_floor.getCurrentRoom());
 }
@@ -41,7 +27,7 @@ void Game::tryRoomTransition() {
     m_tears.clear();
     m_bombs.clear();
     loadCurrentRoom();
-    m_player.setPosition(m_room.findSafePlayerSpawn(opposite(direction)));
+    m_player.setPosition(m_room.findSafePlayerSpawn(oppositeDirection(direction)));
     m_player.grantInvincibility(1.0f);
 }
 

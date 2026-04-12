@@ -1,6 +1,6 @@
 CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj: \
- C:\MyGames\FirstRogueLike\src\ui\HUD.cpp \
- C:\MyGames\FirstRogueLike\src\ui\HUD.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp \
+ C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.h \
  C:/msys64/mingw64/include/SFML/Graphics.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/BlendMode.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/Export.hpp \
@@ -287,6 +287,6 @@ CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj: \
  C:/msys64/mingw64/include/SFML/System/InputStream.hpp \
  C:/msys64/mingw64/include/SFML/System/MemoryInputStream.hpp \
  C:/msys64/mingw64/include/SFML/System/Sleep.hpp \
- C:/MyGames/FirstRogueLike/src/Player.h \
- C:/MyGames/FirstRogueLike/src/Bomb.h \
- C:/MyGames/FirstRogueLike/src/Tear.h
+ C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
+ C:/MyGames/FirstRugieLikeDankaise/src/Bomb.h \
+ C:/MyGames/FirstRugieLikeDankaise/src/Tear.h

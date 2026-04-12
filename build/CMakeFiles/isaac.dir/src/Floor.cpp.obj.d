@@ -1,6 +1,6 @@
 CMakeFiles/isaac.dir/src/Floor.cpp.obj: \
- C:\MyGames\FirstRogueLike\src\Floor.cpp \
- C:\MyGames\FirstRogueLike\src\Floor.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\Floor.cpp \
+ C:\MyGames\FirstRugieLikeDankaise\src\Floor.h \
  C:/msys64/mingw64/include/SFML/Graphics.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/BlendMode.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/Export.hpp \
@@ -312,7 +312,7 @@ CMakeFiles/isaac.dir/src/Floor.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.2.0/tr1/poly_hermite.tcc \
  C:/msys64/mingw64/include/c++/15.2.0/tr1/poly_laguerre.tcc \
  C:/msys64/mingw64/include/c++/15.2.0/tr1/riemann_zeta.tcc \
- C:\MyGames\FirstRogueLike\src\utils/Random.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\utils/Random.h \
  C:/msys64/mingw64/include/c++/15.2.0/random \
  C:/msys64/mingw64/include/c++/15.2.0/bits/random.h \
  C:/msys64/mingw64/include/c++/15.2.0/x86_64-w64-mingw32/bits/opt_random.h \

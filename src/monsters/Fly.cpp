@@ -11,6 +11,8 @@ Fly::Fly(const sf::Vector2f& position)
       m_directionTimer(0.5f) {}
 
 void Fly::update(float dt, const Player& player, const Room&) {
+    updateFlash(dt);
+
     m_directionTimer -= dt;
     if (m_directionTimer <= 0.0f) {
         m_directionTimer = 0.5f;

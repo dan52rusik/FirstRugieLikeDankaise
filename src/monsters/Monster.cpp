@@ -4,7 +4,8 @@ Monster::Monster(sf::Vector2f position, float hp, float speed, float damage, sf:
     : m_hp(hp),
       m_speed(speed),
       m_damage(damage),
-      m_flashTimer(0.0f) {
+      m_flashTimer(0.0f),
+      m_baseColor(color) {
     m_shape.setSize({36.0f, 36.0f});
     m_shape.setOrigin({18.0f, 18.0f});
     m_shape.setFillColor(color);
@@ -24,10 +25,24 @@ void Monster::takeDamage(float damage) {
     if (m_hp < 0.0f) {
         m_hp = 0.0f;
     }
+    m_flashTimer = 0.12f;
+    m_shape.setFillColor(sf::Color::White);
 }
 
 void Monster::kill() {
     m_hp = 0.0f;
+}
+
+void Monster::updateFlash(float dt) {
+    if (m_flashTimer <= 0.0f) {
+        return;
+    }
+
+    m_flashTimer -= dt;
+    if (m_flashTimer <= 0.0f) {
+        m_flashTimer = 0.0f;
+        m_shape.setFillColor(m_baseColor);
+    }
 }
 
 sf::FloatRect Monster::getBounds() const {

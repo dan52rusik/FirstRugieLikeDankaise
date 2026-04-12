@@ -17,7 +17,6 @@ public:
 private:
     void loadCurrentRoom();
     void tryRoomTransition();
-    static Direction opposite(Direction direction);
 
     void processEvents();
     void update(float dt);

@@ -1,6 +1,6 @@
 CMakeFiles/isaac.dir/src/Player.cpp.obj: \
- C:\MyGames\FirstRogueLike\src\Player.cpp \
- C:\MyGames\FirstRogueLike\src\Player.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\Player.cpp \
+ C:\MyGames\FirstRugieLikeDankaise\src\Player.h \
  C:/msys64/mingw64/include/SFML/Graphics.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/BlendMode.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/Export.hpp \
@@ -287,8 +287,8 @@ CMakeFiles/isaac.dir/src/Player.cpp.obj: \
  C:/msys64/mingw64/include/SFML/System/InputStream.hpp \
  C:/msys64/mingw64/include/SFML/System/MemoryInputStream.hpp \
  C:/msys64/mingw64/include/SFML/System/Sleep.hpp \
- C:\MyGames\FirstRogueLike\src\Bomb.h \
- C:\MyGames\FirstRogueLike\src\Tear.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\Bomb.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\Tear.h \
  C:/msys64/mingw64/include/c++/15.2.0/algorithm \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_algo.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/algorithmfwd.h \
@@ -310,11 +310,11 @@ CMakeFiles/isaac.dir/src/Player.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.2.0/tr1/poly_hermite.tcc \
  C:/msys64/mingw64/include/c++/15.2.0/tr1/poly_laguerre.tcc \
  C:/msys64/mingw64/include/c++/15.2.0/tr1/riemann_zeta.tcc \
- C:\MyGames\FirstRogueLike\src\Room.h \
- C:\MyGames\FirstRogueLike\src\Floor.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\Room.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\Floor.h \
  C:/msys64/mingw64/include/c++/15.2.0/map \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_tree.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_map.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_multimap.h \
- C:\MyGames\FirstRogueLike\src\monsters/Monster.h \
- C:\MyGames\FirstRogueLike\src\utils/Collision.h
+ C:\MyGames\FirstRugieLikeDankaise\src\monsters/Monster.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\utils/Collision.h

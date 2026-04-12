@@ -24,9 +24,12 @@ public:
     void setPosition(const sf::Vector2f& position);
 
 protected:
+    void updateFlash(float dt);
+
     sf::RectangleShape m_shape;
     float m_hp;
     float m_speed;
     float m_damage;
     float m_flashTimer;
+    sf::Color m_baseColor;
 };

@@ -1,6 +1,6 @@
 CMakeFiles/isaac.dir/src/Tear.cpp.obj: \
- C:\MyGames\FirstRogueLike\src\Tear.cpp \
- C:\MyGames\FirstRogueLike\src\Tear.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\Tear.cpp \
+ C:\MyGames\FirstRugieLikeDankaise\src\Tear.h \
  C:/msys64/mingw64/include/SFML/Graphics.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/BlendMode.hpp \
  C:/msys64/mingw64/include/SFML/Graphics/Export.hpp \
@@ -287,7 +287,7 @@ CMakeFiles/isaac.dir/src/Tear.cpp.obj: \
  C:/msys64/mingw64/include/SFML/System/InputStream.hpp \
  C:/msys64/mingw64/include/SFML/System/MemoryInputStream.hpp \
  C:/msys64/mingw64/include/SFML/System/Sleep.hpp \
- C:\MyGames\FirstRogueLike\src\utils/Collision.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\utils/Collision.h \
  C:/msys64/mingw64/include/c++/15.2.0/cmath \
  C:/msys64/mingw64/include/math.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/specfun.h \

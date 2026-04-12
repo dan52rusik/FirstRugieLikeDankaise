@@ -9,6 +9,7 @@
 #include "monsters/Boss.h"
 #include "monsters/Fly.h"
 #include "monsters/Knight.h"
+#include "monsters/Leech.h"
 #include "monsters/Spider.h"
 #include "utils/Collision.h"
 
@@ -86,7 +87,7 @@ void Room::buildMonsters(const RoomData& roomData) {
     }
 
     std::mt19937 rng(static_cast<std::mt19937::result_type>(roomData.monsterSeed));
-    std::uniform_int_distribution<int> typeDist(0, 2);
+    std::uniform_int_distribution<int> typeDist(0, 3);
 
     if (roomData.type == RoomType::Boss) {
         m_monsters.emplace_back(std::make_unique<Boss>(tileCenter(7, 2)));
@@ -147,8 +148,11 @@ void Room::buildMonsters(const RoomData& roomData) {
         case 1:
             m_monsters.emplace_back(std::make_unique<Spider>(spawn));
             break;
-        default:
+        case 2:
             m_monsters.emplace_back(std::make_unique<Knight>(spawn));
+            break;
+        default:
+            m_monsters.emplace_back(std::make_unique<Leech>(spawn));
             break;
         }
     }
@@ -283,47 +287,39 @@ void Room::draw(sf::RenderTarget& target) const {
     }
 }
 
+bool Room::isInDoorOpening(const sf::FloatRect& bounds) const {
+    if (!m_cleared) {
+        return false;
+    }
+    for (int i = 0; i < 4; ++i) {
+        if (m_doors[i] && Collision::intersects(bounds, getDoorOpening(static_cast<Direction>(i)))) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool Room::collidesWithWalls(const sf::FloatRect& bounds) const {
     const sf::FloatRect roomBounds({kGridLeft, kGridTop}, {kGridCols * kTileSize, kGridRows * kTileSize});
 
-    // Если вышли за пределы комнаты — проверяем, не в дверном проёме ли мы
     const bool inside = bounds.position.x >= roomBounds.position.x &&
                         bounds.position.y >= roomBounds.position.y &&
                         bounds.position.x + bounds.size.x <= roomBounds.position.x + roomBounds.size.x &&
                         bounds.position.y + bounds.size.y <= roomBounds.position.y + roomBounds.size.y;
 
     if (!inside) {
-        // Разрешаем выход через открытые дверные проёмы
-        if (m_cleared) {
-            for (int i = 0; i < 4; ++i) {
-                if (m_doors[i] && Collision::intersects(bounds, getDoorOpening(static_cast<Direction>(i)))) {
-                    return false; // проём открыт — пропускаем
-                }
-            }
-        }
-        return true;
+        return !isInDoorOpening(bounds);
     }
 
-    // Проверка внутренней зоны стен
-    const bool nearTop    = bounds.position.y <= roomBounds.position.y + kWallThickness;
+    const bool nearTop = bounds.position.y <= roomBounds.position.y + kWallThickness;
     const bool nearBottom = bounds.position.y + bounds.size.y >= roomBounds.position.y + roomBounds.size.y - kWallThickness;
-    const bool nearLeft   = bounds.position.x <= roomBounds.position.x + kWallThickness;
-    const bool nearRight  = bounds.position.x + bounds.size.x >= roomBounds.position.x + roomBounds.size.x - kWallThickness;
+    const bool nearLeft = bounds.position.x <= roomBounds.position.x + kWallThickness;
+    const bool nearRight = bounds.position.x + bounds.size.x >= roomBounds.position.x + roomBounds.size.x - kWallThickness;
 
-    if (nearTop || nearBottom || nearLeft || nearRight) {
-        // Если комната очищена — проверяем, не стоим ли мы в дверном проёме
-        if (m_cleared) {
-            for (int i = 0; i < 4; ++i) {
-                if (m_doors[i] && Collision::intersects(bounds, getDoorOpening(static_cast<Direction>(i)))) {
-                    // В проёме двери — стена не блокирует
-                    goto checkRocks;
-                }
-            }
-        }
+    if ((nearTop || nearBottom || nearLeft || nearRight) && !isInDoorOpening(bounds)) {
         return true;
     }
 
-    checkRocks:
     for (const auto& rock : m_rocks) {
         if (Collision::intersects(bounds, rock.getGlobalBounds())) {
             return true;

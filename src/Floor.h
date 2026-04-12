@@ -17,6 +17,20 @@ enum class Direction {
     Right
 };
 
+inline Direction oppositeDirection(Direction direction) {
+    switch (direction) {
+    case Direction::Up:
+        return Direction::Down;
+    case Direction::Down:
+        return Direction::Up;
+    case Direction::Left:
+        return Direction::Right;
+    case Direction::Right:
+        return Direction::Left;
+    }
+    return Direction::Up;
+}
+
 struct RoomData {
     sf::Vector2i gridPosition;
     RoomType type{RoomType::Normal};
@@ -42,7 +56,6 @@ public:
 private:
     static int keyFromGrid(const sf::Vector2i& position);
     static sf::Vector2i directionOffset(Direction direction);
-    static Direction opposite(Direction direction);
 
     std::map<int, RoomData> m_rooms;
     sf::Vector2i m_currentGridPosition;

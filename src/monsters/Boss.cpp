@@ -11,6 +11,8 @@ Boss::Boss(const sf::Vector2f& position)
 }
 
 void Boss::update(float dt, const Player& player, const Room&) {
+    updateFlash(dt);
+
     const float phaseSpeed = (m_hp <= 150.0f) ? 145.0f : 90.0f;
     const sf::Vector2f direction = Collision::normalize(Collision::subtract(player.getPosition(), m_shape.getPosition()));
     m_shape.move(Collision::scale(direction, phaseSpeed * dt));

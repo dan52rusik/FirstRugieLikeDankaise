@@ -10,6 +10,8 @@ Spider::Spider(const sf::Vector2f& position)
       m_restTimer(0.4f) {}
 
 void Spider::update(float dt, const Player& player, const Room&) {
+    updateFlash(dt);
+
     if (m_restTimer > 0.0f) {
         m_restTimer -= dt;
         return;
