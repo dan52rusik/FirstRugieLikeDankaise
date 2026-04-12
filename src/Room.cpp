@@ -13,6 +13,7 @@
 #include "monsters/Knight.h"
 #include "monsters/Leech.h"
 #include "monsters/Spider.h"
+#include "rooms/RoomTemplateLoader.h"
 #include "utils/Collision.h"
 #include "utils/Random.h"
 
@@ -32,13 +33,6 @@ constexpr int kGridRows = 9;
 constexpr float kGridLeft = kRoomLeft + 48.0f;
 constexpr float kGridTop = kRoomTop + 48.0f;
 constexpr float kDoorThickness = 18.0f;
-
-struct LayoutTemplate {
-    std::vector<sf::Vector2i> rocks;
-    std::vector<sf::Vector2i> barrels;
-    std::vector<sf::Vector2i> monsterSpawns;
-    sf::Vector2i rewardTile;
-};
 
 sf::Vector2f tileCenter(int col, int row) {
     return {
@@ -69,29 +63,6 @@ sf::Vector2i tileFromWorld(const sf::Vector2f& position) {
         std::clamp(static_cast<int>((position.y - kGridTop) / kTileSize), 0, kGridRows - 1)
     };
 }
-
-const LayoutTemplate& layoutForSeed(int seed) {
-    static const std::array<LayoutTemplate, 4> layouts{{
-        {{{{2, 2}, {12, 2}, {2, 6}, {12, 6}}},
-         {{{7, 2}, {4, 4}, {10, 4}}},
-         {{{3, 2}, {7, 2}, {11, 2}, {3, 6}, {7, 6}, {11, 6}}},
-         {7, 4}},
-        {{{{4, 2}, {10, 2}, {4, 6}, {10, 6}}},
-         {{{7, 1}, {3, 4}, {11, 4}}},
-         {{{2, 2}, {7, 2}, {12, 2}, {2, 6}, {7, 6}, {12, 6}}},
-         {7, 4}},
-        {{{{7, 2}, {4, 4}, {10, 4}, {7, 6}}},
-         {{{3, 2}, {11, 2}, {7, 7}}},
-         {{{2, 3}, {12, 3}, {3, 6}, {7, 5}, {11, 6}, {7, 1}}},
-         {7, 4}},
-        {{{{3, 3}, {11, 3}, {5, 5}, {9, 5}}},
-         {{{7, 2}, {3, 6}, {11, 6}}},
-         {{{2, 2}, {7, 2}, {12, 2}, {2, 5}, {7, 6}, {12, 5}}},
-         {7, 4}}
-    }};
-
-    return layouts[static_cast<std::size_t>(seed % static_cast<int>(layouts.size()))];
-}
 }
 
 Room::Room() {
@@ -108,7 +79,9 @@ Room::Room() {
 
 void Room::load(RoomData& roomData) {
     m_roomData = &roomData;
+    m_template = &RoomTemplateLoader::pick(roomData.type, roomData.layoutSeed);
     m_reward.reset();
+    m_collectedReward.reset();
 
     for (int i = 0; i < 4; ++i) {
         m_doors[i] = roomData.doors[i];
@@ -133,7 +106,7 @@ void Room::load(RoomData& roomData) {
         break;
     }
 
-    buildRocks(roomData.layoutSeed);
+    buildRocks();
     buildProps(roomData);
     rebuildPropInstances();
     buildMonsters(roomData);
@@ -141,11 +114,13 @@ void Room::load(RoomData& roomData) {
     rebuildPickupInstances();
 }
 
-void Room::buildRocks(int layoutSeed) {
+void Room::buildRocks() {
     m_rocks.clear();
+    if (m_template == nullptr) {
+        return;
+    }
 
-    const LayoutTemplate& layout = layoutForSeed(layoutSeed);
-    for (const auto& tile : layout.rocks) {
+    for (const auto& tile : m_template->rocks) {
         sf::RectangleShape rock({kTileSize, kTileSize});
         rock.setOrigin({24.0f, 24.0f});
         rock.setPosition(tileCenter(tile));
@@ -163,12 +138,11 @@ void Room::buildProps(RoomData& roomData) {
     roomData.props.clear();
     roomData.pickups.clear();
 
-    if (roomData.type != RoomType::Normal) {
+    if (roomData.type != RoomType::Normal || m_template == nullptr) {
         return;
     }
 
-    const LayoutTemplate& layout = layoutForSeed(roomData.layoutSeed);
-    for (const auto& tile : layout.barrels) {
+    for (const auto& tile : m_template->barrels) {
         roomData.props.push_back({PropType::Barrel, tileCenter(tile), false});
     }
 }
@@ -185,13 +159,16 @@ void Room::buildMonsters(const RoomData& roomData) {
         return;
     }
 
-    const LayoutTemplate& layout = layoutForSeed(roomData.layoutSeed);
+    if (m_template == nullptr) {
+        return;
+    }
+
     std::mt19937 rng(static_cast<std::mt19937::result_type>(roomData.monsterSeed));
     std::uniform_int_distribution<int> typeDist(0, 3);
 
-    const int targetCount = std::min(static_cast<int>(layout.monsterSpawns.size()), 2 + (roomData.monsterSeed % 3));
+    const int targetCount = std::min(static_cast<int>(m_template->monsterSpawns.size()), 2 + (roomData.monsterSeed % 3));
     for (int i = 0; i < targetCount; ++i) {
-        const sf::Vector2f spawn = tileCenter(layout.monsterSpawns[static_cast<std::size_t>(i)]);
+        const sf::Vector2f spawn = tileCenter(m_template->monsterSpawns[static_cast<std::size_t>(i)]);
         if (isSpawnBlocked(spawn)) {
             continue;
         }
@@ -215,7 +192,7 @@ void Room::buildMonsters(const RoomData& roomData) {
 
 void Room::buildReward(RoomData& roomData) {
     m_reward.reset();
-    if (roomData.type != RoomType::Treasure || roomData.rewardTaken) {
+    if (roomData.type != RoomType::Treasure || roomData.rewardTaken || m_template == nullptr || !m_template->rewardTile.has_value()) {
         return;
     }
 
@@ -228,8 +205,7 @@ void Room::buildReward(RoomData& roomData) {
         roomData.rewardIndex = roomData.rewardSeed % static_cast<int>(items.size());
     }
 
-    const LayoutTemplate& layout = layoutForSeed(roomData.layoutSeed);
-    const sf::Vector2f position = tileCenter(layout.rewardTile);
+    const sf::Vector2f position = tileCenter(*m_template->rewardTile);
 
     RewardInstance reward;
     reward.item = items[static_cast<std::size_t>(roomData.rewardIndex)];
@@ -319,6 +295,11 @@ void Room::rebuildPickupInstances() {
 
 bool Room::isTileOccupied(const sf::Vector2i& tile) const {
     if (!isInsideGrid(tile) || isReservedDoorTile(tile)) {
+        return true;
+    }
+
+    if (m_template != nullptr &&
+        std::find(m_template->blockedTiles.begin(), m_template->blockedTiles.end(), tile) != m_template->blockedTiles.end()) {
         return true;
     }
 
@@ -449,6 +430,7 @@ void Room::collectReward(Player& player) {
     }
 
     player.applyItem(m_reward->item);
+    m_collectedReward = m_reward->item;
     m_roomData->rewardTaken = true;
     m_reward.reset();
 }
@@ -756,6 +738,12 @@ float Room::getBossHpRatio() const {
         }
     }
     return 0.0f;
+}
+
+std::optional<Item> Room::consumeCollectedReward() {
+    std::optional<Item> reward = m_collectedReward;
+    m_collectedReward.reset();
+    return reward;
 }
 
 sf::Vector2f Room::getSpawnPosition(Direction fromDirection) const {

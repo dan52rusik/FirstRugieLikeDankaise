@@ -488,6 +488,30 @@ src/monsters/Spider.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\isaac.dir\build.make CMakeFiles/isaac.dir/src/monsters/Spider.cpp.s
 .PHONY : src/monsters/Spider.cpp.s
 
+src/rooms/RoomTemplateLoader.obj: src/rooms/RoomTemplateLoader.cpp.obj
+.PHONY : src/rooms/RoomTemplateLoader.obj
+
+# target to build an object file
+src/rooms/RoomTemplateLoader.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\isaac.dir\build.make CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.obj
+.PHONY : src/rooms/RoomTemplateLoader.cpp.obj
+
+src/rooms/RoomTemplateLoader.i: src/rooms/RoomTemplateLoader.cpp.i
+.PHONY : src/rooms/RoomTemplateLoader.i
+
+# target to preprocess a source file
+src/rooms/RoomTemplateLoader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\isaac.dir\build.make CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.i
+.PHONY : src/rooms/RoomTemplateLoader.cpp.i
+
+src/rooms/RoomTemplateLoader.s: src/rooms/RoomTemplateLoader.cpp.s
+.PHONY : src/rooms/RoomTemplateLoader.s
+
+# target to generate assembly for a file
+src/rooms/RoomTemplateLoader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\isaac.dir\build.make CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.s
+.PHONY : src/rooms/RoomTemplateLoader.cpp.s
+
 src/ui/HUD.obj: src/ui/HUD.cpp.obj
 .PHONY : src/ui/HUD.obj
 
@@ -566,6 +590,9 @@ help:
 	@echo ... src/monsters/Spider.obj
 	@echo ... src/monsters/Spider.i
 	@echo ... src/monsters/Spider.s
+	@echo ... src/rooms/RoomTemplateLoader.obj
+	@echo ... src/rooms/RoomTemplateLoader.i
+	@echo ... src/rooms/RoomTemplateLoader.s
 	@echo ... src/ui/HUD.obj
 	@echo ... src/ui/HUD.i
 	@echo ... src/ui/HUD.s

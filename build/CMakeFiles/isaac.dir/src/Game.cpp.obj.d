@@ -301,6 +301,7 @@ CMakeFiles/isaac.dir/src/Game.cpp.obj: \
  C:\MyGames\FirstRugieLikeDankaise\src\items/Item.h \
  C:\MyGames\FirstRugieLikeDankaise\src\Room.h \
  C:\MyGames\FirstRugieLikeDankaise\src\monsters/Monster.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\rooms/RoomTemplate.h \
  C:\MyGames\FirstRugieLikeDankaise\src\ui/HUD.h \
  C:/msys64/mingw64/include/c++/15.2.0/algorithm \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_algo.h \

@@ -29,6 +29,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/isaac.dir/src/monsters/Monster.cpp.obj.d"
   "CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj"
   "CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj.d"
+  "CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.obj"
+  "CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.obj.d"
   "CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj"
   "CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj.d"
   "bin/isaac.exe"

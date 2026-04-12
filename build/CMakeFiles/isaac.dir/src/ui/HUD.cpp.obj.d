@@ -287,10 +287,10 @@ CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj: \
  C:/msys64/mingw64/include/SFML/System/InputStream.hpp \
  C:/msys64/mingw64/include/SFML/System/MemoryInputStream.hpp \
  C:/msys64/mingw64/include/SFML/System/Sleep.hpp \
+ C:/MyGames/FirstRugieLikeDankaise/src/items/Item.h \
  C:/MyGames/FirstRugieLikeDankaise/src/Player.h \
  C:/MyGames/FirstRugieLikeDankaise/src/Bomb.h \
  C:/MyGames/FirstRugieLikeDankaise/src/Tear.h \
- C:/MyGames/FirstRugieLikeDankaise/src/items/Item.h \
  C:/MyGames/FirstRugieLikeDankaise/src/Room.h \
  C:/MyGames/FirstRugieLikeDankaise/src/Floor.h \
  C:/msys64/mingw64/include/c++/15.2.0/map \
@@ -300,9 +300,25 @@ CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj: \
  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h \
  C:/MyGames/FirstRugieLikeDankaise/src/monsters/Monster.h \
+ C:/MyGames/FirstRugieLikeDankaise/src/rooms/RoomTemplate.h \
  C:/msys64/mingw64/include/c++/15.2.0/algorithm \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_algo.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/algorithmfwd.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_heap.h \
  C:/msys64/mingw64/include/c++/15.2.0/bits/uniform_int_dist.h \
- C:/msys64/mingw64/include/c++/15.2.0/pstl/glue_algorithm_defs.h
+ C:/msys64/mingw64/include/c++/15.2.0/pstl/glue_algorithm_defs.h \
+ C:/msys64/mingw64/include/c++/15.2.0/cmath \
+ C:/msys64/mingw64/include/math.h \
+ C:/msys64/mingw64/include/c++/15.2.0/bits/specfun.h \
+ C:/msys64/mingw64/include/c++/15.2.0/tr1/gamma.tcc \
+ C:/msys64/mingw64/include/c++/15.2.0/tr1/special_function_util.h \
+ C:/msys64/mingw64/include/c++/15.2.0/tr1/bessel_function.tcc \
+ C:/msys64/mingw64/include/c++/15.2.0/tr1/beta_function.tcc \
+ C:/msys64/mingw64/include/c++/15.2.0/tr1/ell_integral.tcc \
+ C:/msys64/mingw64/include/c++/15.2.0/tr1/exp_integral.tcc \
+ C:/msys64/mingw64/include/c++/15.2.0/tr1/hypergeometric.tcc \
+ C:/msys64/mingw64/include/c++/15.2.0/tr1/legendre_function.tcc \
+ C:/msys64/mingw64/include/c++/15.2.0/tr1/modified_bessel_func.tcc \
+ C:/msys64/mingw64/include/c++/15.2.0/tr1/poly_hermite.tcc \
+ C:/msys64/mingw64/include/c++/15.2.0/tr1/poly_laguerre.tcc \
+ C:/msys64/mingw64/include/c++/15.2.0/tr1/riemann_zeta.tcc

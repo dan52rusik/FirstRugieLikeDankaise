@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <optional>
 #include <vector>
 
 #include "Bomb.h"
@@ -31,5 +32,7 @@ private:
     HUD m_hud;
     std::vector<Tear> m_tears;
     std::vector<Bomb> m_bombs;
+    std::optional<Item> m_itemPickupNotification;
+    float m_itemPickupTimer{0.0f};
     bool m_gameOver;
 };

@@ -16,6 +16,7 @@ add_executable(isaac
     src/Room.cpp
     src/Floor.cpp
     src/Map.cpp
+    src/rooms/RoomTemplateLoader.cpp
     src/monsters/Monster.cpp
     src/monsters/Fly.cpp
     src/monsters/Spider.cpp

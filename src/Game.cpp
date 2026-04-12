@@ -20,6 +20,8 @@ void Game::resetRun() {
     m_room = Room();
     m_tears.clear();
     m_bombs.clear();
+    m_itemPickupNotification.reset();
+    m_itemPickupTimer = 0.0f;
     m_gameOver = false;
     loadCurrentRoom();
 }
@@ -82,6 +84,11 @@ void Game::update(float dt) {
         return;
     }
 
+    m_itemPickupTimer = std::max(0.0f, m_itemPickupTimer - dt);
+    if (m_itemPickupTimer <= 0.0f) {
+        m_itemPickupNotification.reset();
+    }
+
     m_player.handleRealtimeInput();
     m_player.update(dt, m_room);
     m_player.shoot(m_tears);
@@ -94,6 +101,10 @@ void Game::update(float dt) {
     }
 
     m_room.update(dt, m_player, m_tears, m_bombs);
+    if (std::optional<Item> reward = m_room.consumeCollectedReward()) {
+        m_itemPickupNotification = *reward;
+        m_itemPickupTimer = 3.5f;
+    }
     if (m_room.isCleared()) {
         m_floor.markCurrentRoomCleared();
     }
@@ -125,6 +136,9 @@ void Game::render() {
     m_map.drawMiniMap(m_window, m_floor);
     m_hud.draw(m_window, m_player);
     m_hud.drawBossBar(m_window, m_room);
+    if (m_itemPickupNotification.has_value()) {
+        m_hud.drawItemPickup(m_window, *m_itemPickupNotification, std::min(1.0f, m_itemPickupTimer));
+    }
 
     if (m_gameOver) {
         sf::RectangleShape overlay({960.0f, 720.0f});

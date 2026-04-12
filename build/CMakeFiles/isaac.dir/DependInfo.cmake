@@ -23,6 +23,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/MyGames/FirstRugieLikeDankaise/src/monsters/Leech.cpp" "CMakeFiles/isaac.dir/src/monsters/Leech.cpp.obj" "gcc" "CMakeFiles/isaac.dir/src/monsters/Leech.cpp.obj.d"
   "C:/MyGames/FirstRugieLikeDankaise/src/monsters/Monster.cpp" "CMakeFiles/isaac.dir/src/monsters/Monster.cpp.obj" "gcc" "CMakeFiles/isaac.dir/src/monsters/Monster.cpp.obj.d"
   "C:/MyGames/FirstRugieLikeDankaise/src/monsters/Spider.cpp" "CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj" "gcc" "CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj.d"
+  "C:/MyGames/FirstRugieLikeDankaise/src/rooms/RoomTemplateLoader.cpp" "CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.obj" "gcc" "CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.obj.d"
   "C:/MyGames/FirstRugieLikeDankaise/src/ui/HUD.cpp" "CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj" "gcc" "CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj.d"
   )
 

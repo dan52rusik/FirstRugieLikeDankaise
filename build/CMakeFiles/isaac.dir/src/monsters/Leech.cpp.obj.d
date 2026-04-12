@@ -300,6 +300,7 @@ CMakeFiles/isaac.dir/src/monsters/Leech.cpp.obj: \
  C:/msys64/mingw64/include/c++/15.2.0/bits/stl_multimap.h \
  C:/MyGames/FirstRugieLikeDankaise/src/items/Pickup.h \
  C:/MyGames/FirstRugieLikeDankaise/src/props/Prop.h \
+ C:/MyGames/FirstRugieLikeDankaise/src/rooms/RoomTemplate.h \
  C:/MyGames/FirstRugieLikeDankaise/src/utils/Collision.h \
  C:/msys64/mingw64/include/c++/15.2.0/cmath \
  C:/msys64/mingw64/include/math.h \

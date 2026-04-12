@@ -320,4 +320,5 @@ CMakeFiles/isaac.dir/src/Player.cpp.obj: \
  C:\MyGames\FirstRugieLikeDankaise\src\items/Pickup.h \
  C:\MyGames\FirstRugieLikeDankaise\src\props/Prop.h \
  C:\MyGames\FirstRugieLikeDankaise\src\monsters/Monster.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\rooms/RoomTemplate.h \
  C:\MyGames\FirstRugieLikeDankaise\src\utils/Collision.h

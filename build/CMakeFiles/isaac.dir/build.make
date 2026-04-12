@@ -191,11 +191,26 @@ CMakeFiles/isaac.dir/src/Map.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/isaac.dir/src/Map.cpp.s"
 	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\MyGames\FirstRugieLikeDankaise\src\Map.cpp -o CMakeFiles\isaac.dir\src\Map.cpp.s
 
+CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.obj: CMakeFiles/isaac.dir/flags.make
+CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.obj: CMakeFiles/isaac.dir/includes_CXX.rsp
+CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/rooms/RoomTemplateLoader.cpp
+CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.obj: CMakeFiles/isaac.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.obj"
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.obj -MF CMakeFiles\isaac.dir\src\rooms\RoomTemplateLoader.cpp.obj.d -o CMakeFiles\isaac.dir\src\rooms\RoomTemplateLoader.cpp.obj -c C:\MyGames\FirstRugieLikeDankaise\src\rooms\RoomTemplateLoader.cpp
+
+CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.i"
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\MyGames\FirstRugieLikeDankaise\src\rooms\RoomTemplateLoader.cpp > CMakeFiles\isaac.dir\src\rooms\RoomTemplateLoader.cpp.i
+
+CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.s"
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\MyGames\FirstRugieLikeDankaise\src\rooms\RoomTemplateLoader.cpp -o CMakeFiles\isaac.dir\src\rooms\RoomTemplateLoader.cpp.s
+
 CMakeFiles/isaac.dir/src/monsters/Monster.cpp.obj: CMakeFiles/isaac.dir/flags.make
 CMakeFiles/isaac.dir/src/monsters/Monster.cpp.obj: CMakeFiles/isaac.dir/includes_CXX.rsp
 CMakeFiles/isaac.dir/src/monsters/Monster.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/monsters/Monster.cpp
 CMakeFiles/isaac.dir/src/monsters/Monster.cpp.obj: CMakeFiles/isaac.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/isaac.dir/src/monsters/Monster.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/isaac.dir/src/monsters/Monster.cpp.obj"
 	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/isaac.dir/src/monsters/Monster.cpp.obj -MF CMakeFiles\isaac.dir\src\monsters\Monster.cpp.obj.d -o CMakeFiles\isaac.dir\src\monsters\Monster.cpp.obj -c C:\MyGames\FirstRugieLikeDankaise\src\monsters\Monster.cpp
 
 CMakeFiles/isaac.dir/src/monsters/Monster.cpp.i: cmake_force
@@ -210,7 +225,7 @@ CMakeFiles/isaac.dir/src/monsters/Fly.cpp.obj: CMakeFiles/isaac.dir/flags.make
 CMakeFiles/isaac.dir/src/monsters/Fly.cpp.obj: CMakeFiles/isaac.dir/includes_CXX.rsp
 CMakeFiles/isaac.dir/src/monsters/Fly.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/monsters/Fly.cpp
 CMakeFiles/isaac.dir/src/monsters/Fly.cpp.obj: CMakeFiles/isaac.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/isaac.dir/src/monsters/Fly.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/isaac.dir/src/monsters/Fly.cpp.obj"
 	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/isaac.dir/src/monsters/Fly.cpp.obj -MF CMakeFiles\isaac.dir\src\monsters\Fly.cpp.obj.d -o CMakeFiles\isaac.dir\src\monsters\Fly.cpp.obj -c C:\MyGames\FirstRugieLikeDankaise\src\monsters\Fly.cpp
 
 CMakeFiles/isaac.dir/src/monsters/Fly.cpp.i: cmake_force
@@ -225,7 +240,7 @@ CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj: CMakeFiles/isaac.dir/flags.mak
 CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj: CMakeFiles/isaac.dir/includes_CXX.rsp
 CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/monsters/Spider.cpp
 CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj: CMakeFiles/isaac.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj"
 	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj -MF CMakeFiles\isaac.dir\src\monsters\Spider.cpp.obj.d -o CMakeFiles\isaac.dir\src\monsters\Spider.cpp.obj -c C:\MyGames\FirstRugieLikeDankaise\src\monsters\Spider.cpp
 
 CMakeFiles/isaac.dir/src/monsters/Spider.cpp.i: cmake_force
@@ -240,7 +255,7 @@ CMakeFiles/isaac.dir/src/monsters/Knight.cpp.obj: CMakeFiles/isaac.dir/flags.mak
 CMakeFiles/isaac.dir/src/monsters/Knight.cpp.obj: CMakeFiles/isaac.dir/includes_CXX.rsp
 CMakeFiles/isaac.dir/src/monsters/Knight.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/monsters/Knight.cpp
 CMakeFiles/isaac.dir/src/monsters/Knight.cpp.obj: CMakeFiles/isaac.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/isaac.dir/src/monsters/Knight.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/isaac.dir/src/monsters/Knight.cpp.obj"
 	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/isaac.dir/src/monsters/Knight.cpp.obj -MF CMakeFiles\isaac.dir\src\monsters\Knight.cpp.obj.d -o CMakeFiles\isaac.dir\src\monsters\Knight.cpp.obj -c C:\MyGames\FirstRugieLikeDankaise\src\monsters\Knight.cpp
 
 CMakeFiles/isaac.dir/src/monsters/Knight.cpp.i: cmake_force
@@ -255,7 +270,7 @@ CMakeFiles/isaac.dir/src/monsters/Leech.cpp.obj: CMakeFiles/isaac.dir/flags.make
 CMakeFiles/isaac.dir/src/monsters/Leech.cpp.obj: CMakeFiles/isaac.dir/includes_CXX.rsp
 CMakeFiles/isaac.dir/src/monsters/Leech.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/monsters/Leech.cpp
 CMakeFiles/isaac.dir/src/monsters/Leech.cpp.obj: CMakeFiles/isaac.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/isaac.dir/src/monsters/Leech.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/isaac.dir/src/monsters/Leech.cpp.obj"
 	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/isaac.dir/src/monsters/Leech.cpp.obj -MF CMakeFiles\isaac.dir\src\monsters\Leech.cpp.obj.d -o CMakeFiles\isaac.dir\src\monsters\Leech.cpp.obj -c C:\MyGames\FirstRugieLikeDankaise\src\monsters\Leech.cpp
 
 CMakeFiles/isaac.dir/src/monsters/Leech.cpp.i: cmake_force
@@ -270,7 +285,7 @@ CMakeFiles/isaac.dir/src/monsters/Boss.cpp.obj: CMakeFiles/isaac.dir/flags.make
 CMakeFiles/isaac.dir/src/monsters/Boss.cpp.obj: CMakeFiles/isaac.dir/includes_CXX.rsp
 CMakeFiles/isaac.dir/src/monsters/Boss.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/monsters/Boss.cpp
 CMakeFiles/isaac.dir/src/monsters/Boss.cpp.obj: CMakeFiles/isaac.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/isaac.dir/src/monsters/Boss.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/isaac.dir/src/monsters/Boss.cpp.obj"
 	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/isaac.dir/src/monsters/Boss.cpp.obj -MF CMakeFiles\isaac.dir\src\monsters\Boss.cpp.obj.d -o CMakeFiles\isaac.dir\src\monsters\Boss.cpp.obj -c C:\MyGames\FirstRugieLikeDankaise\src\monsters\Boss.cpp
 
 CMakeFiles/isaac.dir/src/monsters/Boss.cpp.i: cmake_force
@@ -285,7 +300,7 @@ CMakeFiles/isaac.dir/src/items/ItemList.cpp.obj: CMakeFiles/isaac.dir/flags.make
 CMakeFiles/isaac.dir/src/items/ItemList.cpp.obj: CMakeFiles/isaac.dir/includes_CXX.rsp
 CMakeFiles/isaac.dir/src/items/ItemList.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/items/ItemList.cpp
 CMakeFiles/isaac.dir/src/items/ItemList.cpp.obj: CMakeFiles/isaac.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/isaac.dir/src/items/ItemList.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/isaac.dir/src/items/ItemList.cpp.obj"
 	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/isaac.dir/src/items/ItemList.cpp.obj -MF CMakeFiles\isaac.dir\src\items\ItemList.cpp.obj.d -o CMakeFiles\isaac.dir\src\items\ItemList.cpp.obj -c C:\MyGames\FirstRugieLikeDankaise\src\items\ItemList.cpp
 
 CMakeFiles/isaac.dir/src/items/ItemList.cpp.i: cmake_force
@@ -300,7 +315,7 @@ CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj: CMakeFiles/isaac.dir/flags.make
 CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj: CMakeFiles/isaac.dir/includes_CXX.rsp
 CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj: C:/MyGames/FirstRugieLikeDankaise/src/ui/HUD.cpp
 CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj: CMakeFiles/isaac.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj"
 	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/isaac.dir/src/ui/HUD.cpp.obj -MF CMakeFiles\isaac.dir\src\ui\HUD.cpp.obj.d -o CMakeFiles\isaac.dir\src\ui\HUD.cpp.obj -c C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp
 
 CMakeFiles/isaac.dir/src/ui/HUD.cpp.i: cmake_force
@@ -321,6 +336,7 @@ isaac_OBJECTS = \
 "CMakeFiles/isaac.dir/src/Room.cpp.obj" \
 "CMakeFiles/isaac.dir/src/Floor.cpp.obj" \
 "CMakeFiles/isaac.dir/src/Map.cpp.obj" \
+"CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.obj" \
 "CMakeFiles/isaac.dir/src/monsters/Monster.cpp.obj" \
 "CMakeFiles/isaac.dir/src/monsters/Fly.cpp.obj" \
 "CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj" \
@@ -341,6 +357,7 @@ bin/isaac.exe: CMakeFiles/isaac.dir/src/Bomb.cpp.obj
 bin/isaac.exe: CMakeFiles/isaac.dir/src/Room.cpp.obj
 bin/isaac.exe: CMakeFiles/isaac.dir/src/Floor.cpp.obj
 bin/isaac.exe: CMakeFiles/isaac.dir/src/Map.cpp.obj
+bin/isaac.exe: CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.obj
 bin/isaac.exe: CMakeFiles/isaac.dir/src/monsters/Monster.cpp.obj
 bin/isaac.exe: CMakeFiles/isaac.dir/src/monsters/Fly.cpp.obj
 bin/isaac.exe: CMakeFiles/isaac.dir/src/monsters/Spider.cpp.obj
@@ -357,7 +374,7 @@ bin/isaac.exe: C:/msys64/mingw64/lib/libsfml-system.dll.a
 bin/isaac.exe: CMakeFiles/isaac.dir/linkLibs.rsp
 bin/isaac.exe: CMakeFiles/isaac.dir/objects1.rsp
 bin/isaac.exe: CMakeFiles/isaac.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking CXX executable bin\isaac.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Linking CXX executable bin\isaac.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\isaac.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

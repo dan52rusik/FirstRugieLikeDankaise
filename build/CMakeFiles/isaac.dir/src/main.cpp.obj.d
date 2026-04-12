@@ -301,4 +301,5 @@ CMakeFiles/isaac.dir/src/main.cpp.obj: \
  C:\MyGames\FirstRugieLikeDankaise\src\items/Item.h \
  C:\MyGames\FirstRugieLikeDankaise\src\Room.h \
  C:\MyGames\FirstRugieLikeDankaise\src\monsters/Monster.h \
+ C:\MyGames\FirstRugieLikeDankaise\src\rooms/RoomTemplate.h \
  C:\MyGames\FirstRugieLikeDankaise\src\ui/HUD.h

@@ -1,6 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <optional>
+
+#include "../items/Item.h"
 
 class Player;
 class Room;
@@ -10,6 +13,7 @@ public:
     HUD();
     void draw(sf::RenderTarget& target, const Player& player) const;
     void drawBossBar(sf::RenderTarget& target, const Room& room) const;
+    void drawItemPickup(sf::RenderTarget& target, const Item& item, float timeRemaining) const;
     void drawGameOver(sf::RenderTarget& target) const;
 
 private:

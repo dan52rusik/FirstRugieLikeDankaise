@@ -4,9 +4,59 @@
 #include "../Room.h"
 
 #include <algorithm>
+#include <cmath>
 #include <string>
 
-HUD::HUD() : m_hasFont(m_font.openFromFile("assets/fonts/isaac.ttf")) {}
+namespace {
+std::string formatSignedFloat(float value, int decimals) {
+    const bool positive = value >= 0.0f;
+    const float absValue = std::abs(value);
+    const float scale = std::pow(10.0f, static_cast<float>(decimals));
+    const int scaled = static_cast<int>(std::round(absValue * scale));
+    const int whole = scaled / static_cast<int>(scale);
+    const int frac = scaled % static_cast<int>(scale);
+
+    std::string text = positive ? "+" : "-";
+    text += std::to_string(whole);
+    if (decimals > 0) {
+        text += ".";
+        std::string fracText = std::to_string(frac);
+        while (static_cast<int>(fracText.size()) < decimals) {
+            fracText = "0" + fracText;
+        }
+        text += fracText;
+    }
+    return text;
+}
+
+std::string itemDeltaText(const Item& item) {
+    switch (item.effect) {
+    case ItemEffect::TearRate:
+        return formatSignedFloat(item.amount, 2) + " tear delay";
+    case ItemEffect::Damage:
+        return formatSignedFloat(item.amount, 1) + " damage";
+    case ItemEffect::Speed:
+        return formatSignedFloat(item.amount, 0) + " speed";
+    }
+    return {};
+}
+}
+
+HUD::HUD() : m_hasFont(false) {
+    static const char* kFontPaths[] = {
+        "assets/fonts/isaac.ttf",
+        "C:/Windows/Fonts/trebuc.ttf",
+        "C:/Windows/Fonts/arial.ttf",
+        "C:/Windows/Fonts/segoeui.ttf"
+    };
+
+    for (const char* path : kFontPaths) {
+        if (m_font.openFromFile(path)) {
+            m_hasFont = true;
+            break;
+        }
+    }
+}
 
 void HUD::drawDigit(sf::RenderTarget& target, sf::Vector2f position, int digit, sf::Color color, float scale) const {
     static const bool kSegments[10][7] = {
@@ -222,6 +272,51 @@ void HUD::drawBossBar(sf::RenderTarget& target, const Room& room) const {
     label.setPosition({214.0f, 656.0f});
     label.setString("BOSS");
     target.draw(label);
+}
+
+void HUD::drawItemPickup(sf::RenderTarget& target, const Item& item, float timeRemaining) const {
+    if (!m_hasFont) {
+        return;
+    }
+
+    const float alpha = std::clamp(timeRemaining, 0.0f, 1.0f);
+
+    sf::RectangleShape panel({360.0f, 72.0f});
+    panel.setPosition({300.0f, 34.0f});
+    panel.setFillColor(sf::Color(18, 12, 10, static_cast<std::uint8_t>(220.0f * alpha)));
+    panel.setOutlineColor(sf::Color(156, 126, 74, static_cast<std::uint8_t>(255.0f * alpha)));
+    panel.setOutlineThickness(2.0f);
+    target.draw(panel);
+
+    sf::CircleShape icon(11.0f);
+    icon.setOrigin({11.0f, 11.0f});
+    icon.setPosition({332.0f, 70.0f});
+    switch (item.effect) {
+    case ItemEffect::TearRate:
+        icon.setFillColor(item.amount < 0.0f ? sf::Color(178, 228, 255) : sf::Color(118, 148, 188));
+        break;
+    case ItemEffect::Damage:
+        icon.setFillColor(item.amount > 0.0f ? sf::Color(224, 72, 78) : sf::Color(110, 52, 58));
+        break;
+    case ItemEffect::Speed:
+        icon.setFillColor(item.amount > 0.0f ? sf::Color(118, 214, 128) : sf::Color(70, 118, 74));
+        break;
+    }
+    target.draw(icon);
+
+    sf::Text title(m_font);
+    title.setCharacterSize(24);
+    title.setFillColor(sf::Color(246, 232, 210, static_cast<std::uint8_t>(255.0f * alpha)));
+    title.setPosition({356.0f, 42.0f});
+    title.setString(item.name);
+    target.draw(title);
+
+    sf::Text subtitle(m_font);
+    subtitle.setCharacterSize(18);
+    subtitle.setFillColor(sf::Color(220, 206, 184, static_cast<std::uint8_t>(255.0f * alpha)));
+    subtitle.setPosition({356.0f, 69.0f});
+    subtitle.setString(item.description + "  (" + itemDeltaText(item) + ")");
+    target.draw(subtitle);
 }
 
 void HUD::drawGameOver(sf::RenderTarget& target) const {

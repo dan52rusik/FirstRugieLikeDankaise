@@ -12,6 +12,7 @@
 #include "items/Pickup.h"
 #include "monsters/Monster.h"
 #include "props/Prop.h"
+#include "rooms/RoomTemplate.h"
 
 class Player;
 
@@ -28,6 +29,7 @@ public:
     bool canUseDoor(Direction direction) const;
     bool hasBoss() const;
     float getBossHpRatio() const;
+    std::optional<Item> consumeCollectedReward();
     sf::Vector2f getSpawnPosition(Direction fromDirection) const;
     sf::Vector2f findSafePlayerSpawn(Direction fromDirection) const;
     Direction getDoorTransition(const sf::Vector2f& playerPosition) const;
@@ -51,7 +53,7 @@ private:
         Item item;
     };
 
-    void buildRocks(int layoutSeed);
+    void buildRocks();
     void buildProps(RoomData& roomData);
     void buildMonsters(const RoomData& roomData);
     void buildReward(RoomData& roomData);
@@ -73,10 +75,12 @@ private:
     sf::RectangleShape m_floor;
     sf::RectangleShape m_innerBounds;
     RoomData* m_roomData{nullptr};
+    const RoomTemplate* m_template{nullptr};
     std::vector<sf::RectangleShape> m_rocks;
     std::vector<PropInstance> m_props;
     std::vector<PickupInstance> m_pickups;
     std::optional<RewardInstance> m_reward;
+    std::optional<Item> m_collectedReward;
     std::vector<std::unique_ptr<Monster>> m_monsters;
     bool m_doors[4]{false, false, false, false};
     RoomType m_roomType{RoomType::Normal};
