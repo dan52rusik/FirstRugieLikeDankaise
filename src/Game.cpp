@@ -1,5 +1,6 @@
 #include "Game.h"
 #ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
 #include <emscripten/html5.h>
 #endif
 
@@ -29,6 +30,20 @@ sf::VideoMode createVideoMode() {
 #else
 sf::VideoMode createVideoMode() {
     return sf::VideoMode({windowWidth(), windowHeight()});
+}
+#endif
+
+constexpr float fixedDt() {
+#ifdef __EMSCRIPTEN__
+    return 1.0f / 60.0f;
+#else
+    return 1.0f / 120.0f;
+#endif
+}
+
+#ifdef __EMSCRIPTEN__
+void emscriptenFrame(void* userData) {
+    static_cast<Game*>(userData)->frame();
 }
 #endif
 }
@@ -88,29 +103,30 @@ void Game::tryRoomTransition() {
 }
 
 void Game::run() {
-    sf::Clock clock;
-    float accumulator = 0.0f;
 #ifdef __EMSCRIPTEN__
-    constexpr float fixedDt = 1.0f / 60.0f;
+    emscripten_set_main_loop_arg(&emscriptenFrame, this, 0, true);
 #else
-    constexpr float fixedDt = 1.0f / 120.0f;
-#endif
-
     while (m_window.isOpen()) {
-        float frameDt = clock.restart().asSeconds();
-        frameDt = std::min(frameDt, 0.05f);
-        accumulator += frameDt;
-
-        processEvents();
-
-        while (accumulator >= fixedDt) {
-            update(fixedDt);
-            accumulator -= fixedDt;
-        }
-
-        m_renderAlpha = accumulator / fixedDt;
-        render();
+        frame();
     }
+#endif
+}
+
+void Game::frame() {
+    float frameDt = m_frameClock.restart().asSeconds();
+    frameDt = std::min(frameDt, 0.05f);
+    m_frameAccumulator += frameDt;
+
+    processEvents();
+
+    const float dt = fixedDt();
+    while (m_frameAccumulator >= dt) {
+        update(dt);
+        m_frameAccumulator -= dt;
+    }
+
+    m_renderAlpha = m_frameAccumulator / dt;
+    render();
 }
 
 void Game::processEvents() {

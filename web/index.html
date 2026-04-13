@@ -17,8 +17,8 @@
     }
 
     canvas.emscripten {
-      border: 0px none;
-      background-color: black;
+      border: 0 none;
+      background-color: #000;
       display: block;
       max-width: none;
       max-height: none;
@@ -29,39 +29,69 @@
     }
   </style>
 
-  <!-- Yandex Games SDK -->
   <script async src="/sdk.js" onload="initSDK()"></script>
   <script>
     var ysdk = null;
+    var sdkReady = false;
+    var runtimeReady = false;
+    var assetsReady = false;
+    var yandexReadySent = false;
+
+    function tryNotifyYandexReady() {
+      if (yandexReadySent || !sdkReady || !runtimeReady || !assetsReady || !window.ysdk || !window.ysdk.features) {
+        return;
+      }
+
+      try {
+        if (window.ysdk.features.LoadingAPI && typeof window.ysdk.features.LoadingAPI.ready === "function") {
+          console.log("Yandex SDK: Sending ready() via LoadingAPI");
+          window.ysdk.features.LoadingAPI.ready();
+          yandexReadySent = true;
+          return;
+        }
+
+        if (window.ysdk.features.LoadingProgress && typeof window.ysdk.features.LoadingProgress.ready === "function") {
+          console.log("Yandex SDK: Sending ready() via LoadingProgress fallback");
+          window.ysdk.features.LoadingProgress.ready();
+          yandexReadySent = true;
+          return;
+        }
+
+        console.warn("Yandex SDK: loading API is unavailable");
+      } catch (e) {
+        console.error("Yandex SDK: ready() failed", e);
+      }
+    }
+
     async function initSDK() {
       try {
         ysdk = await YaGames.init();
+        window.ysdk = ysdk;
+        sdkReady = true;
         console.log("Yandex Games SDK Initialized");
-        // Здесь можно вызывать ysdk.features().., показывать рекламу, и так далее
+        tryNotifyYandexReady();
       } catch (e) {
-        console.error("Yandex Games SDK Initialized error: ", e);
+        console.error("Yandex Games SDK init failed:", e);
       }
     }
   </script>
 </head>
 
 <body>
-  <!-- The canvas for Emscripten/WebGL -->
-  <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+  <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
 
-  <script type='text/javascript'>
+  <script type="text/javascript">
     function resizeCanvasElement() {
-      var canvas = document.getElementById('canvas');
+      var canvas = document.getElementById("canvas");
       if (!canvas) return;
 
       var baseWidth = 960;
       var baseHeight = 720;
       var scale = Math.min(window.innerWidth / baseWidth, window.innerHeight / baseHeight);
 
-      canvas.style.width = (baseWidth * scale) + 'px';
-      canvas.style.height = (baseHeight * scale) + 'px';
+      canvas.style.width = (baseWidth * scale) + "px";
+      canvas.style.height = (baseHeight * scale) + "px";
 
-      // Четкие пиксели: выставляем внутренний размер по размеру окна
       var dpr = window.devicePixelRatio || 1;
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
@@ -71,17 +101,20 @@
       preRun: [],
       postRun: [],
       onRuntimeInitialized: function () {
+        runtimeReady = true;
         console.log("Game Engine Ready");
+        tryNotifyYandexReady();
       },
-      print: (function () {
-        return function (text) {
-          console.log(text);
-        };
-      })(),
+      print: function (text) {
+        console.log(text);
+      },
+      printErr: function (text) {
+        console.error(text);
+      },
       canvas: (function () {
-        var canvas = document.getElementById('canvas');
+        var canvas = document.getElementById("canvas");
         canvas.addEventListener("webglcontextlost", function (e) {
-          alert('WebGL context lost. You will need to reload the page.');
+          alert("WebGL context lost. You will need to reload the page.");
           e.preventDefault();
         }, false);
         return canvas;
@@ -92,40 +125,32 @@
       totalDependencies: 0,
       monitorRunDependencies: function (left) {
         this.totalDependencies = Math.max(this.totalDependencies, left);
-        Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+        Module.setStatus(left ? "Preparing... (" + (this.totalDependencies - left) + "/" + this.totalDependencies + ")" : "All downloads complete.");
 
-        // Как только загрузка завершена (left == 0), сигнализируем Яндексу
         if (left === 0) {
-          notifyYandexReady();
+          assetsReady = true;
+          tryNotifyYandexReady();
         }
+      },
+      onAbort: function (reason) {
+        console.error("Emscripten abort:", reason);
       }
     };
 
-    function notifyYandexReady() {
-      // Пробуем вызвать несколько раз, пока не добьемся успеха
-      var tryNotify = function () {
-        if (window.ysdk && window.ysdk.features && window.ysdk.features.LoadingProgress) {
-          console.log("Yandex SDK: Sending Ready Signal");
-          window.ysdk.features.LoadingProgress.ready();
-        } else {
-          setTimeout(tryNotify, 200);
-        }
-      };
-      tryNotify();
-    }
-
-    window.addEventListener('resize', resizeCanvasElement);
+    window.addEventListener("resize", resizeCanvasElement);
     resizeCanvasElement();
-    Module.setStatus('Downloading...');
-    window.onerror = function () {
-      Module.setStatus('Exception thrown, see JavaScript console');
+    Module.setStatus("Downloading...");
+    window.onerror = function (message, source, lineno, colno, error) {
+      Module.setStatus("Exception thrown, see JavaScript console");
+      console.error("window.onerror:", message, source, lineno, colno, error);
       Module.setStatus = function (text) {
-        if (text) Module.printErr('[post-exception status] ' + text);
+        if (text) {
+          Module.printErr("[post-exception status] " + text);
+        }
       };
     };
   </script>
 
-  <!-- Сюда Emscripten вставит подключение к скомпилированному .js файлу -->
   {{{ SCRIPT }}}
 </body>
 

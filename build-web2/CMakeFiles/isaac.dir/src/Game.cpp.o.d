@@ -758,18 +758,18 @@ CMakeFiles/isaac.dir/src/Game.cpp.o: \
   C:\MyGames\FirstRugieLikeDankaise\src\rooms\..\Floor.h \
   C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.h \
   C:\MyGames\FirstRugieLikeDankaise\src\ui\..\items\Item.h \
-  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\html5.h \
-  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\em_types.h \
-  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\stdbool.h \
-  C:\MyGames\emsdk\upstream\lib\clang\23\include\stdbool.h \
-  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\stdbool.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\emscripten.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\em_asm.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\em_js.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\em_macros.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\stdbool.h \
+  C:\MyGames\emsdk\upstream\lib\clang\23\include\stdbool.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\stdbool.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\em_types.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\promise.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\version.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\wget.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\html5.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\console.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\eventloop.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\emscripten\html5_webgl.h

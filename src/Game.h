@@ -14,6 +14,7 @@ class Game {
 public:
     Game();
     void run();
+    void frame();
 
 private:
     void loadCurrentRoom();
@@ -36,5 +37,7 @@ private:
     float m_itemPickupTimer{0.0f};
     sf::RenderTexture m_uiBuffer;
     float m_renderAlpha{0.0f};
+    sf::Clock m_frameClock;
+    float m_frameAccumulator{0.0f};
     bool m_gameOver;
 };
