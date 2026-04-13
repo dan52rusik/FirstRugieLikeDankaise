@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\CMakeFiles\47529455573adba4f4c4b047b5ed7a6e\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{30B53F19-E2C3-3D80-B9C4-C7E506242B4E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

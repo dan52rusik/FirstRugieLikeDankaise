@@ -18,22 +18,6 @@
 #include "utils/Random.h"
 
 namespace {
-sf::Vector2f roomCenter() {
-    return {480.0f, 300.0f};
-}
-
-constexpr float kRoomLeft = 72.0f;
-constexpr float kRoomTop = 36.0f;
-constexpr float kRoomWidth = 816.0f;
-constexpr float kRoomHeight = 528.0f;
-constexpr float kWallThickness = 24.0f;
-constexpr float kTileSize = 48.0f;
-constexpr int kGridCols = 15;
-constexpr int kGridRows = 9;
-constexpr float kGridLeft = kRoomLeft + 48.0f;
-constexpr float kGridTop = kRoomTop + 48.0f;
-constexpr float kDoorThickness = 18.0f;
-
 #if SFML_VERSION_MAJOR < 3
 float rectLeft(const sf::FloatRect& rect) { return rect.left; }
 float rectTop(const sf::FloatRect& rect) { return rect.top; }
@@ -48,10 +32,14 @@ float rectHeight(const sf::FloatRect& rect) { return rect.size.y; }
 sf::FloatRect makeRect(const sf::Vector2f& position, const sf::Vector2f& size) { return {position, size}; }
 #endif
 
+sf::Vector2f roomCenter() {
+    return {480.0f, 300.0f};
+}
+
 sf::Vector2f tileCenter(int col, int row) {
     return {
-        kGridLeft + static_cast<float>(col) * kTileSize + kTileSize * 0.5f,
-        kGridTop + static_cast<float>(row) * kTileSize + kTileSize * 0.5f};
+        Room::kGridLeft + static_cast<float>(col) * Room::kTileSize + Room::kTileSize * 0.5f,
+        Room::kGridTop + static_cast<float>(row) * Room::kTileSize + Room::kTileSize * 0.5f};
 }
 
 sf::Vector2f tileCenter(const sf::Vector2i& tile) {
@@ -68,13 +56,13 @@ bool isReservedDoorTile(const sf::Vector2i& tile) {
 }
 
 bool isInsideGrid(const sf::Vector2i& tile) {
-    return tile.x >= 0 && tile.x < kGridCols && tile.y >= 0 && tile.y < kGridRows;
+    return tile.x >= 0 && tile.x < Room::kGridCols && tile.y >= 0 && tile.y < Room::kGridRows;
 }
 
 sf::Vector2i tileFromWorld(const sf::Vector2f& position) {
     return {
-        std::clamp(static_cast<int>((position.x - kGridLeft) / kTileSize), 0, kGridCols - 1),
-        std::clamp(static_cast<int>((position.y - kGridTop) / kTileSize), 0, kGridRows - 1)
+        std::clamp(static_cast<int>((position.x - Room::kGridLeft) / Room::kTileSize), 0, Room::kGridCols - 1),
+        std::clamp(static_cast<int>((position.y - Room::kGridTop) / Room::kTileSize), 0, Room::kGridRows - 1)
     };
 }
 }
@@ -89,6 +77,10 @@ Room::Room() {
     m_innerBounds.setFillColor(sf::Color::Transparent);
     m_innerBounds.setOutlineThickness(20.0f);
     m_innerBounds.setOutlineColor(sf::Color(42, 28, 22));
+
+    for (int i = 0; i < kGridCols * kGridRows; ++i) {
+        m_grid[i] = TileContent::Empty;
+    }
 }
 
 void Room::load(RoomData& roomData) {
@@ -120,12 +112,24 @@ void Room::load(RoomData& roomData) {
         break;
     }
 
+    for (int i = 0; i < kGridCols * kGridRows; ++i) {
+        m_grid[i] = TileContent::Empty;
+    }
+
     buildRocks();
     buildProps(roomData);
     rebuildPropInstances();
     buildMonsters(roomData);
     buildReward(roomData);
     rebuildPickupInstances();
+}
+
+int Room::getGridIndex(const sf::Vector2i& tile) const {
+    return tile.y * kGridCols + tile.x;
+}
+
+int Room::getGridIndex(const sf::Vector2f& position) const {
+    return getGridIndex(tileFromWorld(position));
 }
 
 void Room::buildRocks() {
@@ -140,6 +144,10 @@ void Room::buildRocks() {
         rock.setPosition(tileCenter(tile));
         rock.setFillColor(sf::Color(120, 120, 120));
         m_rocks.push_back(rock);
+        
+        if (isInsideGrid(tile)) {
+            m_grid[getGridIndex(tile)] = TileContent::Rock;
+        }
     }
 }
 
@@ -158,6 +166,9 @@ void Room::buildProps(RoomData& roomData) {
 
     for (const auto& tile : m_template->barrels) {
         roomData.props.push_back({PropType::Barrel, tileCenter(tile), false});
+        if (isInsideGrid(tile)) {
+            m_grid[getGridIndex(tile)] = TileContent::Prop;
+        }
     }
 }
 
@@ -312,22 +323,11 @@ bool Room::isTileOccupied(const sf::Vector2i& tile) const {
         return true;
     }
 
-    if (m_template != nullptr &&
-        std::find(m_template->blockedTiles.begin(), m_template->blockedTiles.end(), tile) != m_template->blockedTiles.end()) {
+    if (m_grid[getGridIndex(tile)] != TileContent::Empty) {
         return true;
     }
 
     const sf::Vector2f center = tileCenter(tile);
-    for (const auto& rock : m_rocks) {
-        if (Collision::distance(rock.getPosition(), center) < 1.0f) {
-            return true;
-        }
-    }
-    for (const auto& prop : m_props) {
-        if (Collision::distance(prop.shape.getPosition(), center) < 1.0f) {
-            return true;
-        }
-    }
     for (const auto& pickup : m_pickups) {
         if (Collision::distance(pickup.shape.getPosition(), center) < 1.0f) {
             return true;
@@ -402,6 +402,11 @@ void Room::breakProp(std::size_t propIndex, const Player& player) {
     }
 
     prop.destroyed = true;
+    const sf::Vector2i tile = tileFromWorld(prop.position);
+    if (isInsideGrid(tile)) {
+        m_grid[getGridIndex(tile)] = TileContent::Empty;
+    }
+    
     rebuildPropInstances();
     spawnRandomPickup(prop.position, 0.55f, player);
 }
@@ -520,13 +525,18 @@ void Room::keepMonsterInPlayableArea(Monster& monster) const {
     monster.setPosition(position);
 }
 
+Player& Room::getPlayer() const {
+    return *m_currentPlayer;
+}
+
 void Room::update(float dt, Player& player, std::vector<Tear>& tears, std::vector<Bomb>& bombs) {
+    m_currentPlayer = &player;
     for (auto& monster : m_monsters) {
         if (!monster->isAlive()) {
             continue;
         }
 
-        monster->update(dt, player, *this);
+        monster->update(dt, *this);
         keepMonsterInPlayableArea(*monster);
         if (Collision::intersects(monster->getBounds(), player.getBounds())) {
             player.takeDamage(static_cast<int>(monster->getDamage()));
@@ -537,6 +547,8 @@ void Room::update(float dt, Player& player, std::vector<Tear>& tears, std::vecto
         if (!tear.isAlive()) {
             continue;
         }
+
+        tear.update(dt, *this);
 
         bool hitMonster = false;
         for (auto& monster : m_monsters) {
@@ -580,6 +592,7 @@ void Room::update(float dt, Player& player, std::vector<Tear>& tears, std::vecto
     }
 
     for (auto& bomb : bombs) {
+        bomb.update(dt, *this);
         if (!bomb.consumeExplosion()) {
             continue;
         }
@@ -711,16 +724,13 @@ bool Room::collidesWithWalls(const sf::FloatRect& bounds) const {
         return true;
     }
 
-    for (const auto& rock : m_rocks) {
-        if (Collision::intersects(bounds, rock.getGlobalBounds())) {
-            return true;
-        }
+    // Grid-based static collision
+    const sf::Vector2f center(rectLeft(bounds) + rectWidth(bounds) * 0.5f, rectTop(bounds) + rectHeight(bounds) * 0.5f);
+    const sf::Vector2i tile = tileFromWorld(center);
+    if (m_grid[getGridIndex(tile)] != TileContent::Empty) {
+        return true;
     }
-    for (const auto& prop : m_props) {
-        if (Collision::intersects(bounds, prop.shape.getGlobalBounds())) {
-            return true;
-        }
-    }
+
     if (m_reward.has_value() && Collision::intersects(bounds, m_reward->pedestal.getGlobalBounds())) {
         return true;
     }

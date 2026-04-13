@@ -49,9 +49,8 @@ sf::Text makeText(const sf::Font& font,
                   sf::Vector2f screenPos,
                   float scale,
                   const sf::String& string = {}) {
-    // Ключевой момент: запрашиваем шрифт нужного физического размера!
-    sf::Text text;
-    text.setFont(font);
+    // В SFML 3 конструктор изменился: строки идут перед шрифтом
+    sf::Text text("", font);
     text.setString(string);
     text.setCharacterSize(static_cast<unsigned int>(static_cast<float>(logicalSize) * scale));
     text.setFillColor(color);

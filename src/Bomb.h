@@ -1,19 +1,20 @@
 #pragma once
+#include "Entity.h"
 
-#include <SFML/Graphics.hpp>
-
-class Bomb {
+class Bomb : public Entity {
 public:
     explicit Bomb(const sf::Vector2f& position);
 
-    void update(float dt);
-    void draw(sf::RenderTarget& target) const;
+    void update(float dt, Room& room) override;
+    void draw(sf::RenderTarget& target) const override;
 
     bool hasExploded() const;
     bool isFinished() const;
     bool consumeExplosion();
     float getRadius() const;
-    sf::Vector2f getPosition() const;
+    sf::FloatRect getBounds() const override;
+    sf::Vector2f getPosition() const override;
+    void setPosition(const sf::Vector2f& position) override;
 
 private:
     sf::CircleShape m_shape;

@@ -1,0 +1,8 @@
+# CMake generation dependency list for this directory.
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-src/CMakeLists.txt
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-src/vorbis.pc.in
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-src/vorbisenc.pc.in
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-src/vorbisfile.pc.in
+C:/Program Files/CMake/share/cmake-4.3/Modules/CheckIncludeFiles.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/CheckLibraryExists.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/GNUInstallDirs.cmake

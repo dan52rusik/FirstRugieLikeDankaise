@@ -1,0 +1,14 @@
+# Target labels
+ freetype-populate
+# Source files and their labels
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/freetype-populate
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/e8b6799312380ac262951ed99130df77/freetype-populate.rule
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/7a2d390045d6c9aa80f7b9ed5ebd1811/freetype-populate-complete.rule
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/422c26b69ffb77fc9db23170bb22c588/freetype-populate-build.rule
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/422c26b69ffb77fc9db23170bb22c588/freetype-populate-configure.rule
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/422c26b69ffb77fc9db23170bb22c588/freetype-populate-download.rule
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/422c26b69ffb77fc9db23170bb22c588/freetype-populate-install.rule
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/422c26b69ffb77fc9db23170bb22c588/freetype-populate-mkdir.rule
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/422c26b69ffb77fc9db23170bb22c588/freetype-populate-patch.rule
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/422c26b69ffb77fc9db23170bb22c588/freetype-populate-test.rule
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/422c26b69ffb77fc9db23170bb22c588/freetype-populate-update.rule

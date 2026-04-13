@@ -623,4 +623,66 @@ CMakeFiles/isaac.dir/src/items/ItemList.cpp.o: \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__locale_dir\time.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__locale_dir\wbuffer_convert.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__locale_dir\wstring_convert.h \
-  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\cstdarg
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\cstdarg \
+  C:\MyGames\FirstRugieLikeDankaise\src\items\..\utils\JsonParser.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\regex \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\deque \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__fwd\deque.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\functional \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\binary_negate.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\bind.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\binder1st.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\binder2nd.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\mem_fn.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\mem_fun_ref.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\pointer_to_binary_function.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\pointer_to_unary_function.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\unary_negate.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\function.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__type_traits\strip_signature.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\boyer_moore_searcher.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\unordered_map \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\is_transparent.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__hash_table \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__type_traits\can_extract_key.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__type_traits\remove_const_ref.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__iterator\erase_if_container.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__iterator\ranges_iterator_traits.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__node_handle \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\default_searcher.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\not_fn.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__functional\perfect_forward.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\fstream \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\path.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\iomanip \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__ostream\put_character_sequence.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\bitset \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__type_traits\is_char_like_type.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\format \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\queue \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__fwd\queue.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\stack \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__fwd\stack.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\istream \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__ostream\basic_ostream.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\ostream \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\print \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\unistd.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\filesystem \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\copy_options.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\directory_entry.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\file_status.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\file_type.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\perms.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\file_time_type.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__chrono\file_clock.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\filesystem_error.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\operations.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\perm_options.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\space_info.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\directory_iterator.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\directory_options.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\path_iterator.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\recursive_directory_iterator.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\u8path.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\sstream

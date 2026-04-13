@@ -556,6 +556,30 @@ src/monsters/Monster.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\isaac.dir\build.make CMakeFiles/isaac.dir/src/monsters/Monster.cpp.s
 .PHONY : src/monsters/Monster.cpp.s
 
+src/monsters/MonsterLoader.o: src/monsters/MonsterLoader.cpp.o
+.PHONY : src/monsters/MonsterLoader.o
+
+# target to build an object file
+src/monsters/MonsterLoader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\isaac.dir\build.make CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.o
+.PHONY : src/monsters/MonsterLoader.cpp.o
+
+src/monsters/MonsterLoader.i: src/monsters/MonsterLoader.cpp.i
+.PHONY : src/monsters/MonsterLoader.i
+
+# target to preprocess a source file
+src/monsters/MonsterLoader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\isaac.dir\build.make CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.i
+.PHONY : src/monsters/MonsterLoader.cpp.i
+
+src/monsters/MonsterLoader.s: src/monsters/MonsterLoader.cpp.s
+.PHONY : src/monsters/MonsterLoader.s
+
+# target to generate assembly for a file
+src/monsters/MonsterLoader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\isaac.dir\build.make CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.s
+.PHONY : src/monsters/MonsterLoader.cpp.s
+
 src/monsters/Spider.o: src/monsters/Spider.cpp.o
 .PHONY : src/monsters/Spider.o
 
@@ -687,6 +711,9 @@ help:
 	@echo ... src/monsters/Monster.o
 	@echo ... src/monsters/Monster.i
 	@echo ... src/monsters/Monster.s
+	@echo ... src/monsters/MonsterLoader.o
+	@echo ... src/monsters/MonsterLoader.i
+	@echo ... src/monsters/MonsterLoader.s
 	@echo ... src/monsters/Spider.o
 	@echo ... src/monsters/Spider.i
 	@echo ... src/monsters/Spider.s

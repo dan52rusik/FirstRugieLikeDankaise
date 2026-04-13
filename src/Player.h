@@ -1,35 +1,33 @@
-#pragma once
-
-#include <SFML/Graphics.hpp>
-#include <vector>
-
-#include "Bomb.h"
-#include "Tear.h"
-#include "items/Item.h"
+#include "Entity.h"
 
 class Room;
+class Tear;
+class Bomb;
+struct Item;
 
-class Player {
+class Player : public Entity {
 public:
     Player();
 
     void handleRealtimeInput();
-    void update(float dt, const Room& room);
+    void update(float dt, Room& room) override;
+    void draw(sf::RenderTarget& target) const override;
     void draw(sf::RenderTarget& target, float alpha) const;
 
     void shoot(std::vector<Tear>& tears);
     bool placeBomb(std::vector<Bomb>& bombs);
     void takeDamage(int amount);
+    void takeDamage(float amount) override; // Entity override
     void heal(int amount);
     void addCoins(int amount);
     void addKeys(int amount);
     void addBombs(int amount);
     void applyItem(const Item& item);
-    void setPosition(const sf::Vector2f& position);
+    void setPosition(const sf::Vector2f& position) override;
     void grantInvincibility(float duration);
 
-    sf::FloatRect getBounds() const;
-    sf::Vector2f getPosition() const;
+    sf::FloatRect getBounds() const override;
+    sf::Vector2f getPosition() const override;
     int getHp() const;
     int getMaxHp() const;
     int getCoins() const;
@@ -39,7 +37,7 @@ public:
     float getMoveSpeed() const;
     float getTearDamage() const;
     float getTearDelay() const;
-    bool isAlive() const;
+    // isAlive() is in Entity
 
 private:
     sf::RectangleShape m_body;

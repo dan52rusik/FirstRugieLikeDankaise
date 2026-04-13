@@ -4,10 +4,16 @@
 #include "../Room.h"
 #include "../utils/Collision.h"
 
-Leech::Leech(const sf::Vector2f& position)
-    : Monster(position, 20.0f, 80.0f, 2.0f, sf::Color(120, 20, 20)) {}
+#include "MonsterLoader.h"
 
-void Leech::update(float dt, const Player& player, const Room&) {
+Leech::Leech(const sf::Vector2f& position)
+    : Monster(position, 
+              MonsterLoader::get("leech").hp, 
+              MonsterLoader::get("leech").speed, 
+              MonsterLoader::get("leech").damage, 
+              MonsterLoader::get("leech").color) {}
+
+void Leech::updateMonster(float dt, const Player& player, const Room&) {
     updateFlash(dt);
 
     const sf::Vector2f direction = Collision::normalize(Collision::subtract(player.getPosition(), m_shape.getPosition()));

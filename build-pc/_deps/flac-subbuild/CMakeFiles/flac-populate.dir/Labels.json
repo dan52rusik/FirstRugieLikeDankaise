@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/flac-populate"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/08365f52dad977e8d6587ab527923f94/flac-populate.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/8205a499602cce17e0fe054fbc12cdb5/flac-populate-complete.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/c1360814d47dfaf8c7adf30b80aca4fe/flac-populate-build.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/c1360814d47dfaf8c7adf30b80aca4fe/flac-populate-configure.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/c1360814d47dfaf8c7adf30b80aca4fe/flac-populate-download.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/c1360814d47dfaf8c7adf30b80aca4fe/flac-populate-install.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/c1360814d47dfaf8c7adf30b80aca4fe/flac-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/c1360814d47dfaf8c7adf30b80aca4fe/flac-populate-patch.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/c1360814d47dfaf8c7adf30b80aca4fe/flac-populate-test.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/c1360814d47dfaf8c7adf30b80aca4fe/flac-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"flac-populate"
+		],
+		"name" : "flac-populate"
+	}
+}

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\freetype-subbuild\CMakeFiles\e8b6799312380ac262951ed99130df77\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{6B01641B-A296-31BD-89CA-6E77FAB6F422}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

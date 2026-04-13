@@ -5,7 +5,7 @@
 class Fly : public Monster {
 public:
     explicit Fly(const sf::Vector2f& position);
-    void update(float dt, const Player& player, const Room& room) override;
+    void updateMonster(float dt, const Player& player, const Room& room) override;
 
 private:
     sf::Vector2f m_wanderDirection;

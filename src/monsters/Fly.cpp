@@ -5,12 +5,18 @@
 #include "../utils/Collision.h"
 #include "../utils/Random.h"
 
+#include "MonsterLoader.h"
+
 Fly::Fly(const sf::Vector2f& position)
-    : Monster(position, 10.0f, 95.0f, 2.0f, sf::Color(70, 70, 70)),
+    : Monster(position, 
+              MonsterLoader::get("fly").hp, 
+              MonsterLoader::get("fly").speed, 
+              MonsterLoader::get("fly").damage, 
+              MonsterLoader::get("fly").color),
       m_wanderDirection(1.0f, 0.0f),
       m_directionTimer(0.5f) {}
 
-void Fly::update(float dt, const Player& player, const Room&) {
+void Fly::updateMonster(float dt, const Player& player, const Room&) {
     updateFlash(dt);
 
     m_directionTimer -= dt;

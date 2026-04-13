@@ -1,0 +1,154 @@
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FREETYPE-SUBBUILD\CMAKEFILES\422C26B69FFB77FC9DB23170BB22C588\FREETYPE-POPULATE-MKDIR.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -Dcfgdir=/Debug -P C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/freetype-populate-prefix/tmp/freetype-populate-mkdirs.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/Debug/freetype-populate-mkdir
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FREETYPE-SUBBUILD\CMAKEFILES\422C26B69FFB77FC9DB23170BB22C588\FREETYPE-POPULATE-DOWNLOAD.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/freetype-populate-prefix/tmp/freetype-populate-gitclone.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/Debug/freetype-populate-download
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FREETYPE-SUBBUILD\CMAKEFILES\422C26B69FFB77FC9DB23170BB22C588\FREETYPE-POPULATE-UPDATE.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\freetype-src
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -Dcan_fetch=YES -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/freetype-populate-prefix/tmp/freetype-populate-gitupdate.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FREETYPE-SUBBUILD\CMAKEFILES\422C26B69FFB77FC9DB23170BB22C588\FREETYPE-POPULATE-PATCH.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\freetype-src
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -DFREETYPE_DIR=C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-src -P C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/sfml-src/tools/freetype/PatchFreetype.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/Debug/freetype-populate-patch
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FREETYPE-SUBBUILD\CMAKEFILES\422C26B69FFB77FC9DB23170BB22C588\FREETYPE-POPULATE-CONFIGURE.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\freetype-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/Debug/freetype-populate-configure
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FREETYPE-SUBBUILD\CMAKEFILES\422C26B69FFB77FC9DB23170BB22C588\FREETYPE-POPULATE-BUILD.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\freetype-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/Debug/freetype-populate-build
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FREETYPE-SUBBUILD\CMAKEFILES\422C26B69FFB77FC9DB23170BB22C588\FREETYPE-POPULATE-INSTALL.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\freetype-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/Debug/freetype-populate-install
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FREETYPE-SUBBUILD\CMAKEFILES\422C26B69FFB77FC9DB23170BB22C588\FREETYPE-POPULATE-TEST.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\freetype-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/Debug/freetype-populate-test
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FREETYPE-SUBBUILD\CMAKEFILES\7A2D390045D6C9AA80F7B9ED5EBD1811\FREETYPE-POPULATE-COMPLETE.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/Debug/freetype-populate-complete
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/Debug/freetype-populate-done
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FREETYPE-SUBBUILD\CMAKEFILES\E8B6799312380AC262951ED99130DF77\FREETYPE-POPULATE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FREETYPE-SUBBUILD\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild -BC:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild --check-stamp-file C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/freetype-subbuild/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

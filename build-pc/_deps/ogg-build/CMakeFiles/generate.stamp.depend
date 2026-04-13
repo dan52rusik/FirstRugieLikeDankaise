@@ -1,0 +1,19 @@
+# CMake generation dependency list for this directory.
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/ogg-src/CMakeLists.txt
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/ogg-src/cmake/CheckSizes.cmake
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/ogg-src/cmake/OggConfig.cmake.in
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/ogg-src/include/ogg/config_types.h.in
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/ogg-src/ogg.pc.in
+C:/Program Files/CMake/share/cmake-4.3/Modules/BasicConfigVersion-SameMajorVersion.cmake.in
+C:/Program Files/CMake/share/cmake-4.3/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/CPack.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/CPackComponent.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/CTest.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/CTestUseLaunchers.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/CheckIncludeFile.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/CheckIncludeFileCXX.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/CheckIncludeFiles.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/CheckTypeSize.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/GNUInstallDirs.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/WriteBasicConfigVersionFile.cmake
+C:/Program Files/CMake/share/cmake-4.3/Templates/CPackConfig.cmake.in

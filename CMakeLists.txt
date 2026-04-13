@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
+set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
 project(isaac_clone LANGUAGES CXX)
 
 include(FetchContent)
@@ -38,7 +39,22 @@ if(EMSCRIPTEN)
     endif()
 else()
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-    find_package(SFML 3 REQUIRED COMPONENTS Graphics Window System Audio)
+    
+    # Автоматическое скачивание SFML 3 для ПК
+    FetchContent_Declare(
+        SFML
+        GIT_REPOSITORY https://github.com/SFML/SFML.git
+        GIT_TAG 3.0.0
+    )
+    
+    # Опции сборки SFML (отключаем лишнее для скорости)
+    set(SFML_BUILD_AUDIO ON CACHE BOOL "" FORCE)
+    set(SFML_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+    set(SFML_BUILD_TEST_SUITE OFF CACHE BOOL "" FORCE)
+    set(SFML_BUILD_DOC OFF CACHE BOOL "" FORCE)
+    set(SFML_INSTALL_PKGCONFIG_FILES OFF CACHE BOOL "" FORCE)
+    
+    FetchContent_MakeAvailable(SFML)
 endif()
 
 add_executable(isaac
@@ -57,6 +73,7 @@ add_executable(isaac
     src/monsters/Knight.cpp
     src/monsters/Leech.cpp
     src/monsters/Boss.cpp
+    src/monsters/MonsterLoader.cpp
     src/items/ItemList.cpp
     src/ui/HUD.cpp
 )
@@ -66,13 +83,14 @@ target_include_directories(isaac PRIVATE src)
 if(EMSCRIPTEN)
     target_link_libraries(isaac PRIVATE sfml-graphics sfml-window sfml-system)
 else()
-    target_link_libraries(isaac PRIVATE SFML::Graphics SFML::Window SFML::System SFML::Audio)
+    # При сборке через FetchContent (SFML 3) используем прямые имена таргетов
+    target_link_libraries(isaac PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)
 endif()
 
 if(EMSCRIPTEN)
     # Настройки для сборки под WebGL/Emscripten, с файлом-оболочкой, где будет Yandex SDK
     set_target_properties(isaac PROPERTIES 
         OUTPUT_NAME "index"
-        LINK_FLAGS "-O3 -s USE_WEBGL2=1 -s FULL_ES2=1 -s USE_FREETYPE=1 -s ASYNCIFY -s FETCH=1 -s DISABLE_EXCEPTION_CATCHING=0 -s ASYNCIFY_STACK_SIZE=65536 --preload-file ${CMAKE_SOURCE_DIR}/assets@/assets --shell-file ${CMAKE_SOURCE_DIR}/web/index.html"
+        LINK_FLAGS "-O3 -s USE_WEBGL2=1 -s FULL_ES2=1 -s USE_FREETYPE=1 -s ASYNCIFY -s FETCH=1 -s DISABLE_EXCEPTION_CATCHING=0 -s ASYNCIFY_STACK_SIZE=65536 --preload-file ${CMAKE_SOURCE_DIR}/assets@/assets --preload-file ${CMAKE_SOURCE_DIR}/data@/data --shell-file ${CMAKE_SOURCE_DIR}/web/index.html"
     )
 endif()

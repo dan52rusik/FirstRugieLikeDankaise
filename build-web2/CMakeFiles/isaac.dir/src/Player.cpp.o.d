@@ -1,6 +1,7 @@
 CMakeFiles/isaac.dir/src/Player.cpp.o: \
   C:\MyGames\FirstRugieLikeDankaise\src\Player.cpp \
   C:\MyGames\FirstRugieLikeDankaise\src\Player.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\Entity.h \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Graphics.hpp \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Window.hpp \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\System.hpp \
@@ -742,14 +743,15 @@ CMakeFiles/isaac.dir/src/Player.cpp.o: \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Graphics\Sprite.hpp \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Graphics\Text.hpp \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Graphics\VertexBuffer.hpp \
-  C:\MyGames\FirstRugieLikeDankaise\src\Bomb.h \
-  C:\MyGames\FirstRugieLikeDankaise\src\Tear.h \
-  C:\MyGames\FirstRugieLikeDankaise\src\items\Item.h \
   C:\MyGames\FirstRugieLikeDankaise\src\Room.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\Bomb.h \
   C:\MyGames\FirstRugieLikeDankaise\src\Floor.h \
   C:\MyGames\FirstRugieLikeDankaise\src\items\Pickup.h \
   C:\MyGames\FirstRugieLikeDankaise\src\props\Prop.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\Tear.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\items\Item.h \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\Monster.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\Entity.h \
   C:\MyGames\FirstRugieLikeDankaise\src\rooms\RoomTemplate.h \
   C:\MyGames\FirstRugieLikeDankaise\src\rooms\..\Floor.h \
   C:\MyGames\FirstRugieLikeDankaise\src\utils\Collision.h

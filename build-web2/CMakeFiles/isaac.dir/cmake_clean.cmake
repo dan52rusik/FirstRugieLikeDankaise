@@ -27,6 +27,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/isaac.dir/src/monsters/Leech.cpp.o.d"
   "CMakeFiles/isaac.dir/src/monsters/Monster.cpp.o"
   "CMakeFiles/isaac.dir/src/monsters/Monster.cpp.o.d"
+  "CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.o"
+  "CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.o.d"
   "CMakeFiles/isaac.dir/src/monsters/Spider.cpp.o"
   "CMakeFiles/isaac.dir/src/monsters/Spider.cpp.o.d"
   "CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.o"

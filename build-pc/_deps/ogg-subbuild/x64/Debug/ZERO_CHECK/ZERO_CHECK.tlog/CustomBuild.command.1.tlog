@@ -1,0 +1,10 @@
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\OGG-SUBBUILD\CMAKEFILES\FD4D7AF3709047D6BD240C5B5100F1A8\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/ogg-subbuild -BC:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/ogg-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/ogg-subbuild/ogg-populate.slnx
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

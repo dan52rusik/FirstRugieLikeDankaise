@@ -1,0 +1,59 @@
+{
+    "monsters": [
+        {
+            "id": "fly",
+            "hp": 10,
+            "speed": 95,
+            "damage": 2,
+            "color": [
+                70,
+                70,
+                70
+            ]
+        },
+        {
+            "id": "spider",
+            "hp": 15,
+            "speed": 180,
+            "damage": 2,
+            "color": [
+                130,
+                90,
+                70
+            ]
+        },
+        {
+            "id": "knight",
+            "hp": 40,
+            "speed": 120,
+            "damage": 2,
+            "color": [
+                110,
+                110,
+                160
+            ]
+        },
+        {
+            "id": "leech",
+            "hp": 20,
+            "speed": 80,
+            "damage": 2,
+            "color": [
+                120,
+                20,
+                20
+            ]
+        },
+        {
+            "id": "boss",
+            "hp": 300,
+            "speed": 90,
+            "damage": 4,
+            "color": [
+                180,
+                40,
+                40
+            ]
+        }
+    ]
+}

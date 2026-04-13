@@ -40,7 +40,11 @@ Game::Game()
     
     // Создаем буфер для отрисовки всей игры в фиксированном разрешении
     // Это секрет четкости в браузерах!
+#if SFML_VERSION_MAJOR < 3
     m_uiBuffer.create(960, 720);
+#else
+    m_uiBuffer.resize({960, 720});
+#endif
     m_uiBuffer.setSmooth(false); // КЛЮЧЕВОЙ МОМЕНТ: отключаем сглаживание
     
     // Начальная настройка вида с сохранением пропорций
@@ -183,13 +187,6 @@ void Game::update(float dt) {
     m_player.handleRealtimeInput();
     m_player.update(dt, m_room);
     m_player.shoot(m_tears);
-
-    for (auto& tear : m_tears) {
-        tear.update(dt);
-    }
-    for (auto& bomb : m_bombs) {
-        bomb.update(dt);
-    }
 
     m_room.update(dt, m_player, m_tears, m_bombs);
     if (std::optional<Item> reward = m_room.consumeCollectedReward()) {

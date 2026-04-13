@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-subbuild/CMakeFiles/vorbis-populate"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-subbuild/CMakeFiles/2172a57476b22e38df244e3a4440bc8d/vorbis-populate.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-subbuild/CMakeFiles/80ab9dc59b8968567a306f0a4f068321/vorbis-populate-complete.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-subbuild/CMakeFiles/86e4926b72ebfd01a0e7cb677d39154e/vorbis-populate-build.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-subbuild/CMakeFiles/86e4926b72ebfd01a0e7cb677d39154e/vorbis-populate-configure.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-subbuild/CMakeFiles/86e4926b72ebfd01a0e7cb677d39154e/vorbis-populate-download.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-subbuild/CMakeFiles/86e4926b72ebfd01a0e7cb677d39154e/vorbis-populate-install.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-subbuild/CMakeFiles/86e4926b72ebfd01a0e7cb677d39154e/vorbis-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-subbuild/CMakeFiles/86e4926b72ebfd01a0e7cb677d39154e/vorbis-populate-patch.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-subbuild/CMakeFiles/86e4926b72ebfd01a0e7cb677d39154e/vorbis-populate-test.rule"
+		},
+		{
+			"file" : "C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-subbuild/CMakeFiles/86e4926b72ebfd01a0e7cb677d39154e/vorbis-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vorbis-populate"
+		],
+		"name" : "vorbis-populate"
+	}
+}

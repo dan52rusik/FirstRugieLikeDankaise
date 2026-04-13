@@ -4,12 +4,18 @@
 #include "../Room.h"
 #include "../utils/Collision.h"
 
+#include "MonsterLoader.h"
+
 Spider::Spider(const sf::Vector2f& position)
-    : Monster(position, 15.0f, 260.0f, 2.0f, sf::Color(55, 35, 35)),
+    : Monster(position, 
+              MonsterLoader::get("spider").hp, 
+              MonsterLoader::get("spider").speed, 
+              MonsterLoader::get("spider").damage, 
+              MonsterLoader::get("spider").color),
       m_dashTimer(0.0f),
       m_restTimer(0.4f) {}
 
-void Spider::update(float dt, const Player& player, const Room&) {
+void Spider::updateMonster(float dt, const Player& player, const Room&) {
     updateFlash(dt);
 
     if (m_restTimer > 0.0f) {

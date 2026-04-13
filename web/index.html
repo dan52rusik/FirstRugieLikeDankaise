@@ -70,6 +70,9 @@
     var Module = {
       preRun: [],
       postRun: [],
+      onRuntimeInitialized: function () {
+        console.log("Game Engine Ready");
+      },
       print: (function () {
         return function (text) {
           console.log(text);
@@ -77,7 +80,6 @@
       })(),
       canvas: (function () {
         var canvas = document.getElementById('canvas');
-        // Обработка потери контекста WebGL
         canvas.addEventListener("webglcontextlost", function (e) {
           alert('WebGL context lost. You will need to reload the page.');
           e.preventDefault();
@@ -91,8 +93,27 @@
       monitorRunDependencies: function (left) {
         this.totalDependencies = Math.max(this.totalDependencies, left);
         Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+
+        // Как только загрузка завершена (left == 0), сигнализируем Яндексу
+        if (left === 0) {
+          notifyYandexReady();
+        }
       }
     };
+
+    function notifyYandexReady() {
+      // Пробуем вызвать несколько раз, пока не добьемся успеха
+      var tryNotify = function () {
+        if (window.ysdk && window.ysdk.features && window.ysdk.features.LoadingProgress) {
+          console.log("Yandex SDK: Sending Ready Signal");
+          window.ysdk.features.LoadingProgress.ready();
+        } else {
+          setTimeout(tryNotify, 200);
+        }
+      };
+      tryNotify();
+    }
+
     window.addEventListener('resize', resizeCanvasElement);
     resizeCanvasElement();
     Module.setStatus('Downloading...');

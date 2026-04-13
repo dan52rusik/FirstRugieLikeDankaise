@@ -1,6 +1,7 @@
 CMakeFiles/isaac.dir/src/Bomb.cpp.o: \
   C:\MyGames\FirstRugieLikeDankaise\src\Bomb.cpp \
   C:\MyGames\FirstRugieLikeDankaise\src\Bomb.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\Entity.h \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Graphics.hpp \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Window.hpp \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\System.hpp \

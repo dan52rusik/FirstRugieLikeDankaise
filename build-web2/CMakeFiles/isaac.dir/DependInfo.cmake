@@ -22,6 +22,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/MyGames/FirstRugieLikeDankaise/src/monsters/Knight.cpp" "CMakeFiles/isaac.dir/src/monsters/Knight.cpp.o" "gcc" "CMakeFiles/isaac.dir/src/monsters/Knight.cpp.o.d"
   "C:/MyGames/FirstRugieLikeDankaise/src/monsters/Leech.cpp" "CMakeFiles/isaac.dir/src/monsters/Leech.cpp.o" "gcc" "CMakeFiles/isaac.dir/src/monsters/Leech.cpp.o.d"
   "C:/MyGames/FirstRugieLikeDankaise/src/monsters/Monster.cpp" "CMakeFiles/isaac.dir/src/monsters/Monster.cpp.o" "gcc" "CMakeFiles/isaac.dir/src/monsters/Monster.cpp.o.d"
+  "C:/MyGames/FirstRugieLikeDankaise/src/monsters/MonsterLoader.cpp" "CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.o" "gcc" "CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.o.d"
   "C:/MyGames/FirstRugieLikeDankaise/src/monsters/Spider.cpp" "CMakeFiles/isaac.dir/src/monsters/Spider.cpp.o" "gcc" "CMakeFiles/isaac.dir/src/monsters/Spider.cpp.o.d"
   "C:/MyGames/FirstRugieLikeDankaise/src/rooms/RoomTemplateLoader.cpp" "CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.o" "gcc" "CMakeFiles/isaac.dir/src/rooms/RoomTemplateLoader.cpp.o.d"
   "C:/MyGames/FirstRugieLikeDankaise/src/ui/HUD.cpp" "CMakeFiles/isaac.dir/src/ui/HUD.cpp.o" "gcc" "CMakeFiles/isaac.dir/src/ui/HUD.cpp.o.d"

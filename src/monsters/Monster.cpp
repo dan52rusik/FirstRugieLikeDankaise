@@ -1,7 +1,10 @@
 #include "Monster.h"
+#include "../Room.h"
+#include "../Player.h"
 
 Monster::Monster(sf::Vector2f position, float hp, float speed, float damage, sf::Color color)
-    : m_hp(hp),
+    : Entity(EntityType::Monster),
+      m_hp(hp),
       m_maxHp(hp),
       m_speed(speed),
       m_damage(damage),
@@ -11,6 +14,10 @@ Monster::Monster(sf::Vector2f position, float hp, float speed, float damage, sf:
     m_shape.setOrigin({18.0f, 18.0f});
     m_shape.setFillColor(color);
     m_shape.setPosition(position);
+}
+
+void Monster::update(float dt, Room& room) {
+    updateMonster(dt, room.getPlayer(), room);
 }
 
 bool Monster::blocksShotFrom(const sf::Vector2f&) const {
@@ -27,15 +34,12 @@ void Monster::draw(sf::RenderTarget& target) const {
 
 void Monster::takeDamage(float damage) {
     m_hp -= damage;
-    if (m_hp < 0.0f) {
+    if (m_hp <= 0.0f) {
         m_hp = 0.0f;
+        kill();
     }
     m_flashTimer = 0.12f;
     m_shape.setFillColor(sf::Color::White);
-}
-
-void Monster::kill() {
-    m_hp = 0.0f;
 }
 
 void Monster::updateFlash(float dt) {
@@ -68,10 +72,6 @@ float Monster::getMaxHp() const {
 
 float Monster::getDamage() const {
     return m_damage;
-}
-
-bool Monster::isAlive() const {
-    return m_hp > 0.0f;
 }
 
 void Monster::setPosition(const sf::Vector2f& position) {

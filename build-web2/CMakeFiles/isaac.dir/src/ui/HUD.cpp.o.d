@@ -744,12 +744,14 @@ CMakeFiles/isaac.dir/src/ui/HUD.cpp.o: \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Graphics\VertexBuffer.hpp \
   C:\MyGames\FirstRugieLikeDankaise\src\ui\..\items\Item.h \
   C:\MyGames\FirstRugieLikeDankaise\src\ui\..\Player.h \
-  C:\MyGames\FirstRugieLikeDankaise\src\ui\..\Bomb.h \
-  C:\MyGames\FirstRugieLikeDankaise\src\ui\..\Tear.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\ui\..\Entity.h \
   C:\MyGames\FirstRugieLikeDankaise\src\ui\..\Room.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\ui\..\Bomb.h \
   C:\MyGames\FirstRugieLikeDankaise\src\ui\..\Floor.h \
   C:\MyGames\FirstRugieLikeDankaise\src\ui\..\items\Pickup.h \
   C:\MyGames\FirstRugieLikeDankaise\src\ui\..\props\Prop.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\ui\..\Tear.h \
   C:\MyGames\FirstRugieLikeDankaise\src\ui\..\monsters\Monster.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\ui\..\monsters\..\Entity.h \
   C:\MyGames\FirstRugieLikeDankaise\src\ui\..\rooms\RoomTemplate.h \
   C:\MyGames\FirstRugieLikeDankaise\src\ui\..\rooms\..\Floor.h

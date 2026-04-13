@@ -1,7 +1,8 @@
 #include "Bomb.h"
 
 Bomb::Bomb(const sf::Vector2f& position)
-    : m_timer(2.0f),
+    : Entity(EntityType::Bomb),
+      m_timer(2.0f),
       m_explosionDuration(0.35f),
       m_exploded(false),
       m_explosionConsumed(false) {
@@ -20,7 +21,7 @@ Bomb::Bomb(const sf::Vector2f& position)
     m_explosionShape.setPosition(position);
 }
 
-void Bomb::update(float dt) {
+void Bomb::update(float dt, Room&) {
     if (!m_exploded) {
         m_timer -= dt;
         const bool blink = static_cast<int>(m_timer * 10.0f) % 2 == 0;
@@ -67,4 +68,13 @@ float Bomb::getRadius() const {
 
 sf::Vector2f Bomb::getPosition() const {
     return m_shape.getPosition();
+}
+
+sf::FloatRect Bomb::getBounds() const {
+    return m_shape.getGlobalBounds();
+}
+
+void Bomb::setPosition(const sf::Vector2f& position) {
+    m_shape.setPosition(position);
+    m_explosionShape.setPosition(position);
 }

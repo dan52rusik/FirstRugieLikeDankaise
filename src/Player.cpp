@@ -7,7 +7,8 @@
 #include "utils/Collision.h"
 
 Player::Player()
-    : m_previousPosition(480.0f, 360.0f),
+    : Entity(EntityType::Player),
+      m_previousPosition(480.0f, 360.0f),
       m_position(480.0f, 360.0f),
       m_moveInput(0.0f, 0.0f),
       m_shotDirection(0.0f, -1.0f),
@@ -62,7 +63,7 @@ void Player::handleRealtimeInput() {
     }
 }
 
-void Player::update(float dt, const Room& room) {
+void Player::update(float dt, Room& room) {
     m_shotTimer -= dt;
     m_invincibleTimer -= dt;
     m_previousPosition = m_position;
@@ -101,6 +102,14 @@ void Player::update(float dt, const Room& room) {
         m_body.setFillColor(sf::Color(175, 120, 110));
         m_head.setFillColor(sf::Color(245, 220, 210));
     }
+
+    if (m_hp <= 0) {
+        kill();
+    }
+}
+
+void Player::draw(sf::RenderTarget& target) const {
+    draw(target, 1.0f);
 }
 
 void Player::draw(sf::RenderTarget& target, float alpha) const {
@@ -153,6 +162,13 @@ void Player::takeDamage(int amount) {
     }
     m_hp = std::max(0, m_hp - amount);
     m_invincibleTimer = 1.5f;
+    if (m_hp <= 0) {
+        kill();
+    }
+}
+
+void Player::takeDamage(float amount) {
+    takeDamage(static_cast<int>(amount));
 }
 
 void Player::heal(int amount) {
@@ -238,8 +254,4 @@ float Player::getTearDamage() const {
 
 float Player::getTearDelay() const {
     return m_tearRate;
-}
-
-bool Player::isAlive() const {
-    return m_hp > 0;
 }

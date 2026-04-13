@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-src/cmake/CheckA64NEON.cmake
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-src/cmake/CheckCPUArch.c.in
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-src/cmake/CheckCPUArch.cmake
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-src/src/libFLAC/CMakeLists.txt
+C:/Program Files/CMake/share/cmake-4.3/Modules/CheckCSourceCompiles.cmake

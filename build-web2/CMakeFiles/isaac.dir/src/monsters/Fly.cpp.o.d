@@ -2,6 +2,7 @@ CMakeFiles/isaac.dir/src/monsters/Fly.cpp.o: \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\Fly.cpp \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\Fly.h \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\Monster.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\Entity.h \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Graphics.hpp \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Window.hpp \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\System.hpp \
@@ -744,13 +745,13 @@ CMakeFiles/isaac.dir/src/monsters/Fly.cpp.o: \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Graphics\Text.hpp \
   C:\MyGames\FirstRugieLikeDankaise\build-web2\_deps\sfml-src\include\SFML\Graphics\VertexBuffer.hpp \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\Player.h \
-  C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\Bomb.h \
-  C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\Tear.h \
-  C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\items\Item.h \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\Room.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\Bomb.h \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\Floor.h \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\items\Pickup.h \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\props\Prop.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\Tear.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\items\Item.h \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\monsters\Monster.h \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\rooms\RoomTemplate.h \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\..\rooms\..\Floor.h \
@@ -807,4 +808,5 @@ CMakeFiles/isaac.dir/src/monsters/Fly.cpp.o: \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__random\seed_seq.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__random\student_t_distribution.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__random\uniform_random_bit_generator.h \
-  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__random\weibull_distribution.h
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__random\weibull_distribution.h \
+  C:\MyGames\FirstRugieLikeDankaise\src\monsters\MonsterLoader.h

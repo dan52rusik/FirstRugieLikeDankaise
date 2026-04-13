@@ -1,0 +1,154 @@
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FLAC-SUBBUILD\CMAKEFILES\C1360814D47DFAF8C7ADF30B80ACA4FE\FLAC-POPULATE-MKDIR.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -Dcfgdir=/Debug -P C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/flac-populate-prefix/tmp/flac-populate-mkdirs.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/flac-populate-prefix/src/flac-populate-stamp/Debug/flac-populate-mkdir
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FLAC-SUBBUILD\CMAKEFILES\C1360814D47DFAF8C7ADF30B80ACA4FE\FLAC-POPULATE-DOWNLOAD.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/flac-populate-prefix/tmp/flac-populate-gitclone.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/flac-populate-prefix/src/flac-populate-stamp/Debug/flac-populate-download
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FLAC-SUBBUILD\CMAKEFILES\C1360814D47DFAF8C7ADF30B80ACA4FE\FLAC-POPULATE-UPDATE.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\flac-src
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -Dcan_fetch=YES -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/flac-populate-prefix/tmp/flac-populate-gitupdate.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FLAC-SUBBUILD\CMAKEFILES\C1360814D47DFAF8C7ADF30B80ACA4FE\FLAC-POPULATE-PATCH.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\flac-src
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -DFLAC_DIR=C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-src -P C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/sfml-src/tools/flac/PatchFLAC.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/flac-populate-prefix/src/flac-populate-stamp/Debug/flac-populate-patch
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FLAC-SUBBUILD\CMAKEFILES\C1360814D47DFAF8C7ADF30B80ACA4FE\FLAC-POPULATE-CONFIGURE.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\flac-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/flac-populate-prefix/src/flac-populate-stamp/Debug/flac-populate-configure
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FLAC-SUBBUILD\CMAKEFILES\C1360814D47DFAF8C7ADF30B80ACA4FE\FLAC-POPULATE-BUILD.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\flac-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/flac-populate-prefix/src/flac-populate-stamp/Debug/flac-populate-build
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FLAC-SUBBUILD\CMAKEFILES\C1360814D47DFAF8C7ADF30B80ACA4FE\FLAC-POPULATE-INSTALL.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\flac-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/flac-populate-prefix/src/flac-populate-stamp/Debug/flac-populate-install
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FLAC-SUBBUILD\CMAKEFILES\C1360814D47DFAF8C7ADF30B80ACA4FE\FLAC-POPULATE-TEST.RULE
+setlocal
+cd C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\flac-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/flac-populate-prefix/src/flac-populate-stamp/Debug/flac-populate-test
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FLAC-SUBBUILD\CMAKEFILES\8205A499602CCE17E0FE054FBC12CDB5\FLAC-POPULATE-COMPLETE.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/Debug/flac-populate-complete
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E touch C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/flac-populate-prefix/src/flac-populate-stamp/Debug/flac-populate-done
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FLAC-SUBBUILD\CMAKEFILES\08365F52DAD977E8D6587AB527923F94\FLAC-POPULATE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\MYGAMES\FIRSTRUGIELIKEDANKAISE\BUILD-PC\_DEPS\FLAC-SUBBUILD\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild -BC:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild --check-stamp-file C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

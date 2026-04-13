@@ -16,8 +16,25 @@
 
 class Player;
 
+enum class TileContent {
+    Empty,
+    Rock,
+    Prop
+};
+
 class Room {
 public:
+    static constexpr int kGridCols = 15;
+    static constexpr int kGridRows = 9;
+    static constexpr float kTileSize = 48.0f;
+    static constexpr float kRoomLeft = 72.0f;
+    static constexpr float kRoomTop = 36.0f;
+    static constexpr float kRoomWidth = 816.0f;
+    static constexpr float kRoomHeight = 528.0f;
+    static constexpr float kGridLeft = kRoomLeft + 48.0f;
+    static constexpr float kGridTop = kRoomTop + 48.0f;
+    static constexpr float kWallThickness = 24.0f;
+    static constexpr float kDoorThickness = 18.0f;
     Room();
 
     void load(RoomData& roomData);
@@ -34,6 +51,8 @@ public:
     sf::Vector2f findSafePlayerSpawn(Direction fromDirection) const;
     Direction getDoorTransition(const sf::Vector2f& playerPosition) const;
     bool hasTransitionAt(const sf::Vector2f& playerPosition) const;
+
+    Player& getPlayer() const;
 
 private:
     struct PropInstance {
@@ -68,14 +87,17 @@ private:
     bool isSpawnBlocked(const sf::Vector2f& position) const;
     bool isInDoorOpening(const sf::FloatRect& bounds) const;
     void keepMonsterInPlayableArea(Monster& monster) const;
+    void drawDoor(sf::RenderTarget& target, Direction direction) const;
     sf::FloatRect getDoorOpening(Direction direction) const;
     sf::FloatRect getDoorTrigger(Direction direction) const;
-    void drawDoor(sf::RenderTarget& target, Direction direction) const;
+    int getGridIndex(const sf::Vector2i& tile) const;
+    int getGridIndex(const sf::Vector2f& position) const;
 
     sf::RectangleShape m_floor;
     sf::RectangleShape m_innerBounds;
     RoomData* m_roomData{nullptr};
     const RoomTemplate* m_template{nullptr};
+    TileContent m_grid[kGridCols * kGridRows];
     std::vector<sf::RectangleShape> m_rocks;
     std::vector<PropInstance> m_props;
     std::vector<PickupInstance> m_pickups;
@@ -86,4 +108,5 @@ private:
     RoomType m_roomType{RoomType::Normal};
     bool m_cleared{false};
     float m_doorOpenProgress{0.0f};
+    Player* m_currentPlayer{nullptr};
 };

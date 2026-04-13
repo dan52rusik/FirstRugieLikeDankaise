@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\ogg-subbuild\CMakeFiles\e57333941336da302f0f9c3df49fd84c\ogg-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\ogg-subbuild\CMakeFiles\e57333941336da302f0f9c3df49fd84c\ogg-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\ogg-subbuild\CMakeFiles\e57333941336da302f0f9c3df49fd84c\ogg-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\ogg-subbuild\CMakeFiles\e57333941336da302f0f9c3df49fd84c\ogg-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\ogg-subbuild\CMakeFiles\e57333941336da302f0f9c3df49fd84c\ogg-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\ogg-subbuild\CMakeFiles\e57333941336da302f0f9c3df49fd84c\ogg-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\ogg-subbuild\CMakeFiles\e57333941336da302f0f9c3df49fd84c\ogg-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\ogg-subbuild\CMakeFiles\e57333941336da302f0f9c3df49fd84c\ogg-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\ogg-subbuild\CMakeFiles\03a83728619b106bc10095bfe38417f8\ogg-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\ogg-subbuild\CMakeFiles\fd4d7af3709047d6bd240c5b5100f1a8\ogg-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\ogg-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\ogg-subbuild\CMakeFiles\ogg-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{0EF8E006-049C-36FE-9690-767A00C5012D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

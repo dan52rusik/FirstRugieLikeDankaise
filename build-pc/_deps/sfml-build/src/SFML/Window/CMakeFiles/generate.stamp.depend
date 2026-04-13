@@ -1,0 +1,8 @@
+# CMake generation dependency list for this directory.
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/sfml-src/src/SFML/Window/CMakeLists.txt
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/sfml-src/src/SFML/Window/Dependencies.cmake.in
+C:/Program Files/CMake/share/cmake-4.3/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/FindOpenGL.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/FindPackageMessage.cmake
+C:/Program Files/CMake/share/cmake-4.3/Modules/WriteBasicConfigVersionFile.cmake

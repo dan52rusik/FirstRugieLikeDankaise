@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "id": "sad_onion",
+      "name": "Sad Onion",
+      "description": "Tears up",
+      "effect": "TearRate",
+      "amount": -0.06
+    },
+    {
+      "id": "wire_coat_hanger",
+      "name": "Wire Coat Hanger",
+      "description": "Damage up",
+      "effect": "Damage",
+      "amount": 1.0
+    },
+    {
+      "id": "skateboard",
+      "name": "Skateboard",
+      "description": "Speed up",
+      "effect": "Speed",
+      "amount": 24.0
+    },
+    {
+      "id": "rusty_needle",
+      "name": "Rusty Needle",
+      "description": "Tears down",
+      "effect": "TearRate",
+      "amount": 0.06
+    },
+    {
+      "id": "cracked_lens",
+      "name": "Cracked Lens",
+      "description": "Damage down",
+      "effect": "Damage",
+      "amount": -0.9
+    },
+    {
+      "id": "heavy_boots",
+      "name": "Heavy Boots",
+      "description": "Speed down",
+      "effect": "Speed",
+      "amount": -24.0
+    }
+  ]
+}

@@ -4,11 +4,17 @@
 #include "../Room.h"
 #include "../utils/Collision.h"
 
+#include "MonsterLoader.h"
+
 Knight::Knight(const sf::Vector2f& position)
-    : Monster(position, 40.0f, 120.0f, 2.0f, sf::Color(110, 110, 160)),
+    : Monster(position, 
+              MonsterLoader::get("knight").hp, 
+              MonsterLoader::get("knight").speed, 
+              MonsterLoader::get("knight").damage, 
+              MonsterLoader::get("knight").color),
       m_direction(1.0f, 0.0f) {}
 
-void Knight::update(float dt, const Player&, const Room& room) {
+void Knight::updateMonster(float dt, const Player&, const Room& room) {
     updateFlash(dt);
 
     const sf::Vector2f next = Collision::add(m_shape.getPosition(), Collision::scale(m_direction, m_speed * dt));

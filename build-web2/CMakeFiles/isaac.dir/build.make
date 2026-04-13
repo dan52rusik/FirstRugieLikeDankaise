@@ -296,11 +296,26 @@ CMakeFiles/isaac.dir/src/monsters/Boss.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/isaac.dir/src/monsters/Boss.cpp.s"
 	C:\MyGames\emsdk\upstream\emscripten\em++.bat $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\MyGames\FirstRugieLikeDankaise\src\monsters\Boss.cpp -o CMakeFiles\isaac.dir\src\monsters\Boss.cpp.s
 
+CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.o: CMakeFiles/isaac.dir/flags.make
+CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.o: CMakeFiles/isaac.dir/includes_CXX.rsp
+CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.o: C:/MyGames/FirstRugieLikeDankaise/src/monsters/MonsterLoader.cpp
+CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.o: CMakeFiles/isaac.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build-web2\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.o"
+	C:\MyGames\emsdk\upstream\emscripten\em++.bat $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.o -MF CMakeFiles\isaac.dir\src\monsters\MonsterLoader.cpp.o.d -o CMakeFiles\isaac.dir\src\monsters\MonsterLoader.cpp.o -c C:\MyGames\FirstRugieLikeDankaise\src\monsters\MonsterLoader.cpp
+
+CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.i"
+	C:\MyGames\emsdk\upstream\emscripten\em++.bat $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\MyGames\FirstRugieLikeDankaise\src\monsters\MonsterLoader.cpp > CMakeFiles\isaac.dir\src\monsters\MonsterLoader.cpp.i
+
+CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.s"
+	C:\MyGames\emsdk\upstream\emscripten\em++.bat $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\MyGames\FirstRugieLikeDankaise\src\monsters\MonsterLoader.cpp -o CMakeFiles\isaac.dir\src\monsters\MonsterLoader.cpp.s
+
 CMakeFiles/isaac.dir/src/items/ItemList.cpp.o: CMakeFiles/isaac.dir/flags.make
 CMakeFiles/isaac.dir/src/items/ItemList.cpp.o: CMakeFiles/isaac.dir/includes_CXX.rsp
 CMakeFiles/isaac.dir/src/items/ItemList.cpp.o: C:/MyGames/FirstRugieLikeDankaise/src/items/ItemList.cpp
 CMakeFiles/isaac.dir/src/items/ItemList.cpp.o: CMakeFiles/isaac.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build-web2\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/isaac.dir/src/items/ItemList.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build-web2\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/isaac.dir/src/items/ItemList.cpp.o"
 	C:\MyGames\emsdk\upstream\emscripten\em++.bat $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/isaac.dir/src/items/ItemList.cpp.o -MF CMakeFiles\isaac.dir\src\items\ItemList.cpp.o.d -o CMakeFiles\isaac.dir\src\items\ItemList.cpp.o -c C:\MyGames\FirstRugieLikeDankaise\src\items\ItemList.cpp
 
 CMakeFiles/isaac.dir/src/items/ItemList.cpp.i: cmake_force
@@ -315,7 +330,7 @@ CMakeFiles/isaac.dir/src/ui/HUD.cpp.o: CMakeFiles/isaac.dir/flags.make
 CMakeFiles/isaac.dir/src/ui/HUD.cpp.o: CMakeFiles/isaac.dir/includes_CXX.rsp
 CMakeFiles/isaac.dir/src/ui/HUD.cpp.o: C:/MyGames/FirstRugieLikeDankaise/src/ui/HUD.cpp
 CMakeFiles/isaac.dir/src/ui/HUD.cpp.o: CMakeFiles/isaac.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build-web2\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/isaac.dir/src/ui/HUD.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build-web2\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/isaac.dir/src/ui/HUD.cpp.o"
 	C:\MyGames\emsdk\upstream\emscripten\em++.bat $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/isaac.dir/src/ui/HUD.cpp.o -MF CMakeFiles\isaac.dir\src\ui\HUD.cpp.o.d -o CMakeFiles\isaac.dir\src\ui\HUD.cpp.o -c C:\MyGames\FirstRugieLikeDankaise\src\ui\HUD.cpp
 
 CMakeFiles/isaac.dir/src/ui/HUD.cpp.i: cmake_force
@@ -343,6 +358,7 @@ isaac_OBJECTS = \
 "CMakeFiles/isaac.dir/src/monsters/Knight.cpp.o" \
 "CMakeFiles/isaac.dir/src/monsters/Leech.cpp.o" \
 "CMakeFiles/isaac.dir/src/monsters/Boss.cpp.o" \
+"CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.o" \
 "CMakeFiles/isaac.dir/src/items/ItemList.cpp.o" \
 "CMakeFiles/isaac.dir/src/ui/HUD.cpp.o"
 
@@ -364,6 +380,7 @@ web/index.html: CMakeFiles/isaac.dir/src/monsters/Spider.cpp.o
 web/index.html: CMakeFiles/isaac.dir/src/monsters/Knight.cpp.o
 web/index.html: CMakeFiles/isaac.dir/src/monsters/Leech.cpp.o
 web/index.html: CMakeFiles/isaac.dir/src/monsters/Boss.cpp.o
+web/index.html: CMakeFiles/isaac.dir/src/monsters/MonsterLoader.cpp.o
 web/index.html: CMakeFiles/isaac.dir/src/items/ItemList.cpp.o
 web/index.html: CMakeFiles/isaac.dir/src/ui/HUD.cpp.o
 web/index.html: CMakeFiles/isaac.dir/build.make
@@ -373,7 +390,7 @@ web/index.html: _deps/sfml-build/lib/libsfml-system-s.a
 web/index.html: CMakeFiles/isaac.dir/linkLibs.rsp
 web/index.html: CMakeFiles/isaac.dir/objects1.rsp
 web/index.html: CMakeFiles/isaac.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build-web2\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Linking CXX executable web\index.html"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\MyGames\FirstRugieLikeDankaise\build-web2\CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Linking CXX executable web\index.html"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\isaac.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
