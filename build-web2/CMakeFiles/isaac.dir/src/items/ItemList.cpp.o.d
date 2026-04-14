@@ -685,4 +685,5 @@ CMakeFiles/isaac.dir/src/items/ItemList.cpp.o: \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\path_iterator.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\recursive_directory_iterator.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__filesystem\u8path.h \
-  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\sstream
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\sstream \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\iostream

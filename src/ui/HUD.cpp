@@ -52,10 +52,12 @@ sf::Text makeText(const sf::Font& font,
                   sf::Vector2f screenPos,
                   float scale,
                   const sf::String& string = {}) {
-    // В SFML 3 конструктор изменился: строки идут перед шрифтом
-    sf::Text text("", font);
-    text.setString(string);
-    text.setCharacterSize(static_cast<unsigned int>(static_cast<float>(logicalSize) * scale));
+    const unsigned int characterSize = static_cast<unsigned int>(static_cast<float>(logicalSize) * scale);
+#if SFML_VERSION_MAJOR >= 3
+    sf::Text text(font, string, characterSize);
+#else
+    sf::Text text(string, font, characterSize);
+#endif
     text.setFillColor(color);
     text.setPosition(screenPos);
     return text;

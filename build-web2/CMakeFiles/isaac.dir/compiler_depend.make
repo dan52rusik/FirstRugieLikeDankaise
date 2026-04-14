@@ -5994,6 +5994,7 @@ CMakeFiles/isaac.dir/src/items/ItemList.cpp.o: C:/MyGames/FirstRugieLikeDankaise
   C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iomanip \
   C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ios \
   C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iosfwd \
+  C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iostream \
   C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/istream \
   C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iterator \
   C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/limits \
@@ -15462,6 +15463,8 @@ C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/r
 C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/u8path.h:
 
 C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/fstream:
+
+C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iostream:
 
 C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/istream:
 

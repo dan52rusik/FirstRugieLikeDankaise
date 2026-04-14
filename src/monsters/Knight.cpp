@@ -6,18 +6,13 @@
 
 #include "MonsterLoader.h"
 
-Knight::Knight(const sf::Vector2f& position) {
-    const auto& data = MonsterLoader::get("knight");
-    m_hp = data.hp;
-    m_maxHp = data.hp;
-    m_speed = data.speed;
-    m_damage = data.damage;
-    
-    m_shape.setRadius(22.0f);
-    m_shape.setOrigin({22.0f, 22.0f});
-    m_shape.setPosition(position);
-    m_shape.setFillColor(data.color);
-
+Knight::Knight(const sf::Vector2f& position)
+    : Monster(position, 
+              MonsterLoader::get("knight").hp, 
+              MonsterLoader::get("knight").speed, 
+              MonsterLoader::get("knight").damage, 
+              MonsterLoader::get("knight").color) 
+{
     m_direction = {1.0f, 0.0f};
 }
 
