@@ -1,12 +1,18 @@
 #include "Item.h"
 #include "../utils/JsonParser.h"
 #include <vector>
+#include <iostream>
 
 namespace {
 ItemEffect parseEffect(const std::string& value) {
     if (value == "TearRate") return ItemEffect::TearRate;
     if (value == "Damage") return ItemEffect::Damage;
     if (value == "Speed") return ItemEffect::Speed;
+    
+    // Предупреждение об опечатке в JSON
+    if (!value.empty()) {
+        std::cerr << "Warning: Unknown ItemEffect '" << value << "'. Defaulting to Damage." << std::endl;
+    }
     return ItemEffect::Damage;
 }
 
@@ -30,6 +36,10 @@ std::vector<Item> createDefaultItems() {
         for (const auto& obj : JsonParser::extractObjects(json, "items")) {
             Item item;
             item.name = JsonParser::extractStringField(obj, "name");
+            
+            // Фильтруем пустые или битые записи
+            if (item.name.empty()) continue;
+
             item.description = JsonParser::extractStringField(obj, "description");
             item.effect = parseEffect(JsonParser::extractStringField(obj, "effect"));
             item.amount = JsonParser::extractFloatField(obj, "amount", 0.0f);
