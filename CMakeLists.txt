@@ -93,4 +93,16 @@ if(EMSCRIPTEN)
         OUTPUT_NAME "index"
         LINK_FLAGS "-O3 -s USE_WEBGL2=1 -s FULL_ES2=1 -s USE_FREETYPE=1 -s ASYNCIFY -s FETCH=1 -s DISABLE_EXCEPTION_CATCHING=0 -s ASYNCIFY_STACK_SIZE=65536 --preload-file ${CMAKE_SOURCE_DIR}/assets@/assets --preload-file ${CMAKE_SOURCE_DIR}/data@/data --shell-file ${CMAKE_SOURCE_DIR}/web/index.html"
     )
+else()
+    # Копируем ассеты и данные в папку с исполняемым файлом (автоматически при сборке)
+    add_custom_command(TARGET isaac POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/assets"
+        "$<TARGET_FILE_DIR:isaac>/assets"
+    )
+    add_custom_command(TARGET isaac POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/data"
+        "$<TARGET_FILE_DIR:isaac>/data"
+    )
 endif()

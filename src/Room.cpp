@@ -7,6 +7,7 @@
 #include <memory>
 #include <random>
 #include <stdexcept>
+#include <iostream>
 
 #include "Player.h"
 #include "monsters/Boss.h"
@@ -68,16 +69,94 @@ sf::Vector2i tileFromWorld(const sf::Vector2f& position) {
 }
 }
 
+sf::Texture Room::s_floorTexture;
+bool Room::s_floorTextureLoaded = false;
+sf::Texture Room::s_backdropTexture;
+bool Room::s_backdropTextureLoaded = false;
+sf::Texture Room::s_wallTexture;
+bool Room::s_wallTextureLoaded = false;
+
 Room::Room() {
+    if (!s_floorTextureLoaded) {
+        const char* path = "assets/textures/rooms/01_Basement_nfloor.png";
+        const char* fallback = "../assets/textures/rooms/01_Basement_nfloor.png";
+        const char* fallback2 = "../../assets/textures/rooms/01_Basement_nfloor.png";
+
+        s_floorTextureLoaded = s_floorTexture.loadFromFile(path);
+        if (!s_floorTextureLoaded) s_floorTextureLoaded = s_floorTexture.loadFromFile(fallback);
+        if (!s_floorTextureLoaded) s_floorTextureLoaded = s_floorTexture.loadFromFile(fallback2);
+#ifdef __EMSCRIPTEN__
+        if (!s_floorTextureLoaded) s_floorTextureLoaded = s_floorTexture.loadFromFile("/assets/textures/rooms/01_Basement_nfloor.png");
+#endif
+    }
+
+    if (!s_backdropTextureLoaded) {
+        const char* path = "assets/textures/rooms/01_Basement.png";
+        const char* fallback = "../assets/textures/rooms/01_Basement.png";
+        const char* fallback2 = "../../assets/textures/rooms/01_Basement.png";
+
+        s_backdropTextureLoaded = s_backdropTexture.loadFromFile(path);
+        if (!s_backdropTextureLoaded) s_backdropTextureLoaded = s_backdropTexture.loadFromFile(fallback);
+        if (!s_backdropTextureLoaded) s_backdropTextureLoaded = s_backdropTexture.loadFromFile(fallback2);
+#ifdef __EMSCRIPTEN__
+        if (!s_backdropTextureLoaded) s_backdropTextureLoaded = s_backdropTexture.loadFromFile("/assets/textures/rooms/01_Basement.png");
+#endif
+    }
+
+    if (!s_wallTextureLoaded) {
+        const char* path = "assets/textures/rooms/Wall LVL1.png";
+        const char* fallback = "../assets/textures/rooms/Wall LVL1.png";
+        const char* fallback2 = "../../assets/textures/rooms/Wall LVL1.png";
+        
+        s_wallTextureLoaded = s_wallTexture.loadFromFile(path);
+        if (!s_wallTextureLoaded) s_wallTextureLoaded = s_wallTexture.loadFromFile(fallback);
+        if (!s_wallTextureLoaded) s_wallTextureLoaded = s_wallTexture.loadFromFile(fallback2);
+        
+        if (s_wallTextureLoaded) {
+            sf::Vector2u size = s_wallTexture.getSize();
+            std::cout << "Wall texture loaded: " << size.x << "x" << size.y << std::endl;
+        }
+#ifdef __EMSCRIPTEN__
+        if (!s_wallTextureLoaded) s_wallTextureLoaded = s_wallTexture.loadFromFile("/assets/textures/rooms/Wall LVL1.png");
+#endif
+    }
+
     m_floor.setSize({kRoomWidth, kRoomHeight});
     m_floor.setPosition({kRoomLeft, kRoomTop});
-    m_floor.setFillColor(sf::Color(72, 54, 42));
-
+    m_floor.setFillColor(sf::Color(30, 80, 150)); // ЯРКО СИНИЙ ДЛЯ ТЕСТА
+ 
     m_innerBounds.setSize(m_floor.getSize());
     m_innerBounds.setPosition(m_floor.getPosition());
     m_innerBounds.setFillColor(sf::Color::Transparent);
     m_innerBounds.setOutlineThickness(20.0f);
-    m_innerBounds.setOutlineColor(sf::Color(42, 28, 22));
+    m_innerBounds.setOutlineColor(sf::Color::White); // Белая рамка
+
+    if (s_backdropTextureLoaded) {
+        const sf::Vector2u backdropSize = s_backdropTexture.getSize();
+        const int frameW = static_cast<int>(backdropSize.x / 2);
+        const int frameH = static_cast<int>(backdropSize.y / 3);
+        const int variant = 0;
+        const int texX = (variant % 2) * frameW;
+        const int texY = (variant / 2) * frameH;
+
+        // Только центральная часть фрейма (пол), стены отрисовываются отдельными спрайтами
+        const int cw = 57, ch = 57; // размер углов в Isaac backdrop
+        const int floorTexW = frameW - 2 * cw;
+        const int floorTexH = frameH - 2 * ch;
+
+        m_backdropSprite.emplace(s_backdropTexture);
+        m_backdropSprite->setTextureRect(sf::IntRect(sf::Vector2i(texX, texY), sf::Vector2i(frameW, frameH)));
+        m_backdropSprite->setPosition({kRoomLeft, kRoomTop});
+        m_backdropSprite->setScale({
+            kRoomWidth / static_cast<float>(frameW),
+            kRoomHeight / static_cast<float>(frameH)});
+    }
+
+    if (s_wallTextureLoaded) {
+        for (int i = 0; i < 4; ++i) {
+            m_cornerSprites[i].emplace(s_wallTexture);
+        }
+    }
 
     for (int i = 0; i < kGridCols * kGridRows; ++i) {
         m_grid[i] = TileContent::Empty;
@@ -123,6 +202,145 @@ void Room::load(RoomData& roomData) {
     buildMonsters(roomData);
     buildReward(roomData);
     rebuildPickupInstances();
+
+    const sf::Texture* wallTexture = s_backdropTextureLoaded ? &s_backdropTexture : (s_wallTextureLoaded ? &s_wallTexture : nullptr);
+    if (wallTexture != nullptr && m_cornerSprites[0].has_value()) {
+        const sf::Vector2u texSize = wallTexture->getSize();
+        const int frameW = static_cast<int>(texSize.x / 2);
+        const int frameH = static_cast<int>(texSize.y / 3);
+        const int variant = 0;
+        const int texX = (variant % 2) * frameW;
+        const int texY = (variant / 2) * frameH;
+
+        const bool usingIsaacBackdrop = wallTexture == &s_backdropTexture;
+        const int cornerSizeW = usingIsaacBackdrop ? 57 : 250;
+        const int cornerSizeH = usingIsaacBackdrop ? 57 : 200;
+        const float targetW = kGridLeft - kRoomLeft;
+        const float targetH = kGridTop - kRoomTop;
+        const float wallGapW = kRoomWidth - targetW * 2.0f;
+        const float wallGapH = kRoomHeight - targetH * 2.0f;
+
+        for (int i = 0; i < 4; ++i) {
+            if (!m_wallSprites[i].has_value()) {
+                m_wallSprites[i].emplace(*wallTexture);
+            }
+        }
+
+        if (usingIsaacBackdrop) {
+            m_floorSprite.reset();
+            const int floorLeft = 57;
+            const int floorTop = 57;
+            const int floorTexW = 176;
+            const int floorTexH = 86;
+
+            m_backdropSprite.emplace(s_backdropTexture);
+            m_backdropSprite->setTextureRect(sf::IntRect(
+                sf::Vector2i(texX + floorLeft, texY + floorTop),
+                sf::Vector2i(floorTexW, floorTexH)));
+            m_backdropSprite->setPosition({kGridLeft, kGridTop});
+            m_backdropSprite->setScale({
+                (kGridCols * kTileSize) / static_cast<float>(floorTexW),
+                (kGridRows * kTileSize) / static_cast<float>(floorTexH)});
+
+            for (int i = 0; i < 4; ++i) {
+                if (!m_cornerSprites[i].has_value()) {
+                    m_cornerSprites[i].emplace(s_backdropTexture);
+                }
+                if (!m_wallSprites[i].has_value()) {
+                    m_wallSprites[i].emplace(s_backdropTexture);
+                }
+            }
+
+            const int wallLeft = 57;
+            const int wallTop = 0;
+            const int topWallTexW = 176;
+            const int topWallTexH = 57;
+            const int leftWallTexW = 57;
+            const int leftWallTexH = 86;
+
+            const sf::Vector2f cornerPositions[4] = {
+                {kRoomLeft, kRoomTop},
+                {kRoomLeft + kRoomWidth, kRoomTop},
+                {kRoomLeft, kRoomTop + kRoomHeight - targetH},
+                {kRoomLeft + kRoomWidth, kRoomTop + kRoomHeight - targetH}
+            };
+
+            for (int i = 0; i < 4; ++i) {
+                auto& sprite = *m_cornerSprites[i];
+                const bool rightSide = (i % 2 == 1);
+                const bool bottomSide = (i / 2 == 1);
+                const int cornerSourceX = texX;
+                const int cornerSourceY = texY + (bottomSide ? (frameH - cornerSizeH) : 0);
+                sprite.setTextureRect(sf::IntRect(sf::Vector2i(cornerSourceX, cornerSourceY), sf::Vector2i(cornerSizeW, cornerSizeH)));
+                sprite.setOrigin({0.0f, 0.0f});
+                sprite.setPosition(cornerPositions[i]);
+                sprite.setScale({
+                    (targetW / static_cast<float>(cornerSizeW)) * (rightSide ? -1.0f : 1.0f),
+                    targetH / static_cast<float>(cornerSizeH)});
+            }
+
+            auto& topWall = *m_wallSprites[0];
+            topWall.setTextureRect(sf::IntRect(sf::Vector2i(texX + wallLeft, texY + wallTop), sf::Vector2i(topWallTexW, topWallTexH)));
+            topWall.setOrigin({0.0f, 0.0f});
+            topWall.setPosition({kRoomLeft + targetW, kRoomTop});
+            topWall.setScale({wallGapW / static_cast<float>(topWallTexW), targetH / static_cast<float>(topWallTexH)});
+
+            auto& bottomWall = *m_wallSprites[1];
+            bottomWall.setTextureRect(sf::IntRect(sf::Vector2i(texX + wallLeft, texY + wallTop), sf::Vector2i(topWallTexW, topWallTexH)));
+            bottomWall.setOrigin({0.0f, 0.0f});
+            bottomWall.setPosition({kRoomLeft + targetW, kRoomTop + kRoomHeight});
+            bottomWall.setScale({wallGapW / static_cast<float>(topWallTexW), -(targetH / static_cast<float>(topWallTexH))});
+
+            auto& leftWall = *m_wallSprites[2];
+            leftWall.setTextureRect(sf::IntRect(sf::Vector2i(texX, texY + floorTop), sf::Vector2i(leftWallTexW, leftWallTexH)));
+            leftWall.setOrigin({0.0f, 0.0f});
+            leftWall.setPosition({kRoomLeft, kRoomTop + targetH});
+            leftWall.setScale({targetW / static_cast<float>(leftWallTexW), wallGapH / static_cast<float>(leftWallTexH)});
+
+            auto& rightWall = *m_wallSprites[3];
+            rightWall.setTextureRect(sf::IntRect(sf::Vector2i(texX, texY + floorTop), sf::Vector2i(leftWallTexW, leftWallTexH)));
+            rightWall.setOrigin({0.0f, 0.0f});
+            rightWall.setPosition({kRoomLeft + kRoomWidth, kRoomTop + targetH});
+            rightWall.setScale({-(targetW / static_cast<float>(leftWallTexW)), wallGapH / static_cast<float>(leftWallTexH)});
+
+        } else {
+            // Fallback (Wall LVL1) — старая логика с зеркалированием
+            const int hWallSourceW = 32;
+            const int vWallSourceH = cornerSizeH - 64;
+
+            for (int i = 0; i < 4; ++i) {
+                auto& sprite = *m_cornerSprites[i];
+                sprite.setTextureRect(sf::IntRect(sf::Vector2i(texX, texY), sf::Vector2i(cornerSizeW, cornerSizeH)));
+                const bool flipX = (i % 2 == 1);
+                const bool flipY = (i / 2 == 1);
+                sprite.setOrigin(sf::Vector2f(0.0f, 0.0f));
+                const float posX = kRoomLeft + (flipX ? kRoomWidth : 0.0f);
+                const float posY = kRoomTop + (flipY ? kRoomHeight : 0.0f);
+                sprite.setPosition(sf::Vector2f(posX, posY));
+                sprite.setScale(sf::Vector2f((targetW / static_cast<float>(cornerSizeW)) * (flipX ? -1.0f : 1.0f),
+                                             (targetH / static_cast<float>(cornerSizeH)) * (flipY ? -1.0f : 1.0f)));
+            }
+
+            for (int i = 0; i < 4; ++i) {
+                auto& s = *m_wallSprites[i];
+                if (i < 2) {
+                    s.setTextureRect(sf::IntRect(sf::Vector2i(texX + cornerSizeW, texY), sf::Vector2i(hWallSourceW, cornerSizeH)));
+                    s.setOrigin(sf::Vector2f(0.0f, 0.0f));
+                    const bool bottom = (i == 1);
+                    s.setPosition(sf::Vector2f(kRoomLeft + targetW, kRoomTop + (bottom ? kRoomHeight : 0.0f)));
+                    s.setScale(sf::Vector2f(wallGapW / static_cast<float>(hWallSourceW),
+                                            (targetH / static_cast<float>(cornerSizeH)) * (bottom ? -1.0f : 1.0f)));
+                } else {
+                    s.setTextureRect(sf::IntRect(sf::Vector2i(texX, texY + 32), sf::Vector2i(32, vWallSourceH)));
+                    s.setOrigin(sf::Vector2f(0.0f, 0.0f));
+                    const bool right = (i == 3);
+                    s.setPosition(sf::Vector2f(kRoomLeft + (right ? kRoomWidth : 0.0f), kRoomTop + targetH));
+                    s.setScale(sf::Vector2f((targetW / 32.0f) * (right ? -1.0f : 1.0f),
+                                            wallGapH / static_cast<float>(vWallSourceH)));
+                }
+            }
+        }
+    }
 }
 
 int Room::getGridIndex(const sf::Vector2i& tile) const {
@@ -667,8 +885,29 @@ void Room::update(float dt, Player& player, std::vector<Tear>& tears, std::vecto
 }
 
 void Room::draw(sf::RenderTarget& target) const {
+    // Всегда рисуем сплошной фон как подложку (цвет задаётся в load())
     target.draw(m_floor);
-    target.draw(m_innerBounds);
+
+    // Поверх — текстура пола, если есть
+    if (m_floorSprite.has_value()) {
+        target.draw(*m_floorSprite);
+    } else if (m_backdropSprite.has_value()) {
+        target.draw(*m_backdropSprite);
+    }
+
+    if (m_cornerSprites[0].has_value()) {
+        for (int i = 0; i < 4; ++i) {
+            target.draw(*m_cornerSprites[i]);
+        }
+
+        for (int i = 0; i < 4; ++i) {
+            if (m_wallSprites[i].has_value()) {
+                target.draw(*m_wallSprites[i]);
+            }
+        }
+    } else if (!m_floorSprite.has_value() && !m_backdropSprite.has_value()) {
+        target.draw(m_innerBounds);
+    }
 
     for (const auto& rock : m_rocks) {
         target.draw(rock);

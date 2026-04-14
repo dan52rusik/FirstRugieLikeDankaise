@@ -26,13 +26,13 @@ class Room {
 public:
     static constexpr int kGridCols = 15;
     static constexpr int kGridRows = 9;
-    static constexpr float kTileSize = 48.0f;
+    static constexpr float kTileSize = 40.0f;
     static constexpr float kRoomLeft = 72.0f;
     static constexpr float kRoomTop = 36.0f;
     static constexpr float kRoomWidth = 816.0f;
     static constexpr float kRoomHeight = 528.0f;
-    static constexpr float kGridLeft = kRoomLeft + 48.0f;
-    static constexpr float kGridTop = kRoomTop + 48.0f;
+    static constexpr float kGridLeft = kRoomLeft + (kRoomWidth - kGridCols * kTileSize) * 0.5f;
+    static constexpr float kGridTop = kRoomTop + (kRoomHeight - kGridRows * kTileSize) * 0.5f;
     static constexpr float kWallThickness = 24.0f;
     static constexpr float kDoorThickness = 18.0f;
     Room();
@@ -93,8 +93,20 @@ private:
     int getGridIndex(const sf::Vector2i& tile) const;
     int getGridIndex(const sf::Vector2f& position) const;
 
-    sf::RectangleShape m_floor;
+    mutable sf::RectangleShape m_floor;
     sf::RectangleShape m_innerBounds;
+    std::optional<sf::Sprite> m_floorSprite;
+    std::optional<sf::Sprite> m_backdropSprite;
+    std::optional<sf::Sprite> m_cornerSprites[4];
+    std::optional<sf::Sprite> m_wallSprites[4];
+    
+    static sf::Texture s_floorTexture;
+    static bool s_floorTextureLoaded;
+    static sf::Texture s_backdropTexture;
+    static bool s_backdropTextureLoaded;
+    static sf::Texture s_wallTexture;
+    static bool s_wallTextureLoaded;
+
     RoomData* m_roomData{nullptr};
     const RoomTemplate* m_template{nullptr};
     TileContent m_grid[kGridCols * kGridRows];

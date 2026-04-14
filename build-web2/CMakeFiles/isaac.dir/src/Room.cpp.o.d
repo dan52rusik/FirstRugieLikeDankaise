@@ -805,6 +805,8 @@ CMakeFiles/isaac.dir/src/Room.cpp.o: \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__random\student_t_distribution.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__random\uniform_random_bit_generator.h \
   C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\__random\weibull_distribution.h \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\iostream \
+  C:\MyGames\emsdk\upstream\emscripten\cache\sysroot\include\c++\v1\istream \
   C:\MyGames\FirstRugieLikeDankaise\src\Player.h \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\Boss.h \
   C:\MyGames\FirstRugieLikeDankaise\src\monsters\Fly.h \

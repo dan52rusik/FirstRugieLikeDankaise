@@ -4560,6 +4560,8 @@ CMakeFiles/isaac.dir/src/Room.cpp.o: C:/MyGames/FirstRugieLikeDankaise/src/Room.
   C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/initializer_list \
   C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ios \
   C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iosfwd \
+  C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iostream \
+  C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/istream \
   C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iterator \
   C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/limits \
   C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/locale \
@@ -15440,6 +15442,10 @@ C:/MyGames/FirstRugieLikeDankaise/src/monsters/Knight.h:
 
 C:/MyGames/FirstRugieLikeDankaise/src/rooms/RoomTemplateLoader.h:
 
+C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iostream:
+
+C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/istream:
+
 C:/MyGames/FirstRugieLikeDankaise/src/items/ItemList.cpp:
 
 C:/MyGames/FirstRugieLikeDankaise/src/utils/JsonParser.h:
@@ -15463,10 +15469,6 @@ C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/r
 C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/u8path.h:
 
 C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/fstream:
-
-C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iostream:
-
-C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/istream:
 
 C:/MyGames/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/sstream:
 

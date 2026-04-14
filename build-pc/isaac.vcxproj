@@ -122,6 +122,27 @@
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
+    <PostBuildEvent>
+      <Message>	</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/MyGames/FirstRugieLikeDankaise/assets C:/MyGames/FirstRugieLikeDankaise/build-pc/bin/Debug/assets
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/MyGames/FirstRugieLikeDankaise/data C:/MyGames/FirstRugieLikeDankaise/build-pc/bin/Debug/data
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
       <AdditionalDependencies>_deps\sfml-build\lib\Debug\sfml-graphics-s-d.lib;_deps\sfml-build\lib\Debug\sfml-window-s-d.lib;_deps\sfml-build\lib\Debug\sfml-system-s-d.lib;_deps\sfml-build\lib\Debug\sfml-audio-s-d.lib;opengl32.lib;gdi32.lib;_deps\sfml-build\lib\Debug\freetyped.lib;_deps\sfml-build\lib\Debug\sfml-system-s-d.lib;winmm.lib;_deps\sfml-build\lib\Debug\vorbisfiled.lib;_deps\sfml-build\lib\Debug\vorbisencd.lib;_deps\sfml-build\lib\Debug\vorbisd.lib;_deps\sfml-build\lib\Debug\FLACd.lib;_deps\sfml-build\lib\Debug\oggd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -179,6 +200,27 @@
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
+    <PostBuildEvent>
+      <Message>	</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/MyGames/FirstRugieLikeDankaise/assets C:/MyGames/FirstRugieLikeDankaise/build-pc/bin/Release/assets
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/MyGames/FirstRugieLikeDankaise/data C:/MyGames/FirstRugieLikeDankaise/build-pc/bin/Release/data
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
       <AdditionalDependencies>_deps\sfml-build\lib\Release\sfml-graphics-s.lib;_deps\sfml-build\lib\Release\sfml-window-s.lib;_deps\sfml-build\lib\Release\sfml-system-s.lib;_deps\sfml-build\lib\Release\sfml-audio-s.lib;opengl32.lib;gdi32.lib;_deps\sfml-build\lib\Release\freetype.lib;_deps\sfml-build\lib\Release\sfml-system-s.lib;winmm.lib;_deps\sfml-build\lib\Release\vorbisfile.lib;_deps\sfml-build\lib\Release\vorbisenc.lib;_deps\sfml-build\lib\Release\vorbis.lib;_deps\sfml-build\lib\Release\FLAC.lib;_deps\sfml-build\lib\Release\ogg.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -236,6 +278,27 @@
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
+    <PostBuildEvent>
+      <Message>	</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/MyGames/FirstRugieLikeDankaise/assets C:/MyGames/FirstRugieLikeDankaise/build-pc/bin/MinSizeRel/assets
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/MyGames/FirstRugieLikeDankaise/data C:/MyGames/FirstRugieLikeDankaise/build-pc/bin/MinSizeRel/data
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
       <AdditionalDependencies>_deps\sfml-build\lib\MinSizeRel\sfml-graphics-s.lib;_deps\sfml-build\lib\MinSizeRel\sfml-window-s.lib;_deps\sfml-build\lib\MinSizeRel\sfml-system-s.lib;_deps\sfml-build\lib\MinSizeRel\sfml-audio-s.lib;opengl32.lib;gdi32.lib;_deps\sfml-build\lib\MinSizeRel\freetype.lib;_deps\sfml-build\lib\MinSizeRel\sfml-system-s.lib;winmm.lib;_deps\sfml-build\lib\MinSizeRel\vorbisfile.lib;_deps\sfml-build\lib\MinSizeRel\vorbisenc.lib;_deps\sfml-build\lib\MinSizeRel\vorbis.lib;_deps\sfml-build\lib\MinSizeRel\FLAC.lib;_deps\sfml-build\lib\MinSizeRel\ogg.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -292,6 +355,27 @@
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
+    <PostBuildEvent>
+      <Message>	</Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/MyGames/FirstRugieLikeDankaise/assets C:/MyGames/FirstRugieLikeDankaise/build-pc/bin/RelWithDebInfo/assets
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/MyGames/FirstRugieLikeDankaise/data C:/MyGames/FirstRugieLikeDankaise/build-pc/bin/RelWithDebInfo/data
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
       <AdditionalDependencies>_deps\sfml-build\lib\RelWithDebInfo\sfml-graphics-s.lib;_deps\sfml-build\lib\RelWithDebInfo\sfml-window-s.lib;_deps\sfml-build\lib\RelWithDebInfo\sfml-system-s.lib;_deps\sfml-build\lib\RelWithDebInfo\sfml-audio-s.lib;opengl32.lib;gdi32.lib;_deps\sfml-build\lib\RelWithDebInfo\freetype.lib;_deps\sfml-build\lib\RelWithDebInfo\sfml-system-s.lib;winmm.lib;_deps\sfml-build\lib\RelWithDebInfo\vorbisfile.lib;_deps\sfml-build\lib\RelWithDebInfo\vorbisenc.lib;_deps\sfml-build\lib\RelWithDebInfo\vorbis.lib;_deps\sfml-build\lib\RelWithDebInfo\FLAC.lib;_deps\sfml-build\lib\RelWithDebInfo\ogg.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

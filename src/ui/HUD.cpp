@@ -53,11 +53,13 @@ sf::Text makeText(const sf::Font& font,
                   float scale,
                   const sf::String& string = {}) {
     const unsigned int characterSize = static_cast<unsigned int>(static_cast<float>(logicalSize) * scale);
-#if SFML_VERSION_MAJOR >= 3
-    sf::Text text(font, string, characterSize);
-#else
+#ifdef __EMSCRIPTEN__
     sf::Text text(string, font, characterSize);
+#else
+    sf::Text text(font, sf::String{}, characterSize);
 #endif
+    text.setString(string);
+    text.setCharacterSize(characterSize);
     text.setFillColor(color);
     text.setPosition(screenPos);
     return text;
@@ -160,6 +162,17 @@ HUD::HUD() : m_hasFont(false) {
 
     for (const char* path : kFontPaths) {
         if (loadFont(m_font, path)) {
+            m_hasFont = true;
+            break;
+        }
+        // Fallback for build directories
+        std::string fallback = std::string("../") + path;
+        if (loadFont(m_font, fallback.c_str())) {
+            m_hasFont = true;
+            break;
+        }
+        std::string fallback2 = std::string("../../") + path;
+        if (loadFont(m_font, fallback2.c_str())) {
             m_hasFont = true;
             break;
         }
@@ -352,7 +365,7 @@ void HUD::drawStatsPanel(sf::RenderTarget& target,
     }
 
     const sf::Vector2f panelSize = expanded ? sf::Vector2f(246.0f * scale, 184.0f * scale) : sf::Vector2f(212.0f * scale, 118.0f * scale);
-    const sf::Vector2f panelLogicalPos(18.0f, 72.0f);
+    const sf::Vector2f panelLogicalPos(18.0f, expanded ? 448.0f : 520.0f);
     const sf::Vector2f panelPosition = toScreen(panelLogicalPos, origin, scale);
     
     const unsigned int titleSize = expanded ? 18u : 14u;
