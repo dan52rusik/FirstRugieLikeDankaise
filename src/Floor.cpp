@@ -12,7 +12,8 @@ Floor::Floor() {
 }
 
 int Floor::keyFromGrid(const sf::Vector2i& position) {
-    return position.x * 1000 + position.y;
+    // Используем смещение бит для надежного ключа (16 бит на координату)
+    return (position.x << 16) | (position.y & 0xFFFF);
 }
 
 sf::Vector2i Floor::directionOffset(Direction direction) {

@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <memory>
 #include <random>
+#include <stdexcept>
 
 #include "Player.h"
 #include "monsters/Boss.h"
@@ -526,6 +527,9 @@ void Room::keepMonsterInPlayableArea(Monster& monster) const {
 }
 
 Player& Room::getPlayer() const {
+    if (!m_currentPlayer) {
+        throw std::runtime_error("Attempted to access player before it was set in the current room.");
+    }
     return *m_currentPlayer;
 }
 
