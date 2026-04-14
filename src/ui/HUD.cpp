@@ -12,6 +12,8 @@ namespace {
 #if SFML_VERSION_MAJOR < 3
 bool loadFont(sf::Font& font, const char* path) {
     if (font.loadFromFile(path)) {
+        // SFML 2 требует вызова getTexture для генерации глифов. 
+        // Мы используем const_cast, чтобы включить сглаживание у текстуры шрифта.
         for (unsigned int size : {12, 14, 16, 18, 20, 21, 22, 24, 32, 48, 54}) {
             const_cast<sf::Texture&>(font.getTexture(size)).setSmooth(true);
         }
@@ -26,6 +28,7 @@ void setRotationDegrees(sf::Transformable& transformable, float degrees) {
 #else
 bool loadFont(sf::Font& font, const char* path) {
     if (font.openFromFile(path)) {
+        // Включаем сглаживание для основных размеров шрифта
         const_cast<sf::Texture&>(font.getTexture(24)).setSmooth(true);
         const_cast<sf::Texture&>(font.getTexture(16)).setSmooth(true);
         return true;
@@ -179,40 +182,31 @@ void HUD::drawDigit(sf::RenderTarget& target, sf::Vector2f position, int digit, 
         return;
     }
 
-    // Логические размеры сегментов (без учета uiScale, так как toScreen его применит)
-    const float w = 10.0f * scale;
-    const float h = 18.0f * scale;
-    const float t = 2.0f * scale;
+    // Базовые логические размеры сегментов
+    const float baseW = 10.0f;
+    const float baseH = 18.0f;
+    const float baseT = 2.0f;
 
-    auto drawSegment = [&](sf::Vector2f segmentPos, sf::Vector2f size) {
-        // Размер прямоугольника должен быть физическим (умноженным на uiScale)
-        sf::RectangleShape rect({size.x * uiScale, size.y * uiScale});
-        rect.setPosition(toScreen(position + segmentPos, origin, uiScale));
+    auto drawSegment = [&](sf::Vector2f logicalOffset, sf::Vector2f logicalSize) {
+        // Итоговый размер: (базовый * масштаб_шрифта) * масштаб_экрана
+        const sf::Vector2f physicalSize(logicalSize.x * scale * uiScale, logicalSize.y * scale * uiScale);
+        sf::RectangleShape rect(physicalSize);
+        
+        // Итоговая позиция: экранная_база + (логическая_база + смещение_сегмента * масштаб_шрифта) * масштаб_экрана
+        const sf::Vector2f logicalPos = position + logicalOffset * scale;
+        rect.setPosition(toScreen(logicalPos, origin, uiScale));
+        
         rect.setFillColor(color);
         target.draw(rect);
     };
 
-    if (kSegments[digit][0]) {
-        drawSegment({0.0f, 0.0f}, {w, t});
-    }
-    if (kSegments[digit][1]) {
-        drawSegment({0.0f, 0.0f}, {t, h * 0.5f});
-    }
-    if (kSegments[digit][2]) {
-        drawSegment({w - t, 0.0f}, {t, h * 0.5f});
-    }
-    if (kSegments[digit][3]) {
-        drawSegment({0.0f, h * 0.5f - t * 0.5f}, {w, t});
-    }
-    if (kSegments[digit][4]) {
-        drawSegment({0.0f, h * 0.5f}, {t, h * 0.5f});
-    }
-    if (kSegments[digit][5]) {
-        drawSegment({w - t, h * 0.5f}, {t, h * 0.5f});
-    }
-    if (kSegments[digit][6]) {
-        drawSegment({0.0f, h - t}, {w, t});
-    }
+    if (kSegments[digit][0]) drawSegment({0.0f, 0.0f}, {baseW, baseT});
+    if (kSegments[digit][1]) drawSegment({0.0f, 0.0f}, {baseT, baseH * 0.5f});
+    if (kSegments[digit][2]) drawSegment({baseW - baseT, 0.0f}, {baseT, baseH * 0.5f});
+    if (kSegments[digit][3]) drawSegment({0.0f, baseH * 0.5f - baseT * 0.5f}, {baseW, baseT});
+    if (kSegments[digit][4]) drawSegment({0.0f, baseH * 0.5f}, {baseT, baseH * 0.5f});
+    if (kSegments[digit][5]) drawSegment({baseW - baseT, baseH * 0.5f}, {baseT, baseH * 0.5f});
+    if (kSegments[digit][6]) drawSegment({0.0f, baseH - baseT}, {baseW, baseT});
 }
 
 void HUD::drawNumber(sf::RenderTarget& target, sf::Vector2f position, int value, sf::Color color, float scale, sf::Vector2f origin, float uiScale) const {
