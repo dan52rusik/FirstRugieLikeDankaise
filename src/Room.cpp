@@ -1232,18 +1232,18 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
             fillSprite.setPosition({centerX + (right ? -6.0f : 6.0f), centerY + 2.0f});
             setRotationDegrees(fillSprite, rotation);
             fillSprite.setScale({(frameHeight * 0.7f) / static_cast<float>(intRectWidth(kOpenFillTopRect)),
-                                 (frameWidth * 1.0f) / static_cast<float>(intRectHeight(kOpenFillTopRect))});
+                                 (frameWidth * 0.75f) / static_cast<float>(intRectHeight(kOpenFillTopRect))});
             withAlpha(fillSprite, t);
             target.draw(fillSprite);
 
             sf::Sprite closedLeftSprite(s_doorTexture);
             sf::Sprite closedRightSprite(s_doorTexture);
             const float sideClosedScaleX = (fillHeight * 0.6f) / static_cast<float>(intRectWidth(kClosedLeftRect));
-            const float sideClosedScaleY = (fillWidth * 1.3f) / static_cast<float>(intRectHeight(kClosedLeftRect));
+            const float sideClosedScaleY = (fillWidth * 1.1f + 3.0f) / static_cast<float>(intRectHeight(kClosedLeftRect));
 
             closedLeftSprite.setTextureRect(kClosedLeftRect);
             closedLeftSprite.setOrigin({static_cast<float>(intRectWidth(kClosedLeftRect)), static_cast<float>(intRectHeight(kClosedLeftRect)) * 0.5f});
-            closedLeftSprite.setPosition({centerX + (right ? -10.0f : 10.0f), centerY + 1.0f});
+            closedLeftSprite.setPosition({centerX + (right ? -5.0f : 5.0f), centerY + 1.0f});
             setRotationDegrees(closedLeftSprite, rotation);
             closedLeftSprite.setScale({sideClosedScaleX, sideClosedScaleY});
             withAlpha(closedLeftSprite, 1.0f - t);
@@ -1251,7 +1251,7 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
 
             closedRightSprite.setTextureRect(kClosedRightRect);
             closedRightSprite.setOrigin({0.0f, static_cast<float>(intRectHeight(kClosedRightRect)) * 0.5f});
-            closedRightSprite.setPosition({centerX + (right ? -10.0f : 10.0f), centerY + 1.0f});
+            closedRightSprite.setPosition({centerX + (right ? -5.0f : 5.0f), centerY + 1.0f});
             setRotationDegrees(closedRightSprite, rotation);
             closedRightSprite.setScale({sideClosedScaleX, sideClosedScaleY});
             withAlpha(closedRightSprite, 1.0f - t);
