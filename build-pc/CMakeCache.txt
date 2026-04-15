@@ -401,9 +401,6 @@ SFML_BUILD_WINDOW:BOOL=ON
 //ON to configure extras, OFF to ignore them
 SFML_CONFIGURE_EXTRAS:BOOL=OFF
 
-//The directory containing a CMake configuration file for SFML.
-SFML_DIR:PATH=SFML_DIR-NOTFOUND
-
 //ON to enable precompiled headers for SFML builds -- only supported
 // on Windows/Linux and for static library builds
 SFML_ENABLE_PCH:BOOL=OFF
