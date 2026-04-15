@@ -1155,7 +1155,7 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
             const float frameHeight = 42.0f;
             const float fillWidth = 32.0f;
             const float fillHeight = 26.0f;
-            const float wallDepth = bottom ? 48.0f : 4.0f;
+            const float wallDepth = bottom ? 49.0f : 6.0f;
 
             const sf::Vector2f doorPosition = bottom
                 ? sf::Vector2f(tileCenter(7, 8).x - frameWidth * 0.5f, kGridTop + kGridRows * kTileSize + wallDepth)
@@ -1205,7 +1205,7 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
             const float frameHeight = 64.0f;
             const float fillWidth = 26.0f;
             const float fillHeight = 32.0f;
-            const float wallDepth = 24.0f;
+            const float wallDepth = 30.0f;
             const float centerX = right
                 ? (kGridLeft + kGridCols * kTileSize + wallDepth)
                 : kGridLeft - wallDepth;
