@@ -26,12 +26,18 @@ float rectTop(const sf::FloatRect& rect) { return rect.top; }
 float rectWidth(const sf::FloatRect& rect) { return rect.width; }
 float rectHeight(const sf::FloatRect& rect) { return rect.height; }
 sf::FloatRect makeRect(const sf::Vector2f& position, const sf::Vector2f& size) { return {position.x, position.y, size.x, size.y}; }
+int intRectWidth(const sf::IntRect& rect) { return rect.width; }
+int intRectHeight(const sf::IntRect& rect) { return rect.height; }
+void setRotationDegrees(sf::Transformable& transformable, float degrees) { transformable.setRotation(degrees); }
 #else
 float rectLeft(const sf::FloatRect& rect) { return rect.position.x; }
 float rectTop(const sf::FloatRect& rect) { return rect.position.y; }
 float rectWidth(const sf::FloatRect& rect) { return rect.size.x; }
 float rectHeight(const sf::FloatRect& rect) { return rect.size.y; }
 sf::FloatRect makeRect(const sf::Vector2f& position, const sf::Vector2f& size) { return {position, size}; }
+int intRectWidth(const sf::IntRect& rect) { return rect.size.x; }
+int intRectHeight(const sf::IntRect& rect) { return rect.size.y; }
+void setRotationDegrees(sf::Transformable& transformable, float degrees) { transformable.setRotation(sf::degrees(degrees)); }
 #endif
 
 sf::Vector2f roomCenter() {
@@ -67,6 +73,32 @@ sf::Vector2i tileFromWorld(const sf::Vector2f& position) {
         std::clamp(static_cast<int>((position.y - Room::kGridTop) / Room::kTileSize), 0, Room::kGridRows - 1)
     };
 }
+
+void drawTexturedQuad(sf::RenderTarget& target,
+                      const sf::Texture& texture,
+                      const sf::IntRect& rect,
+                      const std::array<sf::Vector2f, 4>& points,
+                      float alpha,
+                      bool mirrorX = false) {
+    sf::VertexArray quad(sf::PrimitiveType::TriangleStrip, 4);
+
+    const float left = static_cast<float>(rect.position.x);
+    const float top = static_cast<float>(rect.position.y);
+    const float right = left + static_cast<float>(intRectWidth(rect));
+    const float bottom = top + static_cast<float>(intRectHeight(rect));
+    const float texLeft = mirrorX ? right : left;
+    const float texRight = mirrorX ? left : right;
+    const sf::Color color(255, 255, 255, static_cast<std::uint8_t>(std::round(std::clamp(alpha, 0.0f, 1.0f) * 255.0f)));
+
+    quad[0] = sf::Vertex{points[0], color, {texLeft, top}};
+    quad[1] = sf::Vertex{points[1], color, {texRight, top}};
+    quad[2] = sf::Vertex{points[2], color, {texLeft, bottom}};
+    quad[3] = sf::Vertex{points[3], color, {texRight, bottom}};
+
+    sf::RenderStates states;
+    states.texture = &texture;
+    target.draw(quad, states);
+}
 }
 
 sf::Texture Room::s_floorTexture;
@@ -75,6 +107,8 @@ sf::Texture Room::s_backdropTexture;
 bool Room::s_backdropTextureLoaded = false;
 sf::Texture Room::s_wallTexture;
 bool Room::s_wallTextureLoaded = false;
+sf::Texture Room::s_doorTexture;
+bool Room::s_doorTextureLoaded = false;
 
 Room::Room() {
     if (!s_floorTextureLoaded) {
@@ -118,6 +152,19 @@ Room::Room() {
         }
 #ifdef __EMSCRIPTEN__
         if (!s_wallTextureLoaded) s_wallTextureLoaded = s_wallTexture.loadFromFile("/assets/textures/rooms/Wall LVL1.png");
+#endif
+    }
+
+    if (!s_doorTextureLoaded) {
+        const char* path = "assets/textures/rooms/door_13_librarydoor_0.png";
+        const char* fallback = "../assets/textures/rooms/door_13_librarydoor_0.png";
+        const char* fallback2 = "../../assets/textures/rooms/door_13_librarydoor_0.png";
+
+        s_doorTextureLoaded = s_doorTexture.loadFromFile(path);
+        if (!s_doorTextureLoaded) s_doorTextureLoaded = s_doorTexture.loadFromFile(fallback);
+        if (!s_doorTextureLoaded) s_doorTextureLoaded = s_doorTexture.loadFromFile(fallback2);
+#ifdef __EMSCRIPTEN__
+        if (!s_doorTextureLoaded) s_doorTextureLoaded = s_doorTexture.loadFromFile("/assets/textures/rooms/door_13_librarydoor_0.png");
 #endif
     }
 
@@ -949,10 +996,10 @@ bool Room::collidesWithWalls(const sf::FloatRect& bounds) const {
         return !isInDoorOpening(bounds);
     }
 
-    const bool nearTop = rectTop(bounds) <= rectTop(roomBounds) + kWallThickness;
-    const bool nearBottom = rectTop(bounds) + rectHeight(bounds) >= rectTop(roomBounds) + rectHeight(roomBounds) - kWallThickness;
-    const bool nearLeft = rectLeft(bounds) <= rectLeft(roomBounds) + kWallThickness;
-    const bool nearRight = rectLeft(bounds) + rectWidth(bounds) >= rectLeft(roomBounds) + rectWidth(roomBounds) - kWallThickness;
+    const bool nearTop = rectTop(bounds) <= rectTop(roomBounds) + kCollisionWallPadding;
+    const bool nearBottom = rectTop(bounds) + rectHeight(bounds) >= rectTop(roomBounds) + rectHeight(roomBounds) - kCollisionWallPadding;
+    const bool nearLeft = rectLeft(bounds) <= rectLeft(roomBounds) + kCollisionWallPadding;
+    const bool nearRight = rectLeft(bounds) + rectWidth(bounds) >= rectLeft(roomBounds) + rectWidth(roomBounds) - kCollisionWallPadding;
 
     if ((nearTop || nearBottom || nearLeft || nearRight) && !isInDoorOpening(bounds)) {
         return true;
@@ -1090,8 +1137,131 @@ sf::FloatRect Room::getDoorTrigger(Direction direction) const {
 }
 
 void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
-    sf::RectangleShape door;
     const float t = std::clamp(m_doorOpenProgress, 0.0f, 1.0f);
+    if (s_doorTextureLoaded) {
+        constexpr sf::IntRect kFrameTopRect({8, 9}, {49, 33});
+        constexpr sf::IntRect kOpenFillTopRect({84, 16}, {25, 23});
+        constexpr sf::IntRect kClosedLeftRect({19, 64}, {14, 23});
+        constexpr sf::IntRect kClosedRightRect({96, 64}, {14, 23});
+        auto withAlpha = [](sf::Sprite& sprite, float alpha) {
+            sprite.setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(std::round(std::clamp(alpha, 0.0f, 1.0f) * 255.0f))));
+        };
+
+        switch (direction) {
+        case Direction::Up:
+        case Direction::Down: {
+            const bool bottom = direction == Direction::Down;
+            const float frameWidth = 64.0f;
+            const float frameHeight = 42.0f;
+            const float fillWidth = 32.0f;
+            const float fillHeight = 26.0f;
+            const sf::Vector2f doorPosition = bottom
+                ? sf::Vector2f(tileCenter(7, 8).x - frameWidth * 0.5f, kGridTop + kGridRows * kTileSize + frameHeight)
+                : sf::Vector2f(tileCenter(7, 0).x - frameWidth * 0.5f, kGridTop - frameHeight + 6.0f);
+
+            sf::Sprite frameSprite(s_doorTexture);
+            frameSprite.setTextureRect(kFrameTopRect);
+            frameSprite.setPosition(doorPosition);
+            frameSprite.setScale({frameWidth / static_cast<float>(intRectWidth(kFrameTopRect)),
+                                  (frameHeight / static_cast<float>(intRectHeight(kFrameTopRect))) * (bottom ? -1.0f : 1.0f)});
+            withAlpha(frameSprite, 1.0f);
+            target.draw(frameSprite);
+
+            sf::Sprite fillSprite(s_doorTexture);
+            fillSprite.setTextureRect(kOpenFillTopRect);
+            const float fillX = tileCenter(7, bottom ? 8 : 0).x - fillWidth * 0.5f;
+            const float fillY = bottom ? (kGridTop + kGridRows * kTileSize + fillHeight + 1.0f) : (kGridTop - fillHeight + 6.0f);
+            fillSprite.setPosition({fillX, fillY});
+            fillSprite.setScale({fillWidth / static_cast<float>(intRectWidth(kOpenFillTopRect)),
+                                 (fillHeight / static_cast<float>(intRectHeight(kOpenFillTopRect))) * (bottom ? -1.0f : 1.0f)});
+            withAlpha(fillSprite, t);
+            target.draw(fillSprite);
+
+            sf::Sprite closedLeftSprite(s_doorTexture);
+            closedLeftSprite.setTextureRect(kClosedLeftRect);
+            closedLeftSprite.setOrigin({intRectWidth(kClosedLeftRect) * 0.5f, intRectHeight(kClosedLeftRect) * 0.5f});
+            closedLeftSprite.setPosition({tileCenter(7, bottom ? 8 : 0).x - fillWidth * 0.2f, bottom ? (kGridTop + kGridRows * kTileSize + fillHeight * 0.55f) : (kGridTop - fillHeight * 0.45f)});
+            closedLeftSprite.setScale({(fillWidth * 0.55f) / static_cast<float>(intRectWidth(kClosedLeftRect)),
+                                       (fillHeight * 0.95f) / static_cast<float>(intRectHeight(kClosedLeftRect)) * (bottom ? -1.0f : 1.0f)});
+            withAlpha(closedLeftSprite, 1.0f - t);
+            target.draw(closedLeftSprite);
+
+            sf::Sprite closedRightSprite(s_doorTexture);
+            closedRightSprite.setTextureRect(kClosedRightRect);
+            closedRightSprite.setOrigin({intRectWidth(kClosedRightRect) * 0.5f, intRectHeight(kClosedRightRect) * 0.5f});
+            closedRightSprite.setPosition({tileCenter(7, bottom ? 8 : 0).x + fillWidth * 0.2f, bottom ? (kGridTop + kGridRows * kTileSize + fillHeight * 0.55f) : (kGridTop - fillHeight * 0.45f)});
+            closedRightSprite.setScale({(fillWidth * 0.55f) / static_cast<float>(intRectWidth(kClosedRightRect)),
+                                        (fillHeight * 0.95f) / static_cast<float>(intRectHeight(kClosedRightRect)) * (bottom ? -1.0f : 1.0f)});
+            withAlpha(closedRightSprite, 1.0f - t);
+            target.draw(closedRightSprite);
+            return;
+        }
+        case Direction::Left:
+        case Direction::Right: {
+            const bool right = direction == Direction::Right;
+            const float frameWidth = 42.0f;
+            const float frameHeight = 64.0f;
+            const float fillWidth = 26.0f;
+            const float fillHeight = 32.0f;
+            const float centerX = right
+                ? (kGridLeft + kGridCols * kTileSize)
+                : kGridLeft;
+            const float centerY = tileCenter(right ? 14 : 0, 4).y;
+            const float rotation = right ? 90.0f : -90.0f;
+
+            sf::Sprite frameSprite(s_doorTexture);
+            frameSprite.setTextureRect(kFrameTopRect);
+            frameSprite.setOrigin({intRectWidth(kFrameTopRect) * 0.5f, intRectHeight(kFrameTopRect) * 0.5f});
+            frameSprite.setPosition({centerX, centerY});
+            setRotationDegrees(frameSprite, rotation);
+            frameSprite.setScale({frameHeight / static_cast<float>(intRectWidth(kFrameTopRect)),
+                                  frameWidth / static_cast<float>(intRectHeight(kFrameTopRect))});
+            withAlpha(frameSprite, 1.0f);
+            target.draw(frameSprite);
+
+            sf::Sprite fillSprite(s_doorTexture);
+            fillSprite.setTextureRect(kOpenFillTopRect);
+            fillSprite.setOrigin({intRectWidth(kOpenFillTopRect) * 0.5f, intRectHeight(kOpenFillTopRect) * 0.5f});
+            fillSprite.setPosition({centerX, centerY});
+            setRotationDegrees(fillSprite, rotation);
+            fillSprite.setScale({fillHeight / static_cast<float>(intRectWidth(kOpenFillTopRect)),
+                                 fillWidth / static_cast<float>(intRectHeight(kOpenFillTopRect))});
+            withAlpha(fillSprite, t);
+            target.draw(fillSprite);
+
+            const float leafOffset = fillWidth * 0.35f;
+            const sf::Vector2f leftLeafPosition = right
+                ? sf::Vector2f(centerX, centerY - leafOffset)
+                : sf::Vector2f(centerX, centerY + leafOffset);
+            const sf::Vector2f rightLeafPosition = right
+                ? sf::Vector2f(centerX, centerY + leafOffset)
+                : sf::Vector2f(centerX, centerY - leafOffset);
+
+            sf::Sprite closedLeftSprite(s_doorTexture);
+            closedLeftSprite.setTextureRect(kClosedLeftRect);
+            closedLeftSprite.setOrigin({intRectWidth(kClosedLeftRect) * 0.5f, intRectHeight(kClosedLeftRect) * 0.5f});
+            closedLeftSprite.setPosition(leftLeafPosition);
+            setRotationDegrees(closedLeftSprite, rotation);
+            closedLeftSprite.setScale({fillHeight * 0.9f / static_cast<float>(intRectWidth(kClosedLeftRect)),
+                                       fillWidth * 0.75f / static_cast<float>(intRectHeight(kClosedLeftRect))});
+            withAlpha(closedLeftSprite, 1.0f - t);
+            target.draw(closedLeftSprite);
+
+            sf::Sprite closedRightSprite(s_doorTexture);
+            closedRightSprite.setTextureRect(kClosedRightRect);
+            closedRightSprite.setOrigin({intRectWidth(kClosedRightRect) * 0.5f, intRectHeight(kClosedRightRect) * 0.5f});
+            closedRightSprite.setPosition(rightLeafPosition);
+            setRotationDegrees(closedRightSprite, rotation);
+            closedRightSprite.setScale({fillHeight * 0.9f / static_cast<float>(intRectWidth(kClosedRightRect)),
+                                        fillWidth * 0.75f / static_cast<float>(intRectHeight(kClosedRightRect))});
+            withAlpha(closedRightSprite, 1.0f - t);
+            target.draw(closedRightSprite);
+            return;
+        }
+        }
+    }
+
+    sf::RectangleShape door;
     const auto blend = [t](std::uint8_t closed, std::uint8_t open) -> std::uint8_t {
         return static_cast<std::uint8_t>(std::round(static_cast<float>(closed) + (static_cast<float>(open) - static_cast<float>(closed)) * t));
     };

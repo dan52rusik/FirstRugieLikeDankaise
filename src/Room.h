@@ -34,6 +34,7 @@ public:
     static constexpr float kGridLeft = kRoomLeft + (kRoomWidth - kGridCols * kTileSize) * 0.5f;
     static constexpr float kGridTop = kRoomTop + (kRoomHeight - kGridRows * kTileSize) * 0.5f;
     static constexpr float kWallThickness = 24.0f;
+    static constexpr float kCollisionWallPadding = 6.0f;
     static constexpr float kDoorThickness = 18.0f;
     Room();
 
@@ -106,6 +107,8 @@ private:
     static bool s_backdropTextureLoaded;
     static sf::Texture s_wallTexture;
     static bool s_wallTextureLoaded;
+    static sf::Texture s_doorTexture;
+    static bool s_doorTextureLoaded;
 
     RoomData* m_roomData{nullptr};
     const RoomTemplate* m_template{nullptr};
