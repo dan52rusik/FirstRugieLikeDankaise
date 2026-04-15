@@ -243,12 +243,8 @@ void Room::load(RoomData& roomData) {
                 (kGridRows * kTileSize) / static_cast<float>(floorTexH)});
 
             for (int i = 0; i < 4; ++i) {
-                if (!m_cornerSprites[i].has_value()) {
-                    m_cornerSprites[i].emplace(s_backdropTexture);
-                }
-                if (!m_wallSprites[i].has_value()) {
-                    m_wallSprites[i].emplace(s_backdropTexture);
-                }
+                m_cornerSprites[i].emplace(s_backdropTexture);
+                m_wallSprites[i].emplace(s_backdropTexture);
             }
 
             const int wallLeft = 57;
@@ -258,25 +254,20 @@ void Room::load(RoomData& roomData) {
             const int leftWallTexW = 57;
             const int leftWallTexH = 86;
 
-            const sf::Vector2f cornerPositions[4] = {
-                {kRoomLeft, kRoomTop},
-                {kRoomLeft + kRoomWidth, kRoomTop},
-                {kRoomLeft, kRoomTop + kRoomHeight - targetH},
-                {kRoomLeft + kRoomWidth, kRoomTop + kRoomHeight - targetH}
-            };
-
             for (int i = 0; i < 4; ++i) {
                 auto& sprite = *m_cornerSprites[i];
                 const bool rightSide = (i % 2 == 1);
                 const bool bottomSide = (i / 2 == 1);
                 const int cornerSourceX = texX;
-                const int cornerSourceY = texY + (bottomSide ? (frameH - cornerSizeH) : 0);
+                const int cornerSourceY = texY;
                 sprite.setTextureRect(sf::IntRect(sf::Vector2i(cornerSourceX, cornerSourceY), sf::Vector2i(cornerSizeW, cornerSizeH)));
                 sprite.setOrigin({0.0f, 0.0f});
-                sprite.setPosition(cornerPositions[i]);
+                const float posX = kRoomLeft + (rightSide ? kRoomWidth : 0.0f);
+                const float posY = kRoomTop + (bottomSide ? kRoomHeight : 0.0f);
+                sprite.setPosition({posX, posY});
                 sprite.setScale({
                     (targetW / static_cast<float>(cornerSizeW)) * (rightSide ? -1.0f : 1.0f),
-                    targetH / static_cast<float>(cornerSizeH)});
+                    (targetH / static_cast<float>(cornerSizeH)) * (bottomSide ? -1.0f : 1.0f)});
             }
 
             auto& topWall = *m_wallSprites[0];
