@@ -1206,11 +1206,11 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
         case Direction::Left:
         case Direction::Right: {
             const bool right = direction == Direction::Right;
-            const float frameWidth = 64.0f;
-            const float frameHeight = 96.0f;
-            const float fillWidth = 32.0f;
-            const float fillHeight = 40.0f;
-            const float wallDepth = 30.0f;
+            const float frameWidth = 54.0f;
+            const float frameHeight = 84.0f;
+            const float fillWidth = 28.0f;
+            const float fillHeight = 36.0f;
+            const float wallDepth = 34.0f;
             const float centerX = right
                 ? (kGridLeft + kGridCols * kTileSize + wallDepth)
                 : kGridLeft - wallDepth;
@@ -1225,26 +1225,25 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
             frameSprite.setScale({frameHeight / static_cast<float>(intRectWidth(kFrameTopRect)),
                                   frameWidth / static_cast<float>(intRectHeight(kFrameTopRect))});
             withAlpha(frameSprite, 1.0f);
-            target.draw(frameSprite);
 
             sf::Sprite fillSprite(s_doorTexture);
             fillSprite.setTextureRect(kOpenFillTopRect);
             fillSprite.setOrigin({static_cast<float>(intRectWidth(kOpenFillTopRect)) * 0.5f, static_cast<float>(intRectHeight(kOpenFillTopRect)) * 0.5f});
-            fillSprite.setPosition({centerX + (right ? -2.0f : 2.0f), centerY + 2.0f});
+            fillSprite.setPosition({centerX + (right ? -6.0f : 6.0f), centerY + 2.0f});
             setRotationDegrees(fillSprite, rotation);
-            fillSprite.setScale({(frameHeight * 0.6f) / static_cast<float>(intRectWidth(kOpenFillTopRect)),
-                                 (frameWidth * 0.73f) / static_cast<float>(intRectHeight(kOpenFillTopRect))});
+            fillSprite.setScale({(frameHeight * 0.7f) / static_cast<float>(intRectWidth(kOpenFillTopRect)),
+                                 (frameWidth * 1.0f) / static_cast<float>(intRectHeight(kOpenFillTopRect))});
             withAlpha(fillSprite, t);
             target.draw(fillSprite);
 
             sf::Sprite closedLeftSprite(s_doorTexture);
             sf::Sprite closedRightSprite(s_doorTexture);
-            const float sideClosedScaleX = (fillHeight * 0.5f) / static_cast<float>(intRectWidth(kClosedLeftRect));
-            const float sideClosedScaleY = (fillWidth * 1.1f) / static_cast<float>(intRectHeight(kClosedLeftRect));
+            const float sideClosedScaleX = (fillHeight * 0.6f) / static_cast<float>(intRectWidth(kClosedLeftRect));
+            const float sideClosedScaleY = (fillWidth * 1.3f) / static_cast<float>(intRectHeight(kClosedLeftRect));
 
             closedLeftSprite.setTextureRect(kClosedLeftRect);
             closedLeftSprite.setOrigin({static_cast<float>(intRectWidth(kClosedLeftRect)), static_cast<float>(intRectHeight(kClosedLeftRect)) * 0.5f});
-            closedLeftSprite.setPosition({centerX + (right ? -4.0f : 4.0f), centerY + 1.0f});
+            closedLeftSprite.setPosition({centerX + (right ? -10.0f : 10.0f), centerY + 1.0f});
             setRotationDegrees(closedLeftSprite, rotation);
             closedLeftSprite.setScale({sideClosedScaleX, sideClosedScaleY});
             withAlpha(closedLeftSprite, 1.0f - t);
@@ -1252,11 +1251,13 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
 
             closedRightSprite.setTextureRect(kClosedRightRect);
             closedRightSprite.setOrigin({0.0f, static_cast<float>(intRectHeight(kClosedRightRect)) * 0.5f});
-            closedRightSprite.setPosition({centerX + (right ? -4.0f : 4.0f), centerY + 1.0f});
+            closedRightSprite.setPosition({centerX + (right ? -10.0f : 10.0f), centerY + 1.0f});
             setRotationDegrees(closedRightSprite, rotation);
             closedRightSprite.setScale({sideClosedScaleX, sideClosedScaleY});
             withAlpha(closedRightSprite, 1.0f - t);
             target.draw(closedRightSprite);
+
+            target.draw(frameSprite);
             return;
         }
         }
