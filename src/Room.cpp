@@ -1229,7 +1229,7 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
             withAlpha(fillSprite, t);
             target.draw(fillSprite);
 
-            const float leafOffset = fillWidth * 0.35f;
+            const float leafOffset = fillHeight * 0.2f;
             const sf::Vector2f leftLeafPosition = right
                 ? sf::Vector2f(centerX, centerY - leafOffset)
                 : sf::Vector2f(centerX, centerY + leafOffset);
@@ -1242,8 +1242,8 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
             closedLeftSprite.setOrigin({intRectWidth(kClosedLeftRect) * 0.5f, intRectHeight(kClosedLeftRect) * 0.5f});
             closedLeftSprite.setPosition(leftLeafPosition);
             setRotationDegrees(closedLeftSprite, rotation);
-            closedLeftSprite.setScale({fillHeight * 0.9f / static_cast<float>(intRectWidth(kClosedLeftRect)),
-                                       fillWidth * 0.75f / static_cast<float>(intRectHeight(kClosedLeftRect))});
+            closedLeftSprite.setScale({fillHeight * 0.55f / static_cast<float>(intRectWidth(kClosedLeftRect)),
+                                       fillWidth * 0.95f / static_cast<float>(intRectHeight(kClosedLeftRect))});
             withAlpha(closedLeftSprite, 1.0f - t);
             target.draw(closedLeftSprite);
 
@@ -1252,8 +1252,8 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
             closedRightSprite.setOrigin({intRectWidth(kClosedRightRect) * 0.5f, intRectHeight(kClosedRightRect) * 0.5f});
             closedRightSprite.setPosition(rightLeafPosition);
             setRotationDegrees(closedRightSprite, rotation);
-            closedRightSprite.setScale({fillHeight * 0.9f / static_cast<float>(intRectWidth(kClosedRightRect)),
-                                        fillWidth * 0.75f / static_cast<float>(intRectHeight(kClosedRightRect))});
+            closedRightSprite.setScale({fillHeight * 0.55f / static_cast<float>(intRectWidth(kClosedRightRect)),
+                                        fillWidth * 0.95f / static_cast<float>(intRectHeight(kClosedRightRect))});
             withAlpha(closedRightSprite, 1.0f - t);
             target.draw(closedRightSprite);
             return;
