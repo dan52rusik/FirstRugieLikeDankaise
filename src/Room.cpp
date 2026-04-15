@@ -1155,6 +1155,8 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
             const float frameHeight = 42.0f;
             const float fillWidth = 32.0f;
             const float fillHeight = 26.0f;
+            const float wallDepth = 4.0f;
+
             const sf::Vector2f doorPosition = bottom
                 ? sf::Vector2f(tileCenter(7, 8).x - frameWidth * 0.5f, kGridTop + kGridRows * kTileSize + frameHeight)
                 : sf::Vector2f(tileCenter(7, 0).x - frameWidth * 0.5f, kGridTop - frameHeight + 6.0f);
@@ -1169,11 +1171,11 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
 
             sf::Sprite fillSprite(s_doorTexture);
             fillSprite.setTextureRect(kOpenFillTopRect);
-            const float fillX = tileCenter(7, bottom ? 8 : 0).x - fillWidth * 0.5f;
-            const float fillY = bottom ? (kGridTop + kGridRows * kTileSize + fillHeight + 1.0f) : (kGridTop - fillHeight + 6.0f);
+            const float fillX = doorPosition.x + (frameWidth - frameWidth * 0.6f) * 0.5f;
+            const float fillY = bottom ? (doorPosition.y - 8.0f) : (doorPosition.y + 8.0f);
             fillSprite.setPosition({fillX, fillY});
-            fillSprite.setScale({fillWidth / static_cast<float>(intRectWidth(kOpenFillTopRect)),
-                                 (fillHeight / static_cast<float>(intRectHeight(kOpenFillTopRect))) * (bottom ? -1.0f : 1.0f)});
+            fillSprite.setScale({(frameWidth * 0.6f) / static_cast<float>(intRectWidth(kOpenFillTopRect)),
+                                 (frameHeight * 0.73f) / static_cast<float>(intRectHeight(kOpenFillTopRect)) * (bottom ? -1.0f : 1.0f)});
             withAlpha(fillSprite, t);
             target.draw(fillSprite);
 
@@ -1203,9 +1205,10 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
             const float frameHeight = 64.0f;
             const float fillWidth = 26.0f;
             const float fillHeight = 32.0f;
+            const float wallDepth = 24.0f;
             const float centerX = right
-                ? (kGridLeft + kGridCols * kTileSize)
-                : kGridLeft;
+                ? (kGridLeft + kGridCols * kTileSize + wallDepth)
+                : kGridLeft - wallDepth;
             const float centerY = tileCenter(right ? 14 : 0, 4).y;
             const float rotation = right ? 90.0f : -90.0f;
 
@@ -1222,10 +1225,10 @@ void Room::drawDoor(sf::RenderTarget& target, Direction direction) const {
             sf::Sprite fillSprite(s_doorTexture);
             fillSprite.setTextureRect(kOpenFillTopRect);
             fillSprite.setOrigin({intRectWidth(kOpenFillTopRect) * 0.5f, intRectHeight(kOpenFillTopRect) * 0.5f});
-            fillSprite.setPosition({centerX, centerY});
+            fillSprite.setPosition({centerX + (right ? -2.0f : 2.0f), centerY + 2.0f});
             setRotationDegrees(fillSprite, rotation);
-            fillSprite.setScale({fillHeight / static_cast<float>(intRectWidth(kOpenFillTopRect)),
-                                 fillWidth / static_cast<float>(intRectHeight(kOpenFillTopRect))});
+            fillSprite.setScale({(frameHeight * 0.6f) / static_cast<float>(intRectWidth(kOpenFillTopRect)),
+                                 (frameWidth * 0.73f) / static_cast<float>(intRectHeight(kOpenFillTopRect))});
             withAlpha(fillSprite, t);
             target.draw(fillSprite);
 
