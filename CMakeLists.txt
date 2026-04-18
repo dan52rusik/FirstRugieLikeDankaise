@@ -73,6 +73,11 @@ add_executable(isaac
     src/Room.cpp
     src/Floor.cpp
     src/Map.cpp
+    src/rooms/RoomCombatSystem.cpp
+    src/rooms/RoomContentBuilder.cpp
+    src/rooms/RoomObjectsSystem.cpp
+    src/rooms/RoomRenderer.cpp
+    src/rooms/RoomVisualBuilder.cpp
     src/rooms/RoomTemplateLoader.cpp
     src/monsters/Monster.cpp
     src/monsters/Fly.cpp

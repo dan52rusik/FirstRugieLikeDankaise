@@ -15,6 +15,11 @@
 #include "rooms/RoomTemplate.h"
 
 class Player;
+class RoomCombatSystem;
+class RoomContentBuilder;
+class RoomObjectsSystem;
+class RoomRenderer;
+class RoomVisualBuilder;
 
 enum class TileContent {
     Empty,
@@ -56,6 +61,12 @@ public:
     const Player& getPlayer() const;
 
 private:
+    friend class RoomCombatSystem;
+    friend class RoomContentBuilder;
+    friend class RoomObjectsSystem;
+    friend class RoomRenderer;
+    friend class RoomVisualBuilder;
+
     struct PropInstance {
         sf::RectangleShape shape;
         std::size_t dataIndex;
@@ -88,7 +99,6 @@ private:
     bool isSpawnBlocked(const sf::Vector2f& position) const;
     bool isInDoorOpening(const sf::FloatRect& bounds) const;
     void keepMonsterInPlayableArea(Monster& monster) const;
-    void drawDoor(sf::RenderTarget& target, Direction direction) const;
     sf::FloatRect getDoorOpening(Direction direction) const;
     sf::FloatRect getDoorTrigger(Direction direction) const;
     int getGridIndex(const sf::Vector2i& tile) const;
