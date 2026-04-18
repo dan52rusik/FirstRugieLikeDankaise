@@ -1,6 +1,0 @@
-# CMake generation dependency list for this directory.
-C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-src/cmake/VorbisConfig.cmake.in
-C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-src/lib/CMakeLists.txt
-C:/Program Files/CMake/share/cmake-4.3/Modules/BasicConfigVersion-SameMajorVersion.cmake.in
-C:/Program Files/CMake/share/cmake-4.3/Modules/CMakePackageConfigHelpers.cmake
-C:/Program Files/CMake/share/cmake-4.3/Modules/WriteBasicConfigVersionFile.cmake

@@ -1,3 +1,0 @@
-C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/ogg-subbuild/CMakeFiles/ogg-populate.dir
-C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/ogg-subbuild/CMakeFiles/ALL_BUILD.dir
-C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/ogg-subbuild/CMakeFiles/ZERO_CHECK.dir

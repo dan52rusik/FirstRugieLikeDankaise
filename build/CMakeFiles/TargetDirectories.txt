@@ -1,3 +1,0 @@
-C:/MyGames/FirstRugieLikeDankaise/build/CMakeFiles/isaac.dir
-C:/MyGames/FirstRugieLikeDankaise/build/CMakeFiles/edit_cache.dir
-C:/MyGames/FirstRugieLikeDankaise/build/CMakeFiles/rebuild_cache.dir

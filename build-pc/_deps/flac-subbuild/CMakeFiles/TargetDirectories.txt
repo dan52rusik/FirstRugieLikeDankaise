@@ -1,3 +1,0 @@
-C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/flac-populate.dir
-C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/ALL_BUILD.dir
-C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/flac-subbuild/CMakeFiles/ZERO_CHECK.dir
