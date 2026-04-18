@@ -782,7 +782,7 @@ void Room::keepMonsterInPlayableArea(Monster& monster) const {
     monster.setPosition(position);
 }
 
-Player& Room::getPlayer() const {
+const Player& Room::getPlayer() const {
     if (!m_currentPlayer) {
         throw std::runtime_error("Attempted to access player before it was set in the current room.");
     }

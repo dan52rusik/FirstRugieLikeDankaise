@@ -60,6 +60,9 @@
     <CustomBuild Include="C:\MyGames\FirstRugieLikeDankaise\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Natvis Include="C:\MyGames\FirstRugieLikeDankaise\build-pc\_deps\nlohmann_json-src\nlohmann_json.natvis" />
+  </ItemGroup>
+  <ItemGroup>
     <Filter Include="Source Files">
       <UniqueIdentifier>{335EE283-2221-30E9-86AF-E19D91CA37B8}</UniqueIdentifier>
     </Filter>

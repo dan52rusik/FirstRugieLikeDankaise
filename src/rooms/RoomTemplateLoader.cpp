@@ -2,39 +2,11 @@
 
 #include <algorithm>
 #include <cctype>
-#include <fstream>
-#include <regex>
-#include <sstream>
 #include <stdexcept>
 
+#include "../utils/JsonParser.h"
+
 namespace {
-std::string readFile(const std::string& path) {
-    std::ifstream input(path);
-    if (!input) {
-        return {};
-    }
-
-    std::ostringstream buffer;
-    buffer << input.rdbuf();
-    return buffer.str();
-}
-
-std::string locateTemplateFile() {
-    static const std::vector<std::string> candidates{
-        "data/rooms/templates.json",
-        "../data/rooms/templates.json",
-        "../../data/rooms/templates.json"
-    };
-
-    for (const auto& path : candidates) {
-        std::ifstream input(path);
-        if (input) {
-            return path;
-        }
-    }
-    return {};
-}
-
 std::string trim(const std::string& value) {
     std::size_t begin = 0;
     std::size_t end = value.size();
@@ -45,24 +17,6 @@ std::string trim(const std::string& value) {
         --end;
     }
     return value.substr(begin, end - begin);
-}
-
-std::string extractStringField(const std::string& object, const std::string& field) {
-    const std::regex pattern("\"" + field + "\"\\s*:\\s*\"([^\"]*)\"");
-    std::smatch match;
-    if (std::regex_search(object, match, pattern)) {
-        return match[1].str();
-    }
-    return {};
-}
-
-int extractIntField(const std::string& object, const std::string& field, int defaultValue) {
-    const std::regex pattern("\"" + field + "\"\\s*:\\s*(-?\\d+)");
-    std::smatch match;
-    if (std::regex_search(object, match, pattern)) {
-        return std::stoi(match[1].str());
-    }
-    return defaultValue;
 }
 
 RoomType parseRoomType(const std::string& value) {
@@ -78,31 +32,27 @@ RoomType parseRoomType(const std::string& value) {
     return RoomType::Normal;
 }
 
-std::vector<std::string> extractGridLines(const std::string& object) {
-    const std::regex gridPattern("\"grid\"\\s*:\\s*\\[([\\s\\S]*?)\\]");
-    const std::regex linePattern("\"([^\"]*)\"");
-    std::smatch gridMatch;
+std::vector<std::string> extractGridLines(const nlohmann::json& entry) {
     std::vector<std::string> lines;
-    if (!std::regex_search(object, gridMatch, gridPattern)) {
+    if (!entry.contains("grid") || !entry["grid"].is_array()) {
         return lines;
     }
 
-    const std::string gridBody = gridMatch[1].str();
-    auto begin = std::sregex_iterator(gridBody.begin(), gridBody.end(), linePattern);
-    auto end = std::sregex_iterator();
-    for (auto it = begin; it != end; ++it) {
-        lines.push_back((*it)[1].str());
+    for (const auto& line : entry["grid"]) {
+        if (line.is_string()) {
+            lines.push_back(line.get<std::string>());
+        }
     }
     return lines;
 }
 
-RoomTemplate parseTemplate(const std::string& object) {
+RoomTemplate parseTemplate(const nlohmann::json& entry) {
     RoomTemplate result;
-    result.id = extractStringField(object, "id");
-    result.roomType = parseRoomType(extractStringField(object, "roomType"));
-    result.weight = std::max(1, extractIntField(object, "weight", 1));
+    result.id = entry.value("id", "");
+    result.roomType = parseRoomType(entry.value("roomType", "normal"));
+    result.weight = std::max(1, entry.value("weight", 1));
 
-    const std::vector<std::string> lines = extractGridLines(object);
+    const std::vector<std::string> lines = extractGridLines(entry);
     for (std::size_t row = 0; row < lines.size(); ++row) {
         const std::string line = trim(lines[row]);
         for (std::size_t col = 0; col < line.size(); ++col) {
@@ -132,37 +82,6 @@ RoomTemplate parseTemplate(const std::string& object) {
     return result;
 }
 
-std::vector<std::string> extractObjects(const std::string& json) {
-    std::vector<std::string> objects;
-    const std::size_t templatesPos = json.find("\"templates\"");
-    if (templatesPos == std::string::npos) {
-        return objects;
-    }
-
-    const std::size_t arrayStart = json.find('[', templatesPos);
-    if (arrayStart == std::string::npos) {
-        return objects;
-    }
-
-    int depth = 0;
-    std::size_t objectStart = std::string::npos;
-    for (std::size_t i = arrayStart; i < json.size(); ++i) {
-        if (json[i] == '{') {
-            if (depth == 0) {
-                objectStart = i;
-            }
-            ++depth;
-        } else if (json[i] == '}') {
-            --depth;
-            if (depth == 0 && objectStart != std::string::npos) {
-                objects.push_back(json.substr(objectStart, i - objectStart + 1));
-                objectStart = std::string::npos;
-            }
-        }
-    }
-    return objects;
-}
-
 std::vector<RoomTemplate> fallbackTemplates() {
     return {
         {"normal_cross", RoomType::Normal, 1, {{2, 2}, {12, 2}, {2, 6}, {12, 6}}, {{7, 2}, {4, 4}, {10, 4}}, {{3, 2}, {7, 2}, {11, 2}, {3, 6}, {7, 6}, {11, 6}}, {}, std::nullopt},
@@ -176,17 +95,19 @@ std::vector<RoomTemplate> fallbackTemplates() {
 
 const std::vector<RoomTemplate>& RoomTemplateLoader::loadAll() {
     static const std::vector<RoomTemplate> templates = [] {
-        const std::string path = locateTemplateFile();
-        if (path.empty()) {
-            return fallbackTemplates();
-        }
+        const nlohmann::json json = JsonParser::readJson({
+            "data/rooms/templates.json",
+            "../data/rooms/templates.json",
+            "../../data/rooms/templates.json"
+        });
 
-        const std::string json = readFile(path);
         std::vector<RoomTemplate> loaded;
-        for (const auto& object : extractObjects(json)) {
-            RoomTemplate parsed = parseTemplate(object);
-            if (!parsed.id.empty()) {
-                loaded.push_back(std::move(parsed));
+        if (json.contains("templates") && json["templates"].is_array()) {
+            for (const auto& entry : json["templates"]) {
+                RoomTemplate parsed = parseTemplate(entry);
+                if (!parsed.id.empty()) {
+                    loaded.push_back(std::move(parsed));
+                }
             }
         }
 

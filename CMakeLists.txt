@@ -4,6 +4,13 @@ project(isaac_clone LANGUAGES CXX)
 
 include(FetchContent)
 
+FetchContent_Declare(
+    nlohmann_json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG v3.11.3
+)
+FetchContent_MakeAvailable(nlohmann_json)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -81,10 +88,10 @@ add_executable(isaac
 target_include_directories(isaac PRIVATE src)
 
 if(EMSCRIPTEN)
-    target_link_libraries(isaac PRIVATE sfml-graphics sfml-window sfml-system)
+    target_link_libraries(isaac PRIVATE sfml-graphics sfml-window sfml-system nlohmann_json::nlohmann_json)
 else()
     # При сборке через FetchContent (SFML 3) используем прямые имена таргетов
-    target_link_libraries(isaac PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)
+    target_link_libraries(isaac PRIVATE sfml-graphics sfml-window sfml-system sfml-audio nlohmann_json::nlohmann_json)
 endif()
 
 if(EMSCRIPTEN)

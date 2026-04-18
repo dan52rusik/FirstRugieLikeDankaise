@@ -2,6 +2,7 @@
 	"InstallScripts" : 
 	[
 		"C:/MyGames/FirstRugieLikeDankaise/build-pc/cmake_install.cmake",
+		"C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/nlohmann_json-build/cmake_install.cmake",
 		"C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/sfml-build/cmake_install.cmake",
 		"C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/sfml-build/src/SFML/cmake_install.cmake",
 		"C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/sfml-build/src/SFML/System/cmake_install.cmake",

@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <cstdint>
 #include <vector>
 
 #include "utils/Random.h"
@@ -11,9 +12,11 @@ Floor::Floor() {
     generate();
 }
 
-int Floor::keyFromGrid(const sf::Vector2i& position) {
+std::uint32_t Floor::keyFromGrid(const sf::Vector2i& position) {
     // Используем смещение бит для надежного ключа (16 бит на координату)
-    return (position.x << 16) | (position.y & 0xFFFF);
+    const auto x = static_cast<std::uint16_t>(position.x);
+    const auto y = static_cast<std::uint16_t>(position.y);
+    return (static_cast<std::uint32_t>(x) << 16) | static_cast<std::uint32_t>(y);
 }
 
 sf::Vector2i Floor::directionOffset(Direction direction) {
@@ -125,7 +128,7 @@ const RoomData& Floor::getCurrentRoom() const {
     return m_rooms.at(keyFromGrid(m_currentGridPosition));
 }
 
-const std::map<int, RoomData>& Floor::getRooms() const {
+const std::map<std::uint32_t, RoomData>& Floor::getRooms() const {
     return m_rooms;
 }
 

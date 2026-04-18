@@ -1,8 +1,9 @@
 #include "MonsterLoader.h"
+
 #include "../utils/JsonParser.h"
-#include <map>
-#include <regex>
+
 #include <cstdint>
+#include <map>
 
 namespace {
 MonsterData fallback(const std::string& id) {
@@ -14,37 +15,44 @@ MonsterData fallback(const std::string& id) {
     return {"unknown", 10.0f, 50.0f, 1.0f, sf::Color::White};
 }
 
-sf::Color parseColor(const std::string& obj) {
-    const std::regex pattern("\"color\"\\s*:\\s*\\[(\\d+),\\s*(\\d+),\\s*(\\d+)\\]");
-    std::smatch match;
-    if (std::regex_search(obj, match, pattern)) {
-        return sf::Color(
-            static_cast<std::uint8_t>(std::stoi(match[1])),
-            static_cast<std::uint8_t>(std::stoi(match[2])),
-            static_cast<std::uint8_t>(std::stoi(match[3]))
-        );
+sf::Color parseColor(const nlohmann::json& color) {
+    if (!color.is_array() || color.size() < 3) {
+        return sf::Color::White;
     }
-    return sf::Color::White;
+
+    return sf::Color(
+        static_cast<std::uint8_t>(color[0].get<int>()),
+        static_cast<std::uint8_t>(color[1].get<int>()),
+        static_cast<std::uint8_t>(color[2].get<int>())
+    );
 }
 }
 
 const MonsterData& MonsterLoader::get(const std::string& id) {
     static const std::map<std::string, MonsterData> monsters = [] {
-        std::string json = JsonParser::readFile("data/monsters.json");
-        if (json.empty()) json = JsonParser::readFile("../data/monsters.json");
-
         std::map<std::string, MonsterData> loaded;
-        if (!json.empty()) {
-            for (const auto& obj : JsonParser::extractObjects(json, "monsters")) {
-                MonsterData d;
-                d.id = JsonParser::extractStringField(obj, "id");
-                d.hp = JsonParser::extractFloatField(obj, "hp", 10.0f);
-                d.speed = JsonParser::extractFloatField(obj, "speed", 50.0f);
-                d.damage = JsonParser::extractFloatField(obj, "damage", 1.0f);
-                d.color = parseColor(obj);
-                loaded[d.id] = d;
+        const nlohmann::json json = JsonParser::readJson({
+            "data/monsters.json",
+            "../data/monsters.json",
+            "../../data/monsters.json"
+        });
+
+        if (json.contains("monsters") && json["monsters"].is_array()) {
+            for (const auto& entry : json["monsters"]) {
+                MonsterData data;
+                data.id = entry.value("id", "");
+                if (data.id.empty()) {
+                    continue;
+                }
+
+                data.hp = entry.value("hp", 10.0f);
+                data.speed = entry.value("speed", 50.0f);
+                data.damage = entry.value("damage", 1.0f);
+                data.color = parseColor(entry.value("color", nlohmann::json::array()));
+                loaded[data.id] = data;
             }
         }
+
         return loaded;
     }();
 
@@ -52,7 +60,7 @@ const MonsterData& MonsterLoader::get(const std::string& id) {
     if (it != monsters.end()) {
         return it->second;
     }
-    
+
     static std::map<std::string, MonsterData> cache;
     if (cache.find(id) == cache.end()) {
         cache[id] = fallback(id);

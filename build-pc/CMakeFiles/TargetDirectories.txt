@@ -3,6 +3,9 @@ C:/MyGames/FirstRugieLikeDankaise/build-pc/CMakeFiles/PACKAGE.dir
 C:/MyGames/FirstRugieLikeDankaise/build-pc/CMakeFiles/INSTALL.dir
 C:/MyGames/FirstRugieLikeDankaise/build-pc/CMakeFiles/ALL_BUILD.dir
 C:/MyGames/FirstRugieLikeDankaise/build-pc/CMakeFiles/ZERO_CHECK.dir
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/nlohmann_json-build/CMakeFiles/PACKAGE.dir
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/nlohmann_json-build/CMakeFiles/INSTALL.dir
+C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/nlohmann_json-build/CMakeFiles/ALL_BUILD.dir
 C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/sfml-build/CMakeFiles/PACKAGE.dir
 C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/sfml-build/CMakeFiles/INSTALL.dir
 C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/sfml-build/CMakeFiles/ALL_BUILD.dir

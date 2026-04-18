@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <cstdint>
 #include <map>
 #include <vector>
 
@@ -58,15 +59,15 @@ public:
     void generate();
     RoomData& getCurrentRoom();
     const RoomData& getCurrentRoom() const;
-    const std::map<int, RoomData>& getRooms() const;
+    const std::map<std::uint32_t, RoomData>& getRooms() const;
     sf::Vector2i getCurrentGridPosition() const;
     bool tryMove(Direction direction);
     void markCurrentRoomCleared();
 
 private:
-    static int keyFromGrid(const sf::Vector2i& position);
+    static std::uint32_t keyFromGrid(const sf::Vector2i& position);
     static sf::Vector2i directionOffset(Direction direction);
 
-    std::map<int, RoomData> m_rooms;
+    std::map<std::uint32_t, RoomData> m_rooms;
     sf::Vector2i m_currentGridPosition;
 };

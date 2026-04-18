@@ -168,7 +168,11 @@ void Player::takeDamage(int amount) {
 }
 
 void Player::takeDamage(float amount) {
-    takeDamage(static_cast<int>(amount));
+    if (amount <= 0.0f) {
+        return;
+    }
+
+    takeDamage(static_cast<int>(std::ceil(amount)));
 }
 
 void Player::heal(int amount) {

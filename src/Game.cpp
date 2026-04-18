@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <optional>
+#include <stdexcept>
 namespace {
 #ifdef __EMSCRIPTEN__
 unsigned int windowWidth() { 
@@ -56,9 +57,13 @@ Game::Game()
     // Создаем буфер для отрисовки всей игры в фиксированном разрешении
     // Это секрет четкости в браузерах!
 #if SFML_VERSION_MAJOR < 3
-    m_uiBuffer.create(960, 720);
+    if (!m_uiBuffer.create(960, 720)) {
+        throw std::runtime_error("Failed to create UI render texture.");
+    }
 #else
-    m_uiBuffer.resize({960, 720});
+    if (!m_uiBuffer.resize({960, 720})) {
+        throw std::runtime_error("Failed to resize UI render texture.");
+    }
 #endif
     m_uiBuffer.setSmooth(false); // КЛЮЧЕВОЙ МОМЕНТ: отключаем сглаживание
     

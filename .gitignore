@@ -1,5 +1,7 @@
 build-web/
+build-web2/
 build/
+build-pc/
 bin/
 .vs/
 out/

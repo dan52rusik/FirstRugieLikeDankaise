@@ -311,6 +311,10 @@ FETCHCONTENT_SOURCE_DIR_FLAC:PATH=
 FETCHCONTENT_SOURCE_DIR_FREETYPE:PATH=
 
 //When not empty, overrides where to find pre-populated content
+// for nlohmann_json
+FETCHCONTENT_SOURCE_DIR_NLOHMANN_JSON:PATH=
+
+//When not empty, overrides where to find pre-populated content
 // for ogg
 FETCHCONTENT_SOURCE_DIR_OGG:PATH=
 
@@ -330,6 +334,9 @@ FETCHCONTENT_UPDATES_DISCONNECTED_FLAC:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of Freetype
 FETCHCONTENT_UPDATES_DISCONNECTED_FREETYPE:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of nlohmann_json
+FETCHCONTENT_UPDATES_DISCONNECTED_NLOHMANN_JSON:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of ogg
 FETCHCONTENT_UPDATES_DISCONNECTED_OGG:BOOL=OFF
@@ -363,6 +370,36 @@ INSTALL_CMAKE_CONFIG_MODULE:BOOL=ON
 
 //Install CMake package configiguration module
 INSTALL_CMAKE_PACKAGE_MODULE:BOOL=ON
+
+//Build the unit tests when BUILD_TESTING is enabled.
+JSON_BuildTests:BOOL=OFF
+
+//Enable CI build targets.
+JSON_CI:BOOL=OFF
+
+//Use extended diagnostic messages.
+JSON_Diagnostics:BOOL=OFF
+
+//Disable default integer enum serialization.
+JSON_DisableEnumSerialization:BOOL=OFF
+
+//Place use-defined string literals in the global namespace.
+JSON_GlobalUDLs:BOOL=ON
+
+//Enable implicit conversions.
+JSON_ImplicitConversions:BOOL=ON
+
+//Install CMake targets during install step.
+JSON_Install:BOOL=OFF
+
+//Enable legacy discarded value comparison.
+JSON_LegacyDiscardedValueComparison:BOOL=OFF
+
+//Use non-amalgamated version of the library.
+JSON_MultipleHeaders:BOOL=ON
+
+//Include as system headers (skip for clang-tidy).
+JSON_SystemInclude:BOOL=OFF
 
 //OpenGL library for win32
 OPENGL_gl_LIBRARY:STRING=opengl32
@@ -474,6 +511,15 @@ libogg_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
 libogg_SOURCE_DIR:STATIC=C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/ogg-src
+
+//Value Computed by CMake
+nlohmann_json_BINARY_DIR:STATIC=C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/nlohmann_json-build
+
+//Value Computed by CMake
+nlohmann_json_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+nlohmann_json_SOURCE_DIR:STATIC=C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/nlohmann_json-src
 
 //Value Computed by CMake
 vorbis_BINARY_DIR:STATIC=C:/MyGames/FirstRugieLikeDankaise/build-pc/_deps/vorbis-build
@@ -618,7 +664,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MT
 CMAKE_MT-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=17
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=18
 //Platform information initialized
 CMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1
 //noop for ranlib
@@ -778,6 +824,7 @@ INT_SIZE:INTERNAL=4
 LONG_LONG_SIZE:INTERNAL=8
 //CHECK_TYPE_SIZE: sizeof(long)
 LONG_SIZE:INTERNAL=4
+NLOHMANN_JSON_CONFIG_INSTALL_DIR:INTERNAL=share/cmake/nlohmann_json
 //ogg has already been built
 OGG_FOUND:INTERNAL=1
 //ADVANCED property for variable: OPENGL_gl_LIBRARY

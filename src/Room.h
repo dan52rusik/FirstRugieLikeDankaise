@@ -53,7 +53,7 @@ public:
     Direction getDoorTransition(const sf::Vector2f& playerPosition) const;
     bool hasTransitionAt(const sf::Vector2f& playerPosition) const;
 
-    Player& getPlayer() const;
+    const Player& getPlayer() const;
 
 private:
     struct PropInstance {
@@ -123,5 +123,5 @@ private:
     RoomType m_roomType{RoomType::Normal};
     bool m_cleared{false};
     float m_doorOpenProgress{0.0f};
-    Player* m_currentPlayer{nullptr};
+    const Player* m_currentPlayer{nullptr};
 };
